@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {createRoot} from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
@@ -294,10 +294,22 @@ const products = [
   }
 ];
 
-function Logo(){
-  return <a className="logo" href="#home" aria-label="Lakshmi PU Pads home">
-    <img src="/logo.png" alt="Lakshmi PU Pads" className="logo-img" />
-  </a>
+function Logo({ onNavigate }){
+  return (
+    <a 
+      className="logo" 
+      href="#home" 
+      onClick={(e)=>{
+        if (onNavigate) {
+          e.preventDefault();
+          onNavigate("home");
+        }
+      }} 
+      aria-label="Lakshmi PU Pads home"
+    >
+      <img src="/logo.png" alt="Lakshmi PU Pads" className="logo-img" />
+    </a>
+  );
 }
 
 function ProductCard({ p, onSelectContact, onOpenDetails }){
@@ -464,25 +476,136 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact 
   );
 }
 
+function ProductsPage({ 
+  products, 
+  activeCategory, 
+  setActiveCategory, 
+  categories, 
+  onSelectContact, 
+  onOpenDetails, 
+  onNavigateHome 
+}){
+  const filteredProducts = products.filter(p => {
+    if (activeCategory === "All") return true;
+    return p.categoryGroup === activeCategory;
+  });
+
+  return (
+    <div className="products-page">
+      <div className="products-page-header">
+        <nav className="breadcrumbs" aria-label="Breadcrumb">
+          <button type="button" className="breadcrumb-link" onClick={onNavigateHome}>
+            Home
+          </button>
+          <span className="breadcrumb-sep">/</span>
+          <span className="breadcrumb-current">All Products</span>
+        </nav>
+        
+        <div className="eyebrow">COMPLETE INDUSTRIAL CATALOG</div>
+        <h1>All Engineered Polyurethane Products</h1>
+        <p>
+          Browse our complete catalog of precision-cast polyurethane buffer pads, modular screening panels, conveyor belt scrapers, hydrocyclones, and heavy wear liners. Engineered for high impact resistance and continuous operation in demanding quarry, mining, and industrial environments.
+        </p>
+
+        <div className="product-filter-tabs">
+          {categories.map(cat => {
+            const count = cat === "All" ? products.length : products.filter(p => p.categoryGroup === cat).length;
+            return (
+              <button
+                key={cat}
+                type="button"
+                className={`filter-tab ${activeCategory === cat ? "active" : ""}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                <span>{cat === "All" ? "All Products" : cat}</span>
+                <span className="badge">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <section className="section products-section" style={{paddingTop: "45px"}}>
+        <div className="product-grid">
+          {filteredProducts.map((p) => (
+            <ProductCard 
+              key={p.id} 
+              p={p} 
+              onSelectContact={onSelectContact} 
+              onOpenDetails={onOpenDetails} 
+            />
+          ))}
+        </div>
+
+        <div className="products-custom-cta-box">
+          <div>
+            <h3>Need a Custom Formulation, Hardness or CAD Drawing?</h3>
+            <p>
+              We specialize in custom polyurethane tooling, reverse engineering, and custom prepolymer formulation tailored to your operating temperatures, shock loads, and abrasive materials.
+            </p>
+          </div>
+          <button 
+            type="button" 
+            className="primary-btn"
+            onClick={()=>onSelectContact(null)}
+          >
+            Request Custom Quote <ArrowRight size={17}/>
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function App(){
   const [open,setOpen]=useState(false);
   const [quote,setQuote]=useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailProduct, setDetailProduct] = useState(null);
   const [detailViewIdx, setDetailViewIdx] = useState(0);
-  const [showAllProducts, setShowAllProducts] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
+
+  const [page, setPage] = useState(() => {
+    if (typeof window !== "undefined" && (window.location.hash === "#all-products" || window.location.hash === "#products")) {
+      return "products";
+    }
+    return "home";
+  });
 
   const categories = ["All", "Rock Breaker Parts", "Screening & Dewatering", "Industrial & Mining Wear"];
 
-  const filteredProducts = products.filter(p => {
-    if (activeCategory === "All") return true;
-    return p.categoryGroup === activeCategory;
-  });
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#all-products" || window.location.hash === "#products") {
+        setPage("products");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (window.location.hash === "#home" || window.location.hash === "") {
+        setPage("home");
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
-  const displayedProducts = (showAllProducts || activeCategory !== "All")
-    ? filteredProducts 
-    : filteredProducts.slice(0, 4);
+  const navigateTo = (targetPage, sectionId = null) => {
+    setOpen(false);
+    if (targetPage === "products") {
+      setPage("products");
+      window.location.hash = "all-products";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setPage("home");
+      window.location.hash = sectionId ? sectionId : "home";
+      if (sectionId) {
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 60);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
 
   const handleOpenDetails = (product, initialView = 0) => {
     setDetailProduct(product);
@@ -494,200 +617,227 @@ function App(){
     setQuote(true);
   };
 
-  const nav = ["Products","About","Contact"];
-
   return <div className="app">
     <div className="topbar"><div>Precision polyurethane pads & industrial components</div>      <div className="toplinks"><span><Phone size={13}/> +91 98765 43210</span><span><Mail size={13}/> info@lakshmipupads.com</span></div></div>
 
     <header className="header">
-      <Logo/>
+      <Logo onNavigate={navigateTo}/>
       <nav className={open ? "nav open":"nav"}>
-        {nav.map((n,i)=><a key={n} href={"#"+n.toLowerCase()} onClick={()=>setOpen(false)}>{n}{i===0 && <ChevronDown size={15}/>}</a>)}
+        <a 
+          href="#home" 
+          className={page === "home" ? "active" : ""}
+          onClick={(e)=>{ e.preventDefault(); navigateTo("home"); }}
+        >
+          Home
+        </a>
+        <a 
+          href="#all-products" 
+          className={page === "products" ? "active" : ""}
+          onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
+        >
+          Products
+        </a>
+        <a 
+          href="#about" 
+          onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
+        >
+          About
+        </a>
+        <a 
+          href="#contact" 
+          onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}
+        >
+          Contact
+        </a>
         <button className="nav-cta" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Request a Quote <ArrowUpRight size={17}/></button>
       </nav>
       <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
     </header>
 
     <main>
-      <section id="home" className="hero">
-        <div className="hero-copy">
-          <div className="eyebrow"><span></span> ENGINEERED INDUSTRIAL SOLUTIONS</div>
-          <h1>Built for the<br/><em>hardest</em> work.</h1>
-          <p>High-performance polyurethane and industrial components engineered for durability, precision and dependable performance.</p>
-          <div className="hero-actions">
-            <a className="primary-btn" href="#products">Explore products <ArrowRight size={18}/></a>
-            <button className="text-btn" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Talk to an expert <MoveUpRight size={17}/></button>
-          </div>
-          <div className="hero-proof">
-            <div><strong>15+</strong><span>Years of<br/>experience</span></div>
-            <div><strong>500+</strong><span>Custom<br/>solutions</span></div>
-            <div><strong>98%</strong><span>On-time<br/>delivery</span></div>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="hero-image"></div>
-          <div className="hero-floating top"><span>01</span><b>Wear<br/>resistant</b></div>
-          <div className="hero-floating bottom"><CircleGauge size={22}/><div><b>Precision engineered</b><small>Made for performance</small></div></div>
-          <div className="hero-grid"></div>
-        </div>
-      </section>
-
-      <section className="trust">
-        <span>Trusted engineering for demanding applications</span>
-        <div className="trust-line"></div>
-        <b>QUALITY</b><b>PRECISION</b><b>DURABILITY</b><b>CUSTOM</b>
-      </section>
-
-      <section id="products" className="section products-section">
-        <div className="section-head">
-          <div><div className="eyebrow">OUR PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
-          <p>Explore multi-angle views, engineering specifications, and custom-molded polyurethane solutions built to withstand heavy impacts and severe abrasive wear.</p>
-        </div>
-
-        <div className="product-filter-tabs">
-          {categories.map(cat => {
-            const count = cat === "All" ? products.length : products.filter(p=>p.categoryGroup === cat).length;
-            return (
-              <button
-                key={cat}
-                type="button"
-                className={`filter-tab ${activeCategory === cat ? "active" : ""}`}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  if (cat !== "All") setShowAllProducts(true);
-                }}
-              >
-                <span>{cat === "All" ? "All Products" : cat}</span>
-                <span className="badge">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="product-grid">
-          {displayedProducts.map((p) => (
-            <ProductCard 
-              key={p.id} 
-              p={p} 
-              onSelectContact={handleSelectContact} 
-              onOpenDetails={handleOpenDetails} 
-            />
-          ))}
-        </div>
-
-        <div className="center-link">
-          <button
-            type="button"
-            className="view-more-products-btn"
-            id="btn-view-complete-range"
-            onClick={() => {
-              if (activeCategory !== "All") {
-                setActiveCategory("All");
-                setShowAllProducts(true);
-              } else {
-                setShowAllProducts(!showAllProducts);
-              }
-            }}
-          >
-            {showAllProducts && activeCategory === "All" ? (
-              <>Show Featured Products Only <ChevronUp size={17}/></>
-            ) : (
-              <>View Complete Product Range ({products.length} Products) <ArrowRight size={17}/></>
-            )}
-          </button>
-        </div>
-      </section>
-
-      <section id="about" className="about-unified-section">
-        <div className="about-unified-top">
-          <div className="about-unified-intro">
-            <div className="eyebrow">ABOUT LAKSHMI PU PADS</div>
-            <h2>Material expertise.<br/><em>Real-world performance.</em></h2>
-            <p>
-              We believe industrial components shouldn't be an afterthought. We combine deep material knowledge, precision polyurethane manufacturing, and application-focused engineering to deliver components that work harder and last longer where abrasion, impact, and continuous operation are part of the job.
-            </p>
-            <div className="about-capabilities-list">
-              {[
-                ["Precision manufacturing", "Consistent dimensions, strict tolerances, and dependable performance across every batch."],
-                ["Custom engineering", "Tailored polyurethane compounds and tooling developed around your exact application."],
-                ["Quality first", "High-grade prepolymer resins and rigorous testing for demanding industrial conditions."]
-              ].map(([a,b])=><div className="about-cap-item" key={a}>
-                <span className="cap-icon"><Check size={16}/></span>
-                <div>
-                  <b>{a}</b>
-                  <small>{b}</small>
-                </div>
-              </div>)}
-            </div>
-            <div className="about-cta-row">
-              <a href="#contact" className="primary-btn">Start a conversation <ArrowRight size={18}/></a>
-            </div>
-          </div>
-
-          <div className="about-stats-card-grid">
-            <div className="about-stat-box">
-              <Factory size={24}/>
-              <strong>15+</strong>
-              <span>Years in manufacturing</span>
-            </div>
-            <div className="about-stat-box">
-              <ShieldCheck size={24}/>
-              <strong>100%</strong>
-              <span>Quality focused</span>
-            </div>
-            <div className="about-stat-box">
-              <Boxes size={24}/>
-              <strong>500+</strong>
-              <span>Custom solutions</span>
-            </div>
-            <div className="about-stat-box">
-              <Settings2 size={24}/>
-              <strong>24/7</strong>
-              <span>Technical support</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="about-applications-block">
-          <div className="section-head compact" style={{marginBottom:"32px"}}>
-            <div>
-              <div className="eyebrow">APPLICATIONS</div>
-              <h2>Made for the<br/><em>real world.</em></h2>
-            </div>
-            <p>Where abrasion, impact and continuous operation are part of the job, engineered materials make the difference.</p>
-          </div>
-          <div className="about-app-grid">
-            {[
-              ["01","Mining & Minerals","Durable screening and wear solutions for high-abrasion environments."],
-              ["02","Construction","Reliable components built for demanding equipment and site conditions."],
-              ["03","Engineering","Precision polyurethane parts for specialized industrial systems."],
-              ["04","Material Handling","High-performance components that keep production moving."]
-            ].map(([num, title, desc]) => (
-              <div className="about-app-card" key={num}>
-                <span className="app-badge">{num}</span>
-                <h3>{title}</h3>
-                <p>{desc}</p>
+      {page === "products" ? (
+        <ProductsPage
+          products={products}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          categories={categories}
+          onSelectContact={handleSelectContact}
+          onOpenDetails={handleOpenDetails}
+          onNavigateHome={()=>navigateTo("home")}
+        />
+      ) : (
+        <>
+          <section id="home" className="hero">
+            <div className="hero-copy">
+              <div className="eyebrow"><span></span> ENGINEERED INDUSTRIAL SOLUTIONS</div>
+              <h1>Built for the<br/><em>hardest</em> work.</h1>
+              <p>High-performance polyurethane and industrial components engineered for durability, precision and dependable performance.</p>
+              <div className="hero-actions">
+                <button type="button" className="primary-btn" onClick={()=>navigateTo("products")}>Explore products <ArrowRight size={18}/></button>
+                <button type="button" className="text-btn" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Talk to an expert <MoveUpRight size={17}/></button>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="hero-proof">
+                <div><strong>15+</strong><span>Years of<br/>experience</span></div>
+                <div><strong>500+</strong><span>Custom<br/>solutions</span></div>
+                <div><strong>98%</strong><span>On-time<br/>delivery</span></div>
+              </div>
+            </div>
+            <div className="hero-visual">
+              <div className="hero-image"></div>
+              <div className="hero-floating top"><span>01</span><b>Wear<br/>resistant</b></div>
+              <div className="hero-floating bottom"><CircleGauge size={22}/><div><b>Precision engineered</b><small>Made for performance</small></div></div>
+              <div className="hero-grid"></div>
+            </div>
+          </section>
 
-      <section id="contact" className="contact-section">
-        <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 98765 43210</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
-        <form onSubmit={e=>{e.preventDefault();setQuote(false);alert("Thank you! We'll contact you shortly.")}}>
-          <div className="form-row"><input placeholder="Your name"/><input placeholder="Company name"/></div>
-          <div className="form-row"><input placeholder="Email address"/><input placeholder="Phone number"/></div>
-          <select defaultValue=""><option value="" disabled>What are you looking for?</option><option>Polyurethane components</option><option>Screening solutions</option><option>Custom manufacturing</option></select>
-          <textarea placeholder="Tell us briefly about your requirement..."></textarea>
-          <button className="primary-btn" type="submit">Send enquiry <Send size={17}/></button>
-        </form>
-      </section>
+          <section className="trust">
+            <span>Trusted engineering for demanding applications</span>
+            <div className="trust-line"></div>
+            <b>QUALITY</b><b>PRECISION</b><b>DURABILITY</b><b>CUSTOM</b>
+          </section>
+
+          <section id="products" className="section products-section">
+            <div className="section-head">
+              <div><div className="eyebrow">FEATURED PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
+              <p>Explore our most in-demand polyurethane components built to withstand heavy impacts and severe abrasive wear.</p>
+            </div>
+
+            <div className="product-grid">
+              {products.slice(0, 4).map((p) => (
+                <ProductCard 
+                  key={p.id} 
+                  p={p} 
+                  onSelectContact={handleSelectContact} 
+                  onOpenDetails={handleOpenDetails} 
+                />
+              ))}
+            </div>
+
+            <div className="center-link">
+              <button
+                type="button"
+                className="view-more-products-btn"
+                id="btn-view-complete-range"
+                onClick={() => navigateTo("products")}
+              >
+                View Complete Product Range ({products.length} Products) <ArrowRight size={17}/>
+              </button>
+            </div>
+          </section>
+
+          <section id="about" className="about-unified-section">
+            <div className="about-unified-top">
+              <div className="about-unified-intro">
+                <div className="eyebrow">ABOUT LAKSHMI PU PADS</div>
+                <h2>Material expertise.<br/><em>Real-world performance.</em></h2>
+                <p>
+                  We believe industrial components shouldn't be an afterthought. We combine deep material knowledge, precision polyurethane manufacturing, and application-focused engineering to deliver components that work harder and last longer where abrasion, impact, and continuous operation are part of the job.
+                </p>
+                <div className="about-capabilities-list">
+                  {[
+                    ["Precision manufacturing", "Consistent dimensions, strict tolerances, and dependable performance across every batch."],
+                    ["Custom engineering", "Tailored polyurethane compounds and tooling developed around your exact application."],
+                    ["Quality first", "High-grade prepolymer resins and rigorous testing for demanding industrial conditions."]
+                  ].map(([a,b])=><div className="about-cap-item" key={a}>
+                    <span className="cap-icon"><Check size={16}/></span>
+                    <div>
+                      <b>{a}</b>
+                      <small>{b}</small>
+                    </div>
+                  </div>)}
+                </div>
+                <div className="about-cta-row">
+                  <a href="#contact" className="primary-btn">Start a conversation <ArrowRight size={18}/></a>
+                </div>
+              </div>
+
+              <div className="about-stats-card-grid">
+                <div className="about-stat-box">
+                  <Factory size={24}/>
+                  <strong>15+</strong>
+                  <span>Years in manufacturing</span>
+                </div>
+                <div className="about-stat-box">
+                  <ShieldCheck size={24}/>
+                  <strong>100%</strong>
+                  <span>Quality focused</span>
+                </div>
+                <div className="about-stat-box">
+                  <Boxes size={24}/>
+                  <strong>500+</strong>
+                  <span>Custom solutions</span>
+                </div>
+                <div className="about-stat-box">
+                  <Settings2 size={24}/>
+                  <strong>24/7</strong>
+                  <span>Technical support</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="about-applications-block">
+              <div className="section-head compact" style={{marginBottom:"32px"}}>
+                <div>
+                  <div className="eyebrow">APPLICATIONS</div>
+                  <h2>Made for the<br/><em>real world.</em></h2>
+                </div>
+                <p>Where abrasion, impact and continuous operation are part of the job, engineered materials make the difference.</p>
+              </div>
+              <div className="about-app-grid">
+                {[
+                  ["01","Mining & Minerals","Durable screening and wear solutions for high-abrasion environments."],
+                  ["02","Construction","Reliable components built for demanding equipment and site conditions."],
+                  ["03","Engineering","Precision polyurethane parts for specialized industrial systems."],
+                  ["04","Material Handling","High-performance components that keep production moving."]
+                ].map(([num, title, desc]) => (
+                  <div className="about-app-card" key={num}>
+                    <span className="app-badge">{num}</span>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="contact" className="contact-section">
+            <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 98765 43210</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
+            <form onSubmit={e=>{e.preventDefault();setQuote(false);alert("Thank you! We'll contact you shortly.")}}>
+              <div className="form-row"><input placeholder="Your name"/><input placeholder="Company name"/></div>
+              <div className="form-row"><input placeholder="Email address"/><input placeholder="Phone number"/></div>
+              <select defaultValue=""><option value="" disabled>What are you looking for?</option><option>Polyurethane components</option><option>Screening solutions</option><option>Custom manufacturing</option></select>
+              <textarea placeholder="Tell us briefly about your requirement..."></textarea>
+              <button className="primary-btn" type="submit">Send enquiry <Send size={17}/></button>
+            </form>
+          </section>
+        </>
+      )}
     </main>
 
     <footer>
-      <div className="footer-main"><div><Logo/><p>Engineered polyurethane pads and industrial solutions built for demanding applications.</p><div className="socials"><span><Linkedin/></span><span><Instagram/></span></div></div><div><h4>Explore</h4><a href="#products">Products</a><a href="#about">About us</a><a href="#contact">Contact</a></div><div><h4>Contact</h4><span>Hyderabad, Telangana, India</span><span>+91 98765 43210</span><span>info@lakshmipupads.com</span></div></div>
-      <div className="footer-bottom"><span>© 2026 Lakshmi PU Pads. All rights reserved.</span><span>Built for performance.</span></div>
+      <div className="footer-main">
+        <div>
+          <Logo onNavigate={navigateTo}/>
+          <p>Engineered polyurethane pads and industrial solutions built for demanding applications.</p>
+          <div className="socials"><span><Linkedin/></span><span><Instagram/></span></div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}>All Products</a>
+          <a href="#about" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}>About us</a>
+          <a href="#contact" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}>Contact</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <span>Hyderabad, Telangana, India</span>
+          <span>+91 98765 43210</span>
+          <span>info@lakshmipupads.com</span>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <span>© 2026 Lakshmi PU Pads. All rights reserved.</span>
+        <span>Built for performance.</span>
+      </div>
     </footer>
 
     {/* Detail Specifications Modal */}
