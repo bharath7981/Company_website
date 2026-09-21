@@ -6,16 +6,6 @@ button{cursor:pointer}
 a{text-decoration:none;color:inherit}
 .app{overflow:hidden}
 
-/* ── Topbar ── */
-.topbar{height:38px;background:#0d1c26;color:#b7c4ca;padding:0 5.5%;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.02em;border-bottom:1px solid rgba(255,255,255,.08)}
-.topbar-left{display:flex;align-items:center;gap:10px}
-.topbar-loc{display:inline-flex;align-items:center;gap:5px;color:#E8A817;font-weight:700}
-.topbar-sep{color:#485e68}
-.toplinks{display:flex;align-items:center;gap:20px}
-.toplinks a{display:inline-flex;align-items:center;gap:6px;color:#b7c4ca;transition:.15s}
-.toplinks a:hover{color:#E8A817}
-.topbar-verified{background:rgba(232,168,23,.18);color:#E8A817;border:1px solid rgba(232,168,23,.3);padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700}
-
 /* ── Header ── */
 .header{min-height:112px;padding:10px 5.5%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e7ece9;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 
@@ -330,8 +320,6 @@ footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
 
 /* ── Responsive Rules ── */
 @media(max-width:950px){
-  .topbar{padding:0 4%}
-  .toplinks{display:none}
   .header{padding:0 4%;min-height:82px}
   .header-contact-direct{display:none}
   .mobile-toggle{display:block}
@@ -354,7 +342,6 @@ footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
 }
 
 @media(max-width:640px){
-  .topbar{display:none}
   .header{min-height:84px;padding:8px 4%}
   .nav{top:84px}
   .logo-img{height:62px}

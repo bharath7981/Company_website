@@ -872,19 +872,6 @@ function App(){
   };
 
   return <div className="app">
-    <div className="topbar">
-      <div className="topbar-left">
-        <span className="topbar-loc"><MapPin size={12}/> Hyderabad, Telangana</span>
-        <span className="topbar-sep">•</span>
-        <span>Precision Polyurethane Pads & Components Manufacturer</span>
-      </div>
-      <div className="toplinks">
-        <a href="tel:+919876543210"><Phone size={12}/> +91 98765 43210</a>
-        <a href="mailto:info@lakshmipupads.com"><Mail size={12}/> info@lakshmipupads.com</a>
-        <span className="topbar-verified">85% Response Rate</span>
-      </div>
-    </div>
-
     <header className="header">
       <Logo onNavigate={navigateTo}/>
 
