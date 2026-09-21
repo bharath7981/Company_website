@@ -501,10 +501,10 @@ function ProductsPage({
           <span className="breadcrumb-current">All Products</span>
         </nav>
         
-        <div className="eyebrow">COMPLETE INDUSTRIAL CATALOG</div>
-        <h1>All Engineered Polyurethane Products</h1>
+        <div className="eyebrow">OUR CATALOG</div>
+        <h1>All Products</h1>
         <p>
-          Browse our complete catalog of precision-cast polyurethane buffer pads, modular screening panels, conveyor belt scrapers, hydrocyclones, and heavy wear liners. Engineered for high impact resistance and continuous operation in demanding quarry, mining, and industrial environments.
+          Explore our complete range of precision polyurethane components and industrial wear solutions.
         </p>
 
         <div className="product-filter-tabs">

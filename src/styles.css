@@ -126,15 +126,15 @@ footer .logo::after{content:"LAKSHMI PU PADS";color:#fff}
 
 /* ── Dedicated All Products Page ── */
 .products-page{background:#fafbfb;min-height:100vh}
-.products-page-header{background:#0e202a;color:#fff;padding:60px 5.5% 45px;border-bottom:1px solid rgba(255,255,255,.08)}
-.breadcrumbs{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px}
+.products-page-header{background:#0e202a;color:#fff;padding:48px 5.5% 36px;border-bottom:1px solid rgba(255,255,255,.08)}
+.breadcrumbs{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:13px}
 .breadcrumb-link{background:none;border:none;color:#94a3b8;cursor:pointer;padding:0;font:600 13px Manrope;display:inline-flex;align-items:center;gap:4px;transition:.2s}
 .breadcrumb-link:hover{color:#E8A817}
 .breadcrumb-sep{color:#475569;font-size:12px}
 .breadcrumb-current{color:#fff;font-weight:700;font-size:13px}
-.products-page-header .eyebrow{color:#E8A817;font:700 11px Manrope;letter-spacing:.12em;margin-bottom:10px}
-.products-page-header h1{font:800 clamp(32px,3.8vw,52px)/1.1 Manrope;color:#fff;margin:0 0 16px;letter-spacing:-.03em}
-.products-page-header p{color:#9db0b9;max-width:720px;font-size:14.5px;line-height:1.75;margin:0 0 32px}
+.products-page-header .eyebrow{color:#E8A817;font:700 11px Manrope;letter-spacing:.12em;margin-bottom:8px}
+.products-page-header h1{font:800 clamp(30px,3.5vw,46px)/1.1 Manrope;color:#fff;margin:0 0 12px;letter-spacing:-.03em}
+.products-page-header p{color:#9db0b9;max-width:620px;font-size:14px;line-height:1.6;margin:0 0 24px}
 .products-page-header .product-filter-tabs{margin-bottom:0}
 
 .products-custom-cta-box{margin-top:60px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:12px;padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px}
