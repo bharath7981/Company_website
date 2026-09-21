@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {createRoot} from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
-  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info
+  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search
 } from "lucide-react";
 import "./styles.css";
 
@@ -485,10 +485,50 @@ function ProductsPage({
   onOpenDetails, 
   onNavigateHome 
 }){
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedProdId, setSelectedProdId] = useState(products[0]?.id || "");
+  const [activeViewIdx, setActiveViewIdx] = useState(0);
+  const searchRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Filter products by search text and active category
   const filteredProducts = products.filter(p => {
-    if (activeCategory === "All") return true;
-    return p.categoryGroup === activeCategory;
+    const matchesCat = activeCategory === "All" || p.categoryGroup === activeCategory;
+    const query = searchQuery.trim().toLowerCase();
+    const matchesSearch = !query || 
+      p.name.toLowerCase().includes(query) ||
+      p.cat.toLowerCase().includes(query) ||
+      p.categoryGroup.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query) ||
+      p.specs.some(s => s.value.toLowerCase().includes(query) || s.label.toLowerCase().includes(query));
+    return matchesCat && matchesSearch;
   });
+
+  // Current selected product (fallback safely)
+  const currentProduct = products.find(p => p.id === selectedProdId) || filteredProducts[0] || products[0];
+  const currentView = currentProduct?.views?.[activeViewIdx] || currentProduct?.views?.[0];
+
+  // Category products for the quick switch strip
+  const categoryProducts = activeCategory === "All" 
+    ? products 
+    : products.filter(p => p.categoryGroup === activeCategory);
+
+  const handleSelectProduct = (product) => {
+    setSelectedProdId(product.id);
+    setActiveViewIdx(0);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <div className="products-page">
@@ -504,9 +544,126 @@ function ProductsPage({
         <div className="eyebrow">OUR CATALOG</div>
         <h1>All Products</h1>
         <p>
-          Explore our complete range of precision polyurethane components and industrial wear solutions.
+          Search or select any polyurethane component from the dropdown to view its full engineering specifications and views.
         </p>
 
+        {/* Search Bar with Interactive Dropdown */}
+        <div className="product-search-wrapper" ref={searchRef}>
+          <div 
+            className={`product-search-bar ${isDropdownOpen ? "focused" : ""}`}
+            onClick={() => setIsDropdownOpen(true)}
+          >
+            <Search size={20} className="search-bar-icon" />
+            <input
+              type="text"
+              className="product-search-input"
+              placeholder="Search by product name, grade, or select from dropdown..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsDropdownOpen(true);
+              }}
+              onFocus={() => setIsDropdownOpen(true)}
+              aria-label="Search polyurethane products"
+            />
+            
+            {searchQuery && (
+              <button
+                type="button"
+                className="search-clear-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSearchQuery("");
+                }}
+                aria-label="Clear search"
+              >
+                <X size={16} />
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="search-dropdown-toggle-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsDropdownOpen(!isDropdownOpen);
+              }}
+              aria-label="Toggle products dropdown"
+            >
+              <span className="search-items-pill">{filteredProducts.length} Products</span>
+              {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+            </button>
+          </div>
+
+          {/* Dropdown Menu showing all products with details */}
+          {isDropdownOpen && (
+            <div className="product-dropdown-menu">
+              <div className="dropdown-menu-header">
+                <span className="dm-title">SELECT A PRODUCT TO VIEW DETAILS</span>
+                <span className="dm-badge">{filteredProducts.length} Available</span>
+              </div>
+              <div className="dropdown-menu-list">
+                {filteredProducts.length === 0 ? (
+                  <div className="dropdown-empty-state">
+                    <p>No products found matching "<strong>{searchQuery}</strong>"</p>
+                    <button
+                      type="button"
+                      className="dropdown-reset-btn"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setActiveCategory("All");
+                      }}
+                    >
+                      Show All Products
+                    </button>
+                  </div>
+                ) : (
+                  filteredProducts.map((p) => {
+                    const isSelected = p.id === currentProduct?.id;
+                    const hardness = p.specs.find(s => s.label === "Hardness")?.value;
+                    const material = p.specs.find(s => s.label === "Material")?.value || p.cat;
+                    return (
+                      <div
+                        key={p.id}
+                        className={`dropdown-item-row ${isSelected ? "selected" : ""}`}
+                        onClick={() => handleSelectProduct(p)}
+                      >
+                        <div className="dd-thumb-box">
+                          <img src={p.views[0]?.src} alt={p.name} />
+                        </div>
+                        <div className="dd-info-col">
+                          <div className="dd-title-line">
+                            <span className="dd-product-name">{p.name}</span>
+                            <span className="dd-category-badge">{p.categoryGroup}</span>
+                          </div>
+                          <div className="dd-specs-line">
+                            <span>{material}</span>
+                            {hardness && <span className="dd-spec-divider">·</span>}
+                            {hardness && <span>{hardness}</span>}
+                          </div>
+                          <div className="dd-price-line">
+                            <strong className="dd-price">{p.price}</strong>
+                            <span className="dd-unit">{p.unit}</span>
+                            <span className="dd-min-order">Min. Order: {p.minOrder}</span>
+                          </div>
+                        </div>
+                        <div className="dd-status-col">
+                          {isSelected ? (
+                            <span className="dd-active-tag"><Check size={14} /> Selected</span>
+                          ) : (
+                            <span className="dd-view-btn">View Details →</span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Category Tabs */}
         <div className="product-filter-tabs">
           {categories.map(cat => {
             const count = cat === "All" ? products.length : products.filter(p => p.categoryGroup === cat).length;
@@ -515,7 +672,16 @@ function ProductsPage({
                 key={cat}
                 type="button"
                 className={`filter-tab ${activeCategory === cat ? "active" : ""}`}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  if (cat !== "All") {
+                    const firstInCat = products.find(p => p.categoryGroup === cat);
+                    if (firstInCat) {
+                      setSelectedProdId(firstInCat.id);
+                      setActiveViewIdx(0);
+                    }
+                  }
+                }}
               >
                 <span>{cat === "All" ? "All Products" : cat}</span>
                 <span className="badge">{count}</span>
@@ -525,17 +691,128 @@ function ProductsPage({
         </div>
       </div>
 
-      <section className="section products-section" style={{paddingTop: "45px"}}>
-        <div className="product-grid">
-          {filteredProducts.map((p) => (
-            <ProductCard 
-              key={p.id} 
-              p={p} 
-              onSelectContact={onSelectContact} 
-              onOpenDetails={onOpenDetails} 
-            />
-          ))}
+      {/* Selected Product Details Showcase */}
+      <section className="section products-section" style={{paddingTop: "32px"}}>
+        {/* Quick-switch product chips */}
+        <div className="quick-switch-wrapper">
+          <div className="quick-switch-strip">
+            {categoryProducts.map((p) => {
+              const isSelected = p.id === currentProduct?.id;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={`quick-switch-chip ${isSelected ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedProdId(p.id);
+                    setActiveViewIdx(0);
+                  }}
+                >
+                  <img src={p.views[0]?.src} alt={p.name} />
+                  <span className="quick-switch-name">{p.name}</span>
+                  {isSelected && <span className="quick-switch-indicator" />}
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Main Product Showcase Card */}
+        {currentProduct && (
+          <div className="product-showcase-card">
+            <div className="showcase-header">
+              <div className="showcase-header-left">
+                <div className="eyebrow">{currentProduct.cat}</div>
+                <h2>{currentProduct.name}</h2>
+                <div className="pdm-subhead">
+                  <span className="pdm-supplier">{currentProduct.supplier}</span>
+                  <span className="pdm-dot">·</span>
+                  <span className="pdm-location">{currentProduct.location}</span>
+                  <span className="pdm-dot">·</span>
+                  <span className="response-rate">{currentProduct.responseRate}</span>
+                </div>
+              </div>
+              <div className="showcase-header-right">
+                <div className="pdm-price-val">
+                  <strong>{currentProduct.price}</strong>
+                  <span>{currentProduct.unit}</span>
+                </div>
+                <div className="pdm-min-order">
+                  <span>Min. Order:</span> <b>{currentProduct.minOrder}</b>
+                </div>
+              </div>
+            </div>
+
+            <div className="pdm-layout">
+              {/* Left Column: Multi-angle views & Contact */}
+              <div className="pdm-gallery">
+                <div className="pdm-main-img-box">
+                  <img src={currentView?.src} alt={`${currentProduct.name} - ${currentView?.label}`} />
+                  <div className="pdm-active-tag">{currentView?.label}</div>
+                </div>
+                <div className="pdm-thumbnails">
+                  {currentProduct.views.map((v, idx) => (
+                    <button
+                      key={v.label}
+                      type="button"
+                      className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
+                      onClick={() => setActiveViewIdx(idx)}
+                    >
+                      <img src={v.src} alt={v.label} />
+                      <span>{v.label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="pdm-gallery-cta">
+                  <button
+                    type="button"
+                    className="product-b2b-contact-btn large"
+                    onClick={() => onSelectContact(currentProduct)}
+                  >
+                    <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column: Specifications & Description */}
+              <div className="pdm-info">
+                <div className="pdm-section">
+                  <h4>Product Description</h4>
+                  <p className="pdm-desc">{currentProduct.description}</p>
+                </div>
+
+                <div className="pdm-section">
+                  <h4>Technical Specifications</h4>
+                  <div className="pdm-specs-table">
+                    <table>
+                      <tbody>
+                        {currentProduct.specs.map(s => (
+                          <tr key={s.label}>
+                            <td className="spec-label">{s.label}</td>
+                            <td className="spec-value">{s.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="pdm-section">
+                  <h4>Key Performance Features</h4>
+                  <ul className="pdm-features-list">
+                    {currentProduct.features.map(f => (
+                      <li key={f}>
+                        <Check size={16} className="feature-check-icon"/>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="products-custom-cta-box">
           <div>
