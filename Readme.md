@@ -46,7 +46,7 @@ polynova-industries/
 │   ├── pu-buffer-pad.jpg        # PU rock breaker buffer pads product shot
 │   ├── pu-roller.jpg            # Polyurethane coated roller product shot
 │   ├── pu-screen-panel.jpg      # PU modular screen deck product shot
-│   └── rock-breaker.png         # Hydraulic rock breaker isolated product image
+│   └── rock-breaker-pads.jpg    # Rock breaker polyurethane spare parts & pads image
 ├── src/
 │   ├── main.jsx                 # Core application component, state & catalog data
 │   └── styles.css               # Design system, layout rules, and B2B card styles

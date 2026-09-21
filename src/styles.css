@@ -76,24 +76,37 @@ footer .logo::after{content:"LAKSHMI PU PADS";color:#fff}
 
 .product-b2b-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 3px 12px rgba(15,23,42,.04);transition:.25s ease}
 .product-b2b-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(15,23,42,.09);border-color:#cbd5e1}
-.product-b2b-img-wrap{height:240px;background:#fff;display:flex;align-items:center;justify-content:center;padding:16px;border-bottom:1px solid #f1f5f9;position:relative}
-.product-b2b-img{max-width:100%;max-height:100%;object-fit:contain;transition:.3s ease}
+.product-b2b-img-wrap{height:240px;background:#f8fafc;display:flex;align-items:center;justify-content:center;padding:16px;border-bottom:1px solid #f1f5f9;position:relative;cursor:pointer}
+.product-b2b-img{max-width:100%;max-height:100%;object-fit:contain;transition:.3s ease;border-radius:6px}
 .product-b2b-card:hover .product-b2b-img{transform:scale(1.05)}
 
+/* Multi-angle view badges & chips */
+.view-angle-badge{position:absolute;top:10px;left:10px;background:rgba(14,32,42,.85);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:4px;backdrop-filter:blur(4px);pointer-events:none;z-index:2}
+.view-switcher-chips{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:3;padding:0 8px}
+.view-chip{background:rgba(255,255,255,.92);border:1px solid #cbd5e1;color:#475569;font:600 11px Manrope;padding:3px 9px;border-radius:12px;cursor:pointer;transition:.15s;backdrop-filter:blur(4px);box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.view-chip:hover{background:#fff;border-color:#127b82;color:#127b82}
+.view-chip.active{background:#127b82;color:#fff;border-color:#127b82;font-weight:700;box-shadow:0 2px 6px rgba(18,123,130,.35)}
+
 .product-b2b-body{padding:18px;display:flex;flex-direction:column;flex:1}
-.product-b2b-title{font:700 17px/1.35 Manrope;color:#1a2b6b;margin:0 0 10px;min-height:46px}
+.product-b2b-title{font:700 17px/1.35 Manrope;color:#1a2b6b;margin:0 0 10px;min-height:46px;cursor:pointer;transition:.15s}
+.product-b2b-title:hover{color:#127b82}
 .product-b2b-price{margin-bottom:15px;display:flex;align-items:baseline;gap:5px}
 .product-b2b-price strong{font:800 22px Manrope;color:#111827}
 .product-b2b-price .unit{font-size:13.5px;color:#6b7280;font-weight:500}
 
-.product-b2b-contact-btn{background:#127b82;color:#fff;border:none;border-radius:6px;padding:11px 14px;font:700 14px Manrope;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.2s;width:100%;margin-bottom:14px}
+.product-b2b-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.product-b2b-contact-btn{background:#127b82;color:#fff;border:none;border-radius:6px;padding:11px 14px;font:700 14px Manrope;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.2s;width:100%}
 .product-b2b-contact-btn:hover{background:#0d6268;box-shadow:0 4px 12px rgba(18,123,130,.25)}
+.product-b2b-contact-btn.large{padding:14px 20px;font-size:15px}
+
+.product-b2b-details-btn{background:#f0fdfa;color:#127b82;border:1px solid #127b82;border-radius:6px;padding:9px 14px;font:700 13px Manrope;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:.2s;width:100%}
+.product-b2b-details-btn:hover{background:#ccfbf1;border-color:#0f6b71;color:#0f6b71}
 
 .product-b2b-supplier-info{border-top:1px solid #f3f4f6;padding-top:13px;margin-bottom:12px}
 .supplier-name{font:700 14px Manrope;color:#1f2937;margin-bottom:3px}
 .supplier-loc{font-size:12.5px;color:#6b7280}
 
-.product-b2b-metrics{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:13px;border-bottom:1px solid #f3f4f6;font-size:12px}
+.product-b2b-metrics{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;font-size:12px}
 .response-rate{color:#4b5563;font-weight:500}
 .rating-wrap{display:flex;align-items:center;gap:4px}
 .stars-icons{display:inline-flex;gap:1px;font-size:13px;line-height:1}
@@ -101,10 +114,57 @@ footer .logo::after{content:"LAKSHMI PU PADS";color:#fff}
 .star-empty{color:#cbd5e1}
 .rating-wrap strong{font-weight:700;color:#111827;margin-left:2px}
 .rating-wrap small{color:#6b7280}
-
-.product-b2b-call-btn{background:#fff;color:#127b82;border:1.5px solid #127b82;border-radius:6px;padding:9px 14px;font:700 14px Manrope;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:.2s;margin-top:auto;width:100%}
-.product-b2b-call-btn:hover{background:#f0fdfa;color:#0d6268;border-color:#0d6268}
 .center-link{display:flex;justify-content:center;margin-top:45px}
+
+/* ── Product Detail Modal (Essar Plastics Style Specs & Multi-View) ── */
+.product-detail-modal{width:min(960px,94vw);max-height:88vh;overflow-y:auto;background:#fff;padding:36px;position:relative;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.pdm-header{border-bottom:1px solid #e2e8f0;padding-bottom:16px;margin-bottom:24px}
+.pdm-header .eyebrow{font:700 11px Manrope;color:#127b82;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.pdm-header h2{font:800 clamp(24px,3vw,34px)/1.15 Manrope;letter-spacing:-.03em;color:#0e202a;margin:0 0 8px}
+.pdm-subhead{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b}
+.pdm-supplier{font-weight:600;color:#334155}
+.pdm-dot{color:#cbd5e1}
+.pdm-location{color:#64748b}
+
+.pdm-layout{display:grid;grid-template-columns:1fr 1.25fr;gap:36px;align-items:start}
+@media(max-width:850px){.pdm-layout{grid-template-columns:1fr;gap:24px}}
+
+.pdm-gallery{display:flex;flex-direction:column;gap:14px;position:sticky;top:0}
+.pdm-main-img-box{position:relative;height:320px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+.pdm-main-img-box img{max-width:100%;max-height:100%;object-fit:contain;transition:.25s ease}
+.pdm-active-tag{position:absolute;top:12px;left:12px;background:#0e202a;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em}
+
+.pdm-thumbnails{display:flex;gap:10px;overflow-x:auto;padding:4px 0}
+.pdm-thumb-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 10px;border:2px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;transition:.2s;min-width:80px;text-align:center}
+.pdm-thumb-btn:hover{border-color:#127b82}
+.pdm-thumb-btn.active{border-color:#127b82;background:#f0fdfa}
+.pdm-thumb-btn img{width:56px;height:44px;object-fit:contain}
+.pdm-thumb-btn span{font:700 10.5px Manrope;color:#334155}
+.pdm-gallery-cta{margin-top:6px}
+
+.pdm-info{display:flex;flex-direction:column;gap:22px}
+.pdm-price-banner{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 18px}
+.pdm-price-val{display:flex;align-items:baseline;gap:6px}
+.pdm-price-val strong{font:800 24px Manrope;color:#0e202a}
+.pdm-price-val span{font-size:13px;color:#64748b}
+.pdm-min-order{font-size:12.5px;color:#475569}
+.pdm-min-order b{color:#0e202a;font-weight:700;margin-left:4px}
+
+.pdm-section h4{font:700 14px Manrope;text-transform:uppercase;letter-spacing:.05em;color:#0e202a;margin:0 0 10px;display:flex;align-items:center;gap:6px}
+.pdm-desc{font-size:13.5px;color:#475569;line-height:1.7;margin:0}
+
+.pdm-specs-table{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
+.pdm-specs-table table{width:100%;border-collapse:collapse;font-size:12.5px}
+.pdm-specs-table tr{border-bottom:1px solid #e2e8f0}
+.pdm-specs-table tr:last-child{border-bottom:none}
+.pdm-specs-table tr:nth-child(even){background:#fafbfb}
+.pdm-specs-table td{padding:9px 14px;line-height:1.45}
+.pdm-specs-table .spec-label{width:40%;font-weight:600;color:#475569;background:#f1f5f9;border-right:1px solid #e2e8f0}
+.pdm-specs-table .spec-value{color:#0e202a;font-weight:500}
+
+.pdm-features-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pdm-features-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#334155;line-height:1.5}
+.feature-check-icon{color:#127b82;flex-shrink:0;margin-top:2px}
 
 /* ── About Unified Section ── */
 .about-unified-section{padding:100px 5.5%;background:#0e202a;color:#fff}

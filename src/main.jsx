@@ -3,58 +3,150 @@ import {createRoot} from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
-  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram
+  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Eye, Info
 } from "lucide-react";
 import "./styles.css";
 
 const products = [
   {
+    id: "rock-breaker-parts",
     name: "Rock breaker spare parts",
     cat: "Excavator & Mining Attachments",
     price: "₹ 500",
     unit: "/Piece",
-    image: "/rock-breaker.png",
+    minOrder: "1 Piece",
     supplier: "Sri Laxmi Ganapathi Enterprises",
     location: "Hyderabad, Telangana · 5 yrs",
     responseRate: "70% Response Rate",
     rating: "3.0",
-    reviews: "2"
+    reviews: "2",
+    views: [
+      { label: "Front View", src: "/rock-pad-front.jpg" },
+      { label: "Back View", src: "/rock-pad-back.jpg" },
+      { label: "Full Kit", src: "/rock-breaker-pads.jpg" }
+    ],
+    description: "Engineered specifically for heavy-duty hydraulic rock breakers and excavator hammers. These precision-cast polyurethane buffer pads absorb violent reciprocating shockwaves, prevent metal-to-metal housing friction, and significantly extend piston and cylinder service life in harsh quarrying and demolition conditions.",
+    specs: [
+      { label: "Material", value: "High-Grade Cast Polyurethane (PU)" },
+      { label: "Hardness", value: "90° - 95° Shore A" },
+      { label: "Color", value: "Golden Yellow" },
+      { label: "Tensile Strength", value: "> 45 MPa" },
+      { label: "Tear Strength", value: "> 105 kN/m" },
+      { label: "Operating Temperature", value: "-30°C to +90°C" },
+      { label: "Thickness", value: "25 mm to 65 mm (Customizable)" },
+      { label: "Usage / Application", value: "Hydraulic Rock Breakers, Mining, Excavators" },
+      { label: "Compatible Brands", value: "Soosan, Furukawa, Atlas Copco, Sandvik, JCB, Daemo" },
+      { label: "Country of Origin", value: "Made in India (Hyderabad, Telangana)" }
+    ],
+    features: [
+      "Eliminates destructive metal-to-metal contact inside breaker housing",
+      "Superior tear strength and high dynamic impact load capacity",
+      "Resistant to hydraulic oil, grease, abrasive rock dust, and moisture",
+      "Manufactured to precise OEM dimensions or custom CAD drawing"
+    ]
   },
   {
+    id: "pu-buffer-pads",
     name: "PU Rock Breaker Buffer Pads",
     cat: "Wear & Damper Components",
     price: "₹ 750",
     unit: "/Piece",
-    image: "/pu-buffer-pad.jpg",
+    minOrder: "2 Pieces",
     supplier: "Sri Laxmi Ganapathi Enterprises",
     location: "Hyderabad, Telangana · 5 yrs",
     responseRate: "85% Response Rate",
     rating: "4.8",
-    reviews: "19"
+    reviews: "19",
+    views: [
+      { label: "Front View", src: "/pu-buffer-pad.jpg" },
+      { label: "Back View", src: "/pu-damper-back.jpg" }
+    ],
+    description: "High-resilience polyurethane damping blocks and buffer cushions designed to isolate impact vibration between breaker body and bracket. Features integrated compression relief grooves and heavy-duty steel inserts to withstand extreme cyclic loads in continuous mining operations.",
+    specs: [
+      { label: "Material", value: "Prepolymer Cast Elastomer" },
+      { label: "Hardness", value: "92° ± 3 Shore A" },
+      { label: "Color", value: "Safety Yellow" },
+      { label: "Compression Set", value: "< 18% (at 70°C for 22h)" },
+      { label: "Impact Resilience", value: "> 55%" },
+      { label: "Insert Type", value: "Bonded Steel Mounting Bushings" },
+      { label: "Usage / Application", value: "Heavy-Duty Breaker Dampers, Quarry Equipment" },
+      { label: "Compatible Models", value: "SB Series, HB Series, DMB Series" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Absorbs over 75% of transmitted vibration, protecting excavator booms",
+      "Engineered relief grooves prevent lateral bulge under maximum impact",
+      "Anti-fatigue polyurethane formulation outlasts rubber dampers by 3-5x",
+      "Precision threaded metal inserts for quick, secure bolt-on installation"
+    ]
   },
   {
+    id: "screen-panels",
     name: "PU Modular Screen Panels",
     cat: "Screening Solutions",
     price: "₹ 1,200",
     unit: "/Piece",
-    image: "/pu-screen-panel.jpg",
+    minOrder: "5 Pieces",
     supplier: "Sri Laxmi Ganapathi Enterprises",
     location: "Hyderabad, Telangana · 5 yrs",
     responseRate: "92% Response Rate",
     rating: "4.9",
-    reviews: "31"
+    reviews: "31",
+    views: [
+      { label: "Front View", src: "/pu-screen-panel.jpg" },
+      { label: "Back View", src: "/screen-panel-back.jpg" }
+    ],
+    description: "Interlocking polyurethane modular screen deck mats for vibrating screens, dewatering equipment, and mineral classification. Engineered with tapered non-blinding square apertures and an internal steel reinforcement skeleton to maximize screening throughput and resist severe slurry abrasion.",
+    specs: [
+      { label: "Material", value: "Abrasion-Resistant Polyurethane with Steel Frame" },
+      { label: "Hardness", value: "85° - 90° Shore A" },
+      { label: "Aperture Size", value: "0.5 mm to 45 mm (Square / Slotted)" },
+      { label: "Standard Size", value: "305 mm x 305 mm (12\" x 12\") / 300 mm x 600 mm" },
+      { label: "Panel Thickness", value: "30 mm - 50 mm" },
+      { label: "Mounting Type", value: "Pin & Leg Interlocking Snap-Fit" },
+      { label: "Usage / Application", value: "M-Sand Dewatering, Iron Ore, Coal & Aggregate Screening" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Self-relieving tapered aperture walls eliminate stone pegging and blinding",
+      "Significantly reduces operating noise compared to metallic wire mesh",
+      "Lightweight modular replacement lowers maintenance downtime",
+      "Extremely long wear life in both wet slurry and dry abrasive screening"
+    ]
   },
   {
+    id: "pu-rollers",
     name: "Polyurethane Coated Rollers",
     cat: "Material Handling",
     price: "₹ 850",
     unit: "/Piece",
-    image: "/pu-roller.jpg",
+    minOrder: "2 Pieces",
     supplier: "Sri Laxmi Ganapathi Enterprises",
     location: "Hyderabad, Telangana · 5 yrs",
     responseRate: "88% Response Rate",
     rating: "4.7",
-    reviews: "14"
+    reviews: "14",
+    views: [
+      { label: "Front View", src: "/pu-roller.jpg" },
+      { label: "Side View", src: "/pu-roller-side.jpg" }
+    ],
+    description: "Heavy-duty industrial drive and guide rollers coated with high-performance polyurethane vulcanized directly onto machined steel cores. Provides superior traction, non-marking contact, chemical resistance, and high cut resistance for conveyors, steel mills, and automated processing lines.",
+    specs: [
+      { label: "Coating Material", value: "Thermoset Polyurethane Elastomer" },
+      { label: "Core Material", value: "EN8 / Mild Steel / Stainless Steel" },
+      { label: "Hardness Range", value: "65° Shore A to 75° Shore D" },
+      { label: "Diameter", value: "50 mm to 450 mm (Custom Built)" },
+      { label: "Face Length", value: "100 mm to 2500 mm" },
+      { label: "Bearing Fitment", value: "Machined Bearing Housing with Keyway" },
+      { label: "Usage / Application", value: "Conveyor Systems, Printing, Packaging, Steel Slitting" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Chemical bonding between PU and steel core prevents delamination under load",
+      "High coefficient of friction ensures positive belt drive without slipping",
+      "Non-marking surface protects delicate finished products and conveyor belts",
+      "Re-coating and re-grinding services available for existing metal cores"
+    ]
   }
 ];
 
@@ -64,10 +156,193 @@ function Logo(){
   </a>
 }
 
+function ProductCard({ p, onSelectContact, onOpenDetails }){
+  const [viewIdx, setViewIdx] = useState(0);
+  const currentView = p.views[viewIdx] || p.views[0];
+
+  return (
+    <article className="product-b2b-card" key={p.id}>
+      <div className="product-b2b-img-wrap" onClick={()=>onOpenDetails(p, viewIdx)}>
+        <img src={currentView.src} alt={`${p.name} - ${currentView.label}`} className="product-b2b-img" />
+        <div className="view-angle-badge">{currentView.label}</div>
+        <div className="view-switcher-chips" onClick={e=>e.stopPropagation()}>
+          {p.views.map((v, i) => (
+            <button
+              key={v.label}
+              type="button"
+              className={`view-chip ${viewIdx === i ? "active" : ""}`}
+              onClick={()=>setViewIdx(i)}
+            >
+              {v.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="product-b2b-body">
+        <h3 className="product-b2b-title" onClick={()=>onOpenDetails(p, viewIdx)}>{p.name}</h3>
+        <div className="product-b2b-price">
+          <strong>{p.price}</strong> <span className="unit">{p.unit}</span>
+        </div>
+        
+        <div className="product-b2b-actions">
+          <button 
+            type="button" 
+            className="product-b2b-contact-btn"
+            onClick={()=>onSelectContact(p)}
+          >
+            <Send size={14} style={{transform:"rotate(-20deg)"}} /> Contact Supplier
+          </button>
+          <button 
+            type="button" 
+            className="product-b2b-details-btn"
+            onClick={()=>onOpenDetails(p, viewIdx)}
+          >
+            <Eye size={14}/> View Specs & Details
+          </button>
+        </div>
+
+        <div className="product-b2b-supplier-info">
+          <div className="supplier-name">{p.supplier}</div>
+          <div className="supplier-loc">{p.location}</div>
+        </div>
+        <div className="product-b2b-metrics">
+          <span className="response-rate">{p.responseRate}</span>
+          <span className="rating-wrap">
+            <span className="stars-icons">
+              {[1,2,3,4,5].map(s=>(
+                <span key={s} className={s <= Math.round(Number(p.rating)) ? "star-fill" : "star-empty"}>★</span>
+              ))}
+            </span>
+            <strong>{p.rating}</strong>
+            <small>({p.reviews})</small>
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact }){
+  const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
+  const currentView = product.views[activeViewIdx] || product.views[0];
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="product-detail-modal" onClick={e=>e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close details"><X/></button>
+        
+        <div className="pdm-header">
+          <div className="eyebrow">{product.cat}</div>
+          <h2>{product.name}</h2>
+          <div className="pdm-subhead">
+            <span className="pdm-supplier">{product.supplier}</span>
+            <span className="pdm-dot">·</span>
+            <span className="pdm-location">{product.location}</span>
+          </div>
+        </div>
+
+        <div className="pdm-layout">
+          {/* Left Column: Gallery */}
+          <div className="pdm-gallery">
+            <div className="pdm-main-img-box">
+              <img src={currentView.src} alt={`${product.name} - ${currentView.label}`} />
+              <div className="pdm-active-tag">{currentView.label}</div>
+            </div>
+            <div className="pdm-thumbnails">
+              {product.views.map((v, idx) => (
+                <button
+                  key={v.label}
+                  type="button"
+                  className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
+                  onClick={()=>setActiveViewIdx(idx)}
+                >
+                  <img src={v.src} alt={v.label} />
+                  <span>{v.label}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="pdm-gallery-cta">
+              <button
+                type="button"
+                className="product-b2b-contact-btn large"
+                onClick={()=>{
+                  onClose();
+                  onSelectContact(product);
+                }}
+              >
+                <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Specs & Description */}
+          <div className="pdm-info">
+            <div className="pdm-price-banner">
+              <div className="pdm-price-val">
+                <strong>{product.price}</strong>
+                <span>{product.unit}</span>
+              </div>
+              <div className="pdm-min-order">
+                <span>Min. Order:</span> <b>{product.minOrder}</b>
+              </div>
+            </div>
+
+            <div className="pdm-section">
+              <h4>Product Description</h4>
+              <p className="pdm-desc">{product.description}</p>
+            </div>
+
+            <div className="pdm-section">
+              <h4>Technical Specifications</h4>
+              <div className="pdm-specs-table">
+                <table>
+                  <tbody>
+                    {product.specs.map(s => (
+                      <tr key={s.label}>
+                        <td className="spec-label">{s.label}</td>
+                        <td className="spec-value">{s.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="pdm-section">
+              <h4>Key Performance Features</h4>
+              <ul className="pdm-features-list">
+                {product.features.map(f => (
+                  <li key={f}>
+                    <Check size={16} className="feature-check-icon"/>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App(){
   const [open,setOpen]=useState(false);
   const [quote,setQuote]=useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [detailProduct, setDetailProduct] = useState(null);
+  const [detailViewIdx, setDetailViewIdx] = useState(0);
+
+  const handleOpenDetails = (product, initialView = 0) => {
+    setDetailProduct(product);
+    setDetailViewIdx(initialView);
+  };
+
+  const handleSelectContact = (product) => {
+    setSelectedProduct(product);
+    setQuote(true);
+  };
 
   const nav = ["Products","About","Contact"];
 
@@ -116,46 +391,17 @@ function App(){
       <section id="products" className="section products-section">
         <div className="section-head">
           <div><div className="eyebrow">OUR PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
-          <p>From rock breaker spare parts to custom-engineered polyurethane solutions, our products are built for high performance, impact resistance, and durability.</p>
+          <p>Explore multi-angle views, engineering specifications, and custom-molded polyurethane solutions built to withstand heavy impacts and severe abrasive wear.</p>
         </div>
         <div className="product-grid">
-          {products.map((p)=><article className="product-b2b-card" key={p.name}>
-            <div className="product-b2b-img-wrap">
-              <img src={p.image} alt={p.name} className="product-b2b-img" />
-            </div>
-            <div className="product-b2b-body">
-              <h3 className="product-b2b-title">{p.name}</h3>
-              <div className="product-b2b-price">
-                <strong>{p.price}</strong> <span className="unit">{p.unit}</span>
-              </div>
-              <button 
-                type="button" 
-                className="product-b2b-contact-btn"
-                onClick={()=>{setSelectedProduct(p);setQuote(true);}}
-              >
-                <Send size={15} style={{transform:"rotate(-20deg)"}} /> Contact Supplier
-              </button>
-              <div className="product-b2b-supplier-info">
-                <div className="supplier-name">{p.supplier}</div>
-                <div className="supplier-loc">{p.location}</div>
-              </div>
-              <div className="product-b2b-metrics">
-                <span className="response-rate">{p.responseRate}</span>
-                <span className="rating-wrap">
-                  <span className="stars-icons">
-                    {[1,2,3,4,5].map(s=>(
-                      <span key={s} className={s <= Math.round(Number(p.rating)) ? "star-fill" : "star-empty"}>★</span>
-                    ))}
-                  </span>
-                  <strong>{p.rating}</strong>
-                  <small>({p.reviews})</small>
-                </span>
-              </div>
-              <a href="tel:+919876543210" className="product-b2b-call-btn">
-                <Phone size={15} /> Call Now
-              </a>
-            </div>
-          </article>)}
+          {products.map((p) => (
+            <ProductCard 
+              key={p.id} 
+              p={p} 
+              onSelectContact={handleSelectContact} 
+              onOpenDetails={handleOpenDetails} 
+            />
+          ))}
         </div>
         <div className="center-link"><a href="#products">View complete product range <ArrowRight size={17}/></a></div>
       </section>
@@ -252,6 +498,17 @@ function App(){
       <div className="footer-bottom"><span>© 2026 Lakshmi PU Pads. All rights reserved.</span><span>Built for performance.</span></div>
     </footer>
 
+    {/* Detail Specifications Modal */}
+    {detailProduct && (
+      <ProductDetailModal
+        product={detailProduct}
+        initialViewIdx={detailViewIdx}
+        onClose={()=>setDetailProduct(null)}
+        onSelectContact={handleSelectContact}
+      />
+    )}
+
+    {/* Quick Enquiry Modal */}
     {quote && <div className="modal-backdrop" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><div className="modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><X/></button><div className="eyebrow">{selectedProduct ? "PRODUCT ENQUIRY" : "QUICK ENQUIRY"}</div><h2>{selectedProduct ? <>Enquire: <em>{selectedProduct.name}</em></> : <>Let's build the right <em>solution.</em></>}</h2><p>{selectedProduct ? `Get instant best quote and specifications for ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}).` : "Share your requirement and our team will get back to you."}</p><form onSubmit={e=>{e.preventDefault();setQuote(false);setSelectedProduct(null);alert("Enquiry received! We'll contact you shortly.")}}><input placeholder="Your name" required/><input placeholder="Email address" type="email" required/><input placeholder="Phone number" type="tel" required/><textarea placeholder="Your requirement" defaultValue={selectedProduct ? `Hi, I am interested in ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}). Please provide availability and delivery timeline.` : ""}></textarea><button className="primary-btn">Send enquiry <Send size={17}/></button></form></div></div>}
   </div>
 }
