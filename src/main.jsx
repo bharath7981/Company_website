@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {createRoot} from "react-dom/client";
 import {
-  ArrowUpRight, ChevronDown, Menu, X, Phone, Mail, MapPin, ArrowRight,
+  ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Eye, Info
 } from "lucide-react";
@@ -12,6 +12,7 @@ const products = [
     id: "rock-breaker-parts",
     name: "Rock breaker spare parts",
     cat: "Excavator & Mining Attachments",
+    categoryGroup: "Rock Breaker Parts",
     price: "₹ 500",
     unit: "/Piece",
     minOrder: "1 Piece",
@@ -49,6 +50,7 @@ const products = [
     id: "pu-buffer-pads",
     name: "PU Rock Breaker Buffer Pads",
     cat: "Wear & Damper Components",
+    categoryGroup: "Rock Breaker Parts",
     price: "₹ 750",
     unit: "/Piece",
     minOrder: "2 Pieces",
@@ -84,6 +86,7 @@ const products = [
     id: "screen-panels",
     name: "PU Modular Screen Panels",
     cat: "Screening Solutions",
+    categoryGroup: "Screening & Dewatering",
     price: "₹ 1,200",
     unit: "/Piece",
     minOrder: "5 Pieces",
@@ -98,29 +101,30 @@ const products = [
     ],
     description: "Interlocking polyurethane modular screen deck mats for vibrating screens, dewatering equipment, and mineral classification. Engineered with tapered non-blinding square apertures and an internal steel reinforcement skeleton to maximize screening throughput and resist severe slurry abrasion.",
     specs: [
-      { label: "Material", value: "Abrasion-Resistant Polyurethane with Steel Frame" },
+      { label: "Material", value: "Premium Polyurethane Elastomer + Steel Reinforcement" },
+      { label: "Aperture Sizes", value: "0.5 mm to 65 mm (Square, Slotted, Hexagonal)" },
       { label: "Hardness", value: "85° - 90° Shore A" },
-      { label: "Aperture Size", value: "0.5 mm to 45 mm (Square / Slotted)" },
-      { label: "Standard Size", value: "305 mm x 305 mm (12\" x 12\") / 300 mm x 600 mm" },
-      { label: "Panel Thickness", value: "30 mm - 50 mm" },
-      { label: "Mounting Type", value: "Pin & Leg Interlocking Snap-Fit" },
-      { label: "Usage / Application", value: "M-Sand Dewatering, Iron Ore, Coal & Aggregate Screening" },
+      { label: "Standard Size", value: "305 mm x 305 mm (1ft x 1ft) & 305 mm x 610 mm" },
+      { label: "Locking Type", value: "Pin & Sleeve, Snap-In, Bolted" },
+      { label: "Open Area", value: "Up to 42% High Flow" },
+      { label: "Usage / Application", value: "Vibrating Screens, Iron Ore, Coal, Quarry Aggregates" },
       { label: "Country of Origin", value: "Made in India" }
     ],
     features: [
-      "Self-relieving tapered aperture walls eliminate stone pegging and blinding",
-      "Significantly reduces operating noise compared to metallic wire mesh",
-      "Lightweight modular replacement lowers maintenance downtime",
-      "Extremely long wear life in both wet slurry and dry abrasive screening"
+      "Self-relieving tapered apertures eliminate particle pegging and blinding",
+      "Internal high-tensile steel skeleton prevents deck sagging under heavy feed",
+      "Abrasion resistance outlasts wire mesh screens by 6x to 10x",
+      "Lightweight modular units reduce screen frame fatigue and power consumption"
     ]
   },
   {
-    id: "pu-rollers",
+    id: "pu-coated-rollers",
     name: "Polyurethane Coated Rollers",
-    cat: "Material Handling",
-    price: "₹ 850",
+    cat: "Industrial Drive & Conveying",
+    categoryGroup: "Industrial & Mining Wear",
+    price: "₹ 2,400",
     unit: "/Piece",
-    minOrder: "2 Pieces",
+    minOrder: "1 Piece",
     supplier: "Sri Laxmi Ganapathi Enterprises",
     location: "Hyderabad, Telangana · 5 yrs",
     responseRate: "88% Response Rate",
@@ -146,6 +150,146 @@ const products = [
       "High coefficient of friction ensures positive belt drive without slipping",
       "Non-marking surface protects delicate finished products and conveyor belts",
       "Re-coating and re-grinding services available for existing metal cores"
+    ]
+  },
+  {
+    id: "pu-belt-scraper",
+    name: "Polyurethane Conveyor Belt Scraper",
+    cat: "Conveyor Cleaning Systems",
+    categoryGroup: "Industrial & Mining Wear",
+    price: "₹ 1,450",
+    unit: "/Piece",
+    minOrder: "1 Piece",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "89% Response Rate",
+    rating: "4.9",
+    reviews: "24",
+    views: [
+      { label: "Front View", src: "/pu-scraper-front.jpg" },
+      { label: "Back View", src: "/pu-scraper-back.jpg" }
+    ],
+    description: "Heavy-duty primary and secondary polyurethane belt cleaner blades engineered for high-speed bulk material conveyors in mining, cement, ports, and power plants. Cast from ultra-wear resistant polyurethane to ensure continuous carryback removal without belt scoring.",
+    specs: [
+      { label: "Blade Material", value: "Ultra High Wear Polyurethane (PU)" },
+      { label: "Hardness", value: "85° - 90° Shore A" },
+      { label: "Mounting Track", value: "Extruded Anodized Aluminum / Galvanized Steel" },
+      { label: "Blade Width", value: "450 mm to 2200 mm (Belt Width Specific)" },
+      { label: "Blade Height", value: "180 mm to 260 mm" },
+      { label: "Belt Speed", value: "Up to 5.0 m/s" },
+      { label: "Usage / Application", value: "Belt Conveyors, Mining, Cement, Coal Handling" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Beveled scraping profile ensures constant, uniform contact with conveyor belt",
+      "Integrated slotted aluminum track allows swift, slide-in blade replacements",
+      "Zero damage to belt top cover, cold vulcanized joints, or mechanical splices",
+      "High thermal stability and low coefficient of friction prevent heat degradation"
+    ]
+  },
+  {
+    id: "pu-hydrocyclone",
+    name: "Polyurethane Hydrocyclone Cone & Liner",
+    cat: "Mineral Separation & Dewatering",
+    categoryGroup: "Screening & Dewatering",
+    price: "₹ 3,200",
+    unit: "/Piece",
+    minOrder: "1 Piece",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "91% Response Rate",
+    rating: "4.8",
+    reviews: "14",
+    views: [
+      { label: "Front View", src: "/pu-hydrocyclone-front.jpg" },
+      { label: "Internal View", src: "/pu-hydrocyclone-back.jpg" }
+    ],
+    description: "Precision-molded cast polyurethane hydrocyclone cone assemblies engineered for solid-liquid slurry classification, desliming, and sand washing. Manufactured with premium prepolymers to resist extreme fine-particle slurry erosion in gold, iron ore, coal, and aggregate plants.",
+    specs: [
+      { label: "Material", value: "Hydrolysis-Resistant Cast Polyurethane" },
+      { label: "Hardness", value: "88° - 92° Shore A" },
+      { label: "Cone Diameter", value: "50 mm to 650 mm (Custom Sized)" },
+      { label: "Inlet Geometry", value: "Involute / Tangential Feed Inlet" },
+      { label: "Tensile Strength", value: "> 48 MPa" },
+      { label: "Flange Standard", value: "ANSI / DIN Compatible Flanges" },
+      { label: "Usage / Application", value: "Mineral Classification, Dewatering, Sand Washing" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Outlasts rubber and Ni-Hard metallic hydrocyclone liners by 3x to 5x",
+      "Smooth precision-cast inner vortex profile maximizes classification sharpness",
+      "Lightweight modular sections enable rapid on-site replacement with zero lifting cranes",
+      "Excellent resistance to acidic mineral slurries and harsh process chemicals"
+    ]
+  },
+  {
+    id: "pu-wear-sheet",
+    name: "Polyurethane Wear Sheets & Liners",
+    cat: "Wear & Impact Protection",
+    categoryGroup: "Industrial & Mining Wear",
+    price: "₹ 2,800",
+    unit: "/Sheet",
+    minOrder: "1 Sheet",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "94% Response Rate",
+    rating: "4.9",
+    reviews: "38",
+    views: [
+      { label: "Front View", src: "/pu-sheet-front.jpg" },
+      { label: "Back View", src: "/pu-sheet-back.jpg" }
+    ],
+    description: "Heavy-duty cast polyurethane wear liner plates with molded countersunk bolt apertures. Built to absorb devastating rock impact and abrasive sliding wear in chutes, hoppers, bins, transfer towers, and dump truck beds across mining and aggregate handling facilities.",
+    specs: [
+      { label: "Material", value: "High-Load Polyurethane (PU) Compound" },
+      { label: "Hardness", value: "90° ± 3 Shore A" },
+      { label: "Standard Thickness", value: "10 mm, 15 mm, 20 mm, 25 mm, 50 mm" },
+      { label: "Sheet Dimensions", value: "1000 x 2000 mm, 1200 x 2400 mm, Custom Cut" },
+      { label: "Fastening Type", value: "Counter-Sunk Bolt Holes / Steel Backing" },
+      { label: "Operating Temperature", value: "-35°C to +85°C" },
+      { label: "Usage / Application", value: "Hopper Lining, Chute Lining, Silos, Feeder Trays" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Drastically dampens impact noise and structural vibration in material transfer chutes",
+      "Low friction surface eliminates material hanging, bridging, and sticky caking",
+      "Recessed counter-sunk apertures protect bolt fasteners from abrasive rock contact",
+      "Flexible yet indestructible under repetitive high-tonnage aggregate drops"
+    ]
+  },
+  {
+    id: "m-sand-dewatering",
+    name: "M-Sand Polyurethane Dewatering Screen",
+    cat: "Aggregate Dewatering",
+    categoryGroup: "Screening & Dewatering",
+    price: "₹ 1,450",
+    unit: "/Piece",
+    minOrder: "4 Pieces",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "93% Response Rate",
+    rating: "4.9",
+    reviews: "27",
+    views: [
+      { label: "Front View", src: "/pu-dewatering-front.jpg" },
+      { label: "Back View", src: "/pu-dewatering-back.jpg" }
+    ],
+    description: "Fine aperture polyurethane dewatering screen panels engineered for high-frequency vibrating screens in M-Sand (manufactured sand) and aggregate washing plants. Features tapered self-relieving slot openings that prevent blinding, optimize water drainage, and ensure high throughput.",
+    specs: [
+      { label: "Material", value: "High-Rebound Wear-Resistant Polyurethane" },
+      { label: "Aperture Type", value: "Continuous Slotted (0.3 mm to 2.5 mm)" },
+      { label: "Hardness", value: "85° - 90° Shore A" },
+      { label: "Panel Size", value: "305 x 305 mm (12 x 12 in) / 305 x 610 mm" },
+      { label: "Frame Reinforcement", value: "Embedded High-Tensile Steel Wire Skeleton" },
+      { label: "Interlocking Type", value: "Pin and Leg / Snap-Fit Modular Locking" },
+      { label: "Usage / Application", value: "M-Sand Washing, Slurry Dewatering, Coal Screening" },
+      { label: "Country of Origin", value: "Made in India" }
+    ],
+    features: [
+      "Tapered trapezoidal slots prevent stone trapping and aperture blinding",
+      "High open area ratio maximizes slurry dewatering and moisture removal",
+      "Internal steel skeleton prevents sagging and distortion under heavy sand load",
+      "Quick snap-in modular replacement without dismantling entire screen deck"
     ]
   }
 ];
@@ -333,6 +477,19 @@ function App(){
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailProduct, setDetailProduct] = useState(null);
   const [detailViewIdx, setDetailViewIdx] = useState(0);
+  const [showAllProducts, setShowAllProducts] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = ["All", "Rock Breaker Parts", "Screening & Dewatering", "Industrial & Mining Wear"];
+
+  const filteredProducts = products.filter(p => {
+    if (activeCategory === "All") return true;
+    return p.categoryGroup === activeCategory;
+  });
+
+  const displayedProducts = (showAllProducts || activeCategory !== "All")
+    ? filteredProducts 
+    : filteredProducts.slice(0, 4);
 
   const handleOpenDetails = (product, initialView = 0) => {
     setDetailProduct(product);
@@ -393,8 +550,29 @@ function App(){
           <div><div className="eyebrow">OUR PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
           <p>Explore multi-angle views, engineering specifications, and custom-molded polyurethane solutions built to withstand heavy impacts and severe abrasive wear.</p>
         </div>
+
+        <div className="product-filter-tabs">
+          {categories.map(cat => {
+            const count = cat === "All" ? products.length : products.filter(p=>p.categoryGroup === cat).length;
+            return (
+              <button
+                key={cat}
+                type="button"
+                className={`filter-tab ${activeCategory === cat ? "active" : ""}`}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  if (cat !== "All") setShowAllProducts(true);
+                }}
+              >
+                <span>{cat === "All" ? "All Products" : cat}</span>
+                <span className="badge">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+
         <div className="product-grid">
-          {products.map((p) => (
+          {displayedProducts.map((p) => (
             <ProductCard 
               key={p.id} 
               p={p} 
@@ -403,7 +581,28 @@ function App(){
             />
           ))}
         </div>
-        <div className="center-link"><a href="#products">View complete product range <ArrowRight size={17}/></a></div>
+
+        <div className="center-link">
+          <button
+            type="button"
+            className="view-more-products-btn"
+            id="btn-view-complete-range"
+            onClick={() => {
+              if (activeCategory !== "All") {
+                setActiveCategory("All");
+                setShowAllProducts(true);
+              } else {
+                setShowAllProducts(!showAllProducts);
+              }
+            }}
+          >
+            {showAllProducts && activeCategory === "All" ? (
+              <>Show Featured Products Only <ChevronUp size={17}/></>
+            ) : (
+              <>View Complete Product Range ({products.length} Products) <ArrowRight size={17}/></>
+            )}
+          </button>
+        </div>
       </section>
 
       <section id="about" className="about-unified-section">
