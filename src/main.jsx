@@ -3,7 +3,7 @@ import {createRoot} from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
-  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Eye, Info
+  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info
 } from "lucide-react";
 import "./styles.css";
 
@@ -335,13 +335,6 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
             onClick={()=>onSelectContact(p)}
           >
             <Send size={14} style={{transform:"rotate(-20deg)"}} /> Contact Supplier
-          </button>
-          <button 
-            type="button" 
-            className="product-b2b-details-btn"
-            onClick={()=>onOpenDetails(p, viewIdx)}
-          >
-            <Eye size={14}/> View Specs & Details
           </button>
         </div>
 

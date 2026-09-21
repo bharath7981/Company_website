@@ -94,13 +94,10 @@ footer .logo::after{content:"LAKSHMI PU PADS";color:#fff}
 .product-b2b-price strong{font:800 22px Manrope;color:#111827}
 .product-b2b-price .unit{font-size:13.5px;color:#6b7280;font-weight:500}
 
-.product-b2b-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.product-b2b-contact-btn{background:#127b82;color:#fff;border:none;border-radius:6px;padding:11px 14px;font:700 14px Manrope;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.2s;width:100%}
+.product-b2b-actions{margin-bottom:14px}
+.product-b2b-contact-btn{background:#127b82;color:#fff;border:none;border-radius:6px;padding:12px 14px;font:700 14px Manrope;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.2s;width:100%}
 .product-b2b-contact-btn:hover{background:#0d6268;box-shadow:0 4px 12px rgba(18,123,130,.25)}
 .product-b2b-contact-btn.large{padding:14px 20px;font-size:15px}
-
-.product-b2b-details-btn{background:#f0fdfa;color:#127b82;border:1px solid #127b82;border-radius:6px;padding:9px 14px;font:700 13px Manrope;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:.2s;width:100%}
-.product-b2b-details-btn:hover{background:#ccfbf1;border-color:#0f6b71;color:#0f6b71}
 
 .product-b2b-supplier-info{border-top:1px solid #f3f4f6;padding-top:13px;margin-bottom:12px}
 .supplier-name{font:700 14px Manrope;color:#1f2937;margin-bottom:3px}
@@ -320,9 +317,8 @@ footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
   .product-b2b-body{padding:16px}
   .product-b2b-title{font-size:16px;min-height:auto;margin-bottom:8px}
   .product-b2b-price strong{font-size:20px}
-  .product-b2b-actions{gap:8px;margin-bottom:12px}
+  .product-b2b-actions{margin-bottom:12px}
   .product-b2b-contact-btn{padding:12px 14px;font-size:13.5px}
-  .product-b2b-details-btn{padding:11px 14px;font-size:13px}
   .view-more-products-btn{width:100%;max-width:340px;padding:13px 20px;font-size:13.5px;justify-content:center}
   .center-link{margin-top:32px}
 
