@@ -294,21 +294,48 @@ const products = [
   }
 ];
 
-function Logo({ onNavigate }){
+function Logo({ onNavigate, isFooter = false }){
+  if (isFooter) {
+    return (
+      <a 
+        className="logo" 
+        href="#home" 
+        onClick={(e)=>{
+          if (onNavigate) {
+            e.preventDefault();
+            onNavigate("home");
+          }
+        }} 
+        aria-label="Lakshmi PU Pads home"
+      >
+        <span className="footer-logo-title">LAKSHMI PU PADS</span>
+      </a>
+    );
+  }
+
   return (
-    <a 
-      className="logo" 
-      href="#home" 
-      onClick={(e)=>{
-        if (onNavigate) {
-          e.preventDefault();
-          onNavigate("home");
-        }
-      }} 
-      aria-label="Lakshmi PU Pads home"
-    >
-      <img src="/logo.png" alt="Lakshmi PU Pads" className="logo-img" />
-    </a>
+    <div className="brand-header-group">
+      <a 
+        className="logo" 
+        href="#home" 
+        onClick={(e)=>{
+          if (onNavigate) {
+            e.preventDefault();
+            onNavigate("home");
+          }
+        }} 
+        aria-label="Lakshmi PU Pads home"
+      >
+        <img src="/logo.png" alt="Lakshmi PU Pads" className="logo-img" />
+      </a>
+      <div className="company-location-badge">
+        <MapPin size={15} className="loc-icon" />
+        <div className="loc-text-col">
+          <span className="loc-city">Hyderabad, Telangana</span>
+          <span className="loc-sub">Manufacturer · India</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -845,39 +872,62 @@ function App(){
   };
 
   return <div className="app">
-    <div className="topbar"><div>Precision polyurethane pads & industrial components</div>      <div className="toplinks"><span><Phone size={13}/> +91 98765 43210</span><span><Mail size={13}/> info@lakshmipupads.com</span></div></div>
+    <div className="topbar">
+      <div className="topbar-left">
+        <span className="topbar-loc"><MapPin size={12}/> Hyderabad, Telangana</span>
+        <span className="topbar-sep">•</span>
+        <span>Precision Polyurethane Pads & Components Manufacturer</span>
+      </div>
+      <div className="toplinks">
+        <a href="tel:+919876543210"><Phone size={12}/> +91 98765 43210</a>
+        <a href="mailto:info@lakshmipupads.com"><Mail size={12}/> info@lakshmipupads.com</a>
+        <span className="topbar-verified">85% Response Rate</span>
+      </div>
+    </div>
 
     <header className="header">
       <Logo onNavigate={navigateTo}/>
-      <nav className={open ? "nav open":"nav"}>
-        <a 
-          href="#home" 
-          className={page === "home" ? "active" : ""}
-          onClick={(e)=>{ e.preventDefault(); navigateTo("home"); }}
-        >
-          Home
-        </a>
-        <a 
-          href="#all-products" 
-          className={page === "products" ? "active" : ""}
-          onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
-        >
-          Products
-        </a>
-        <a 
-          href="#about" 
-          onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
-        >
-          About
-        </a>
-        <a 
-          href="#contact" 
-          onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}
-        >
-          Contact
-        </a>
+
+      <div className="header-nav-and-contact">
+        <nav className={open ? "nav open":"nav"}>
+          <a 
+            href="#home" 
+            className={page === "home" ? "active" : ""}
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home"); }}
+          >
+            Home
+          </a>
+          <a 
+            href="#all-products" 
+            className={page === "products" ? "active" : ""}
+            onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
+          >
+            Products
+          </a>
+          <a 
+            href="#about" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
+          >
+            About
+          </a>
+          <a 
+            href="#contact" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}
+          >
+            Contact
+          </a>
+        </nav>
+
+        <div className="header-contact-direct">
+          <div className="hcd-icon"><Phone size={15}/></div>
+          <div className="hcd-info">
+            <span className="hcd-label">Call Supplier</span>
+            <a href="tel:+919876543210" className="hcd-phone">+91 98765 43210</a>
+          </div>
+        </div>
+
         <button className="nav-cta" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Request a Quote <ArrowUpRight size={17}/></button>
-      </nav>
+      </div>
       <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
     </header>
 
@@ -1044,7 +1094,7 @@ function App(){
     <footer>
       <div className="footer-main">
         <div>
-          <Logo onNavigate={navigateTo}/>
+          <Logo onNavigate={navigateTo} isFooter={true}/>
           <p>Engineered polyurethane pads and industrial solutions built for demanding applications.</p>
           <div className="socials"><span><Linkedin/></span><span><Instagram/></span></div>
         </div>
