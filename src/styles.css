@@ -170,35 +170,12 @@ footer .logo::after{content:"LAKSHMI PU PADS";color:#fff}
 .dropdown-empty-state p{margin:0 0 14px;font-size:14px}
 .dropdown-reset-btn{background:#127b82;color:#fff;border:none;border-radius:6px;padding:8px 16px;font:700 12px Manrope;cursor:pointer}
 
-.dropdown-item-row{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:center;padding:12px 18px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:.15s ease}
-.dropdown-item-row:last-child{border-bottom:none}
-.dropdown-item-row:hover{background:#f8fafc}
-.dropdown-item-row.selected{background:#f0fdfa;border-left:4px solid #127b82}
-.dd-thumb-box{width:60px;height:50px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px}
-.dd-thumb-box img{max-width:100%;max-height:100%;object-fit:contain}
-.dd-info-col{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dd-title-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.dd-product-name{font:700 14.5px Manrope;color:#0e202a}
-.dd-category-badge{background:#e2e8f0;color:#475569;font:600 10.5px Manrope;padding:2px 7px;border-radius:4px}
-.dd-specs-line{font-size:12px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dd-spec-divider{color:#cbd5e1;margin:0 4px}
-.dd-price-line{display:flex;align-items:baseline;gap:6px;font-size:12px;margin-top:2px}
-.dd-price{font-size:14px;color:#0e202a;font-family:Manrope}
-.dd-unit{color:#64748b;font-size:11.5px}
-.dd-min-order{color:#94a3b8;font-size:11px;margin-left:6px}
-.dd-status-col{text-align:right;flex-shrink:0}
-.dd-active-tag{display:inline-flex;align-items:center;gap:4px;background:#127b82;color:#fff;font:700 11px Manrope;padding:4px 10px;border-radius:12px}
-.dd-view-btn{font:700 12px Manrope;color:#127b82;transition:.15s}
-.dropdown-item-row:hover .dd-view-btn{color:#0d6268;text-decoration:underline}
-
-/* Quick Switch Strip */
-.quick-switch-wrapper{margin-bottom:28px}
-.quick-switch-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
-.quick-switch-chip{display:flex;align-items:center;gap:8px;padding:7px 14px;background:#fff;border:1.5px solid #e2e8f0;border-radius:30px;font:600 12.5px Manrope;color:#334155;cursor:pointer;transition:.2s;white-space:nowrap;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.03)}
-.quick-switch-chip img{width:22px;height:22px;object-fit:contain;border-radius:3px}
-.quick-switch-chip:hover{border-color:#127b82;color:#127b82}
-.quick-switch-chip.active{background:#127b82;border-color:#127b82;color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(18,123,130,.25)}
-.quick-switch-indicator{width:6px;height:6px;border-radius:50%;background:#E8A817;margin-left:2px}
+.dropdown-name-item{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f1f5f9;cursor:pointer;transition:all .15s ease;font:600 15px Manrope;color:#1e293b}
+.dropdown-name-item:last-child{border-bottom:none}
+.dropdown-name-item:hover{background:#f8fafc;color:#127b82;padding-left:24px}
+.dropdown-name-item.selected{background:#f0fdfa;color:#127b82;font-weight:700;border-left:4px solid #127b82}
+.dropdown-item-name{flex:1}
+.dropdown-item-selected-badge{display:inline-flex;align-items:center;gap:5px;background:#127b82;color:#fff;font:700 11.5px Manrope;padding:4px 10px;border-radius:12px;flex-shrink:0}
 
 /* Showcase Card */
 .product-showcase-card{background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 10px 40px rgba(14,32,42,.06);padding:36px}
@@ -411,10 +388,7 @@ footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
   .search-items-pill{display:none}
   .search-dropdown-toggle-btn{padding:6px 9px}
   .product-dropdown-menu{max-height:360px}
-  .dropdown-item-row{grid-template-columns:46px 1fr;gap:10px;padding:10px 12px}
-  .dd-thumb-box{width:46px;height:42px}
-  .dd-status-col{display:none}
-  .dd-product-name{font-size:13px}
+  .dropdown-name-item{padding:11px 14px;font-size:13.5px}
   .product-showcase-card{padding:20px 14px;border-radius:12px}
   .showcase-header{flex-direction:column;gap:12px;padding-bottom:16px;margin-bottom:20px}
   .showcase-header-right{align-items:flex-start}

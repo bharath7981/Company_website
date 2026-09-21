@@ -519,10 +519,6 @@ function ProductsPage({
   const currentProduct = products.find(p => p.id === selectedProdId) || filteredProducts[0] || products[0];
   const currentView = currentProduct?.views?.[activeViewIdx] || currentProduct?.views?.[0];
 
-  // Category products for the quick switch strip
-  const categoryProducts = activeCategory === "All" 
-    ? products 
-    : products.filter(p => p.categoryGroup === activeCategory);
 
   const handleSelectProduct = (product) => {
     setSelectedProdId(product.id);
@@ -595,11 +591,11 @@ function ProductsPage({
             </button>
           </div>
 
-          {/* Dropdown Menu showing all products with details */}
+          {/* Dropdown Menu showing all product names without images */}
           {isDropdownOpen && (
             <div className="product-dropdown-menu">
               <div className="dropdown-menu-header">
-                <span className="dm-title">SELECT A PRODUCT TO VIEW DETAILS</span>
+                <span className="dm-title">SELECT A PRODUCT</span>
                 <span className="dm-badge">{filteredProducts.length} Available</span>
               </div>
               <div className="dropdown-menu-list">
@@ -620,40 +616,18 @@ function ProductsPage({
                 ) : (
                   filteredProducts.map((p) => {
                     const isSelected = p.id === currentProduct?.id;
-                    const hardness = p.specs.find(s => s.label === "Hardness")?.value;
-                    const material = p.specs.find(s => s.label === "Material")?.value || p.cat;
                     return (
                       <div
                         key={p.id}
-                        className={`dropdown-item-row ${isSelected ? "selected" : ""}`}
+                        className={`dropdown-name-item ${isSelected ? "selected" : ""}`}
                         onClick={() => handleSelectProduct(p)}
                       >
-                        <div className="dd-thumb-box">
-                          <img src={p.views[0]?.src} alt={p.name} />
-                        </div>
-                        <div className="dd-info-col">
-                          <div className="dd-title-line">
-                            <span className="dd-product-name">{p.name}</span>
-                            <span className="dd-category-badge">{p.categoryGroup}</span>
-                          </div>
-                          <div className="dd-specs-line">
-                            <span>{material}</span>
-                            {hardness && <span className="dd-spec-divider">·</span>}
-                            {hardness && <span>{hardness}</span>}
-                          </div>
-                          <div className="dd-price-line">
-                            <strong className="dd-price">{p.price}</strong>
-                            <span className="dd-unit">{p.unit}</span>
-                            <span className="dd-min-order">Min. Order: {p.minOrder}</span>
-                          </div>
-                        </div>
-                        <div className="dd-status-col">
-                          {isSelected ? (
-                            <span className="dd-active-tag"><Check size={14} /> Selected</span>
-                          ) : (
-                            <span className="dd-view-btn">View Details →</span>
-                          )}
-                        </div>
+                        <span className="dropdown-item-name">{p.name}</span>
+                        {isSelected && (
+                          <span className="dropdown-item-selected-badge">
+                            <Check size={14} /> Selected
+                          </span>
+                        )}
                       </div>
                     );
                   })
@@ -693,30 +667,6 @@ function ProductsPage({
 
       {/* Selected Product Details Showcase */}
       <section className="section products-section" style={{paddingTop: "32px"}}>
-        {/* Quick-switch product chips */}
-        <div className="quick-switch-wrapper">
-          <div className="quick-switch-strip">
-            {categoryProducts.map((p) => {
-              const isSelected = p.id === currentProduct?.id;
-              return (
-                <button
-                  key={p.id}
-                  type="button"
-                  className={`quick-switch-chip ${isSelected ? "active" : ""}`}
-                  onClick={() => {
-                    setSelectedProdId(p.id);
-                    setActiveViewIdx(0);
-                  }}
-                >
-                  <img src={p.views[0]?.src} alt={p.name} />
-                  <span className="quick-switch-name">{p.name}</span>
-                  {isSelected && <span className="quick-switch-indicator" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         {/* Main Product Showcase Card */}
         {currentProduct && (
           <div className="product-showcase-card">
