@@ -263,18 +263,110 @@ footer .logo{font-family:Manrope;font-size:18px;font-weight:800;letter-spacing:.
 .about-stat-box strong{font:800 36px/1 Manrope;color:#fff;margin:18px 0 6px}
 .about-stat-box span{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#899da7}
 
-.about-applications-block{padding-top:70px}
-.about-applications-block .section-head h2{color:#fff}
-.about-applications-block .section-head p{color:#9db0b9}
-.about-app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-@media(max-width:1024px){.about-app-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.about-app-grid{grid-template-columns:1fr}}
+/* ── Company Ratings & Reviews Section ── */
+.company-ratings-section{padding:90px 5.5%;background:#091820;color:#fff;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.company-ratings-section .eyebrow{color:#E8A817}
+.company-ratings-section .eyebrow span{background:#E8A817}
+.company-ratings-section .section-head h2{color:#fff}
+.company-ratings-section .section-head p{color:#9db0b9}
 
-.about-app-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column;transition:.25s}
-.about-app-card:hover{background:rgba(255,255,255,.07);border-color:#E8A817;transform:translateY(-5px)}
-.app-badge{font:800 11px Manrope;color:#E8A817;letter-spacing:.08em;margin-bottom:12px}
-.about-app-card h3{font:700 20px Manrope;color:#fff;margin:0 0 10px}
-.about-app-card p{font-size:13px;color:#899da7;line-height:1.6;margin:0}
+/* Main Scorecard Card */
+.ratings-scorecard-card{background:linear-gradient(135deg,rgba(18,35,46,.95) 0%,rgba(10,24,33,.95) 100%);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:34px 38px;display:grid;grid-template-columns:1.15fr 1fr 1.15fr;gap:36px;align-items:center;box-shadow:0 20px 50px rgba(0,0,0,.35);margin-bottom:38px}
+
+/* Left: Score Box */
+.scorecard-left{display:flex;flex-direction:column;gap:12px;border-right:1px solid rgba(255,255,255,.08);padding-right:30px}
+.scorecard-score-box{display:flex;align-items:center;gap:18px}
+.scorecard-big-num{font:800 68px/1 Manrope;color:#fff;letter-spacing:-.04em}
+.scorecard-score-sub{display:flex;flex-direction:column;gap:5px}
+.scorecard-out-of{font-size:12px;color:#899da7;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.scorecard-stars{display:flex;gap:3px}
+.star-icon-filled{color:#E8A817;filter:drop-shadow(0 2px 6px rgba(232,168,23,.35))}
+
+.scorecard-total-reviews strong{display:block;font:700 15px Manrope;color:#fff;margin-bottom:2px}
+.scorecard-total-reviews span{font-size:12.5px;color:#899da7}
+
+.scorecard-badges-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.sc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px;font:700 11px Manrope;color:#e2e8f0}
+.sc-badge-icon{color:#10b981}
+
+/* Center: Star Distribution */
+.scorecard-center{border-right:1px solid rgba(255,255,255,.08);padding-right:30px}
+.distribution-title{font:700 12px Manrope;color:#899da7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.distribution-rows{display:flex;flex-direction:column;gap:8px}
+.dist-row{display:flex;align-items:center;gap:10px;font-size:12px}
+.dist-label{width:46px;color:#cbd5e1;font-weight:600;font-size:11.5px}
+.dist-bar-track{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.dist-bar-fill{height:100%;background:linear-gradient(90deg,#E8A817,#f59e0b);border-radius:4px}
+.dist-pct{width:32px;text-align:right;font-weight:700;color:#fff;font-size:11.5px}
+.dist-count{color:#899da7;font-size:11px}
+
+/* Right: Key Performance Pillars */
+.scorecard-right{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+.pillar-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px}
+.pillar-num{font:800 20px Manrope;color:#E8A817;margin-bottom:4px}
+.pillar-text b{display:block;font-size:12px;color:#fff;line-height:1.2;margin-bottom:2px}
+.pillar-text span{display:block;font-size:10.5px;color:#899da7;line-height:1.35}
+
+/* Filter & Action Bar */
+.ratings-filter-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.ratings-filter-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.ratings-tab{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:8px 16px;font:700 12.5px Manrope;color:#cbd5e1;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.ratings-tab:hover{background:rgba(255,255,255,.1);color:#fff}
+.ratings-tab.active{background:#E8A817;color:#0e202a;border-color:#E8A817;box-shadow:0 4px 14px rgba(232,168,23,.3)}
+.ratings-tab-badge{background:rgba(255,255,255,.15);padding:1px 6px;border-radius:10px;font-size:11px}
+.ratings-tab.active .ratings-tab-badge{background:rgba(0,0,0,.15);color:#0e202a}
+
+.write-review-btn{background:#127b82;color:#fff;border:none;border-radius:24px;padding:9px 20px;font:700 13px Manrope;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:.2s;box-shadow:0 4px 14px rgba(18,123,130,.3)}
+.write-review-btn:hover{background:#0e6066;transform:translateY(-2px)}
+
+/* Reviews Grid */
+.reviews-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:1100px){.reviews-cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.reviews-cards-grid{grid-template-columns:1fr}}
+
+.review-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:.25s ease}
+.review-card:hover{background:rgba(255,255,255,.06);border-color:#E8A817;transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+
+.review-card-header{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.reviewer-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#E8A817,#b47b0a);color:#0e202a;font:800 14px Manrope;display:grid;place-items:center;flex-shrink:0}
+.reviewer-info{display:flex;flex-direction:column}
+.reviewer-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.reviewer-name{font:700 15px Manrope;color:#fff;margin:0}
+.verified-buyer-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.15);color:#34d399;font:700 10.5px Manrope;padding:2px 8px;border-radius:10px;border:1px solid rgba(16,185,129,.25)}
+.reviewer-role{font-size:12px;color:#94a3b8;margin-top:2px}
+.reviewer-loc{font-size:11.5px;color:#64748b;display:flex;align-items:center;gap:4px;margin-top:2px}
+
+.review-card-meta{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:12px}
+.review-stars-row{display:flex;align-items:center;gap:4px}
+.review-rating-num{font:800 12.5px Manrope;color:#E8A817;margin-left:4px}
+.review-date{font-size:11px;color:#64748b}
+
+.review-product-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:4px 10px;font-size:11.5px;margin-bottom:12px}
+.review-product-tag .tag-label{color:#899da7}
+.review-product-tag .tag-val{color:#E8A817;font-weight:700}
+
+.review-headline{font:700 15px/1.35 Manrope;color:#fff;margin:0 0 8px}
+.review-comment{font-size:13px;color:#94a3b8;line-height:1.65;margin:0}
+
+/* Guarantee Banner */
+.ratings-guarantee-banner{margin-top:36px;background:rgba(18,123,130,.12);border:1px solid rgba(18,123,130,.3);border-radius:12px;padding:24px 30px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.guarantee-left{display:flex;align-items:center;gap:18px}
+.guarantee-icon{color:#127b82;flex-shrink:0}
+.guarantee-left h4{font:800 16px Manrope;color:#fff;margin:0 0 4px}
+.guarantee-left p{font-size:13px;color:#9db0b9;margin:0;max-width:680px;line-height:1.5}
+.guarantee-actions .primary-btn{flex-shrink:0}
+
+/* Write Review Modal Styles */
+.review-submission-modal{width:min(580px,94vw);border-radius:14px;padding:38px}
+.rating-select-group{margin-bottom:18px;display:flex;flex-direction:column;gap:8px}
+.rating-select-label{font:700 13px Manrope;color:#0e202a}
+.interactive-stars{display:flex;align-items:center;gap:8px}
+.star-select-btn{background:none;border:none;padding:0;cursor:pointer;transition:.15s}
+.star-select-btn:hover{transform:scale(1.15)}
+.star-selected-text{font:800 14px Manrope;color:#E8A817;margin-left:6px}
+.review-success-state{text-align:center;padding:24px 10px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.review-success-state h3{font:800 22px Manrope;color:#0e202a;margin:0}
+.review-success-state p{font-size:14px;color:#475569;margin:0}
 
 /* ── Contact ── */
 .contact-section{padding:115px 5.5%;display:grid;grid-template-columns:.9fr 1.1fr;gap:110px;background:#fff}
@@ -428,9 +520,16 @@ footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
   .about-stats-card-grid{grid-template-columns:1fr;gap:10px}
   .about-stat-box{padding:20px 18px}
   .about-stat-box strong{font-size:30px;margin:12px 0 4px}
-  .about-applications-block{padding-top:40px}
-  .about-app-grid{grid-template-columns:1fr;gap:14px}
-  .about-app-card{padding:20px 18px}
+  /* Company Ratings Mobile */
+  .company-ratings-section{padding:55px 4%}
+  .ratings-scorecard-card{grid-template-columns:1fr;padding:22px 18px;gap:22px}
+  .scorecard-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding-right:0;padding-bottom:20px}
+  .scorecard-center{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding-right:0;padding-bottom:20px}
+  .scorecard-right{grid-template-columns:1fr 1fr;gap:10px}
+  .ratings-filter-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;width:100%}
+  .ratings-tab{white-space:nowrap;flex-shrink:0}
+  .ratings-guarantee-banner{flex-direction:column;align-items:flex-start;padding:20px 18px}
+  .ratings-guarantee-banner .primary-btn{width:100%;justify-content:center}
 
   /* Contact & Quote Modal Mobile */
   .contact-section{padding:55px 4%;grid-template-columns:1fr;gap:35px}

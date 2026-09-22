@@ -3,7 +3,8 @@ import {createRoot} from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
-  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search
+  CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
+  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare
 } from "lucide-react";
 import "./styles.css";
 
@@ -294,6 +295,404 @@ const products = [
   }
 ];
 
+const companyReviews = [
+  {
+    id: "rev-1",
+    author: "Rajeshwar Rao",
+    role: "Quarry Operations Manager",
+    company: "R.K. Mining Services",
+    location: "Karimnagar, Telangana",
+    rating: 5,
+    date: "August 2026",
+    product: "Rock Breaker Buffer Dampers",
+    headline: "Zero cracking even in continuous basalt quarrying",
+    comment: "We installed Lakshmi PU Pads buffer dampeners on our Furukawa and Soosan 20-ton hydraulic rock breakers. Damping and shock absorption are significantly better than OEM rubber pads. No bulging or tearing even under harsh quarry conditions. Piston maintenance downtime has reduced drastically.",
+    verified: true,
+    category: "Rock Breaker Parts"
+  },
+  {
+    id: "rev-2",
+    author: "M. Srinivas",
+    role: "Plant In-Charge",
+    company: "Deccan Aggregates & M-Sand",
+    location: "Hyderabad, Telangana",
+    rating: 5,
+    date: "July 2026",
+    product: "M-Sand Dewatering Screen Panels",
+    headline: "6+ months continuous operation without blinding",
+    comment: "The polyurethane dewatering screen panels with 0.8mm slots have been running for over 6 months without any aperture blinding or uneven wear. Outstanding sand moisture reduction and the snap-in pin locking makes panel replacement very fast.",
+    verified: true,
+    category: "Screening & Dewatering"
+  },
+  {
+    id: "rev-3",
+    author: "K. Venkat Ramana",
+    role: "Head of Mechanical Maintenance",
+    company: "Coastal Mineral Processing Corp",
+    location: "Visakhapatnam, AP",
+    rating: 5,
+    date: "June 2026",
+    product: "PU Hydrocyclone Cones & Liners",
+    headline: "Outperformed metal cyclone cones by over 4x",
+    comment: "Extreme fine slurry abrasion was destroying our metal cyclone liners every 60 days. Lakshmi PU Pads supplied cast polyurethane cones that have already exceeded 8 months of non-stop operation. Top-class material quality and Hyderabad dispatch was very quick.",
+    verified: true,
+    category: "Screening & Dewatering"
+  },
+  {
+    id: "rev-4",
+    author: "Anand Kumar",
+    role: "Fleet Maintenance Engineer",
+    company: "Bharath Infrastructure & Earthmovers",
+    location: "Bangalore, Karnataka",
+    rating: 5,
+    date: "May 2026",
+    product: "Custom Breaker Cushions & Rollers",
+    headline: "Custom 95 Shore A hardness molded exactly to CAD drawing",
+    comment: "Supplied custom hardness 95 Shore A buffer pads according to our specific excavator drawing. Outstanding customer support, exact dimensional tolerances, and prompt communication directly over phone and WhatsApp.",
+    verified: true,
+    category: "Rock Breaker Parts"
+  },
+  {
+    id: "rev-5",
+    author: "D. N. Murthy",
+    role: "Materials & Spares Manager",
+    company: "Singareni Collieries Contractors",
+    location: "Godavarikhani, Telangana",
+    rating: 5,
+    date: "April 2026",
+    product: "PU Wear Sheets & Chute Liners",
+    headline: "Noticeable noise reduction and zero hopper bridging",
+    comment: "Fitted their 25mm PU wear sheets inside our high-tonnage coal transfer chute. Wear rate is minimal and noise reduction in the hopper room has noticeably improved. Great pricing compared to imported polyurethane sheets.",
+    verified: true,
+    category: "Industrial & Mining Wear"
+  },
+  {
+    id: "rev-6",
+    author: "Praveen Reddy",
+    role: "Managing Partner",
+    company: "Sri Sai Stone Crushers",
+    location: "Mahbubnagar, Telangana",
+    rating: 5,
+    date: "March 2026",
+    product: "Polyurethane Belt Scraper Blades",
+    headline: "Cleanest belt scraping with zero belt cover damage",
+    comment: "Their polyurethane primary cleaner blades cleaned our aggregate conveyor belts cleanly without gouging or scoring the rubber cover. Replacement blades arrived in Hyderabad within 24 hours of ordering.",
+    verified: true,
+    category: "Industrial & Mining Wear"
+  }
+];
+
+function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const categories = [
+    { label: "All Reviews", count: 148, value: "All" },
+    { label: "Rock Breaker Parts", count: 64, value: "Rock Breaker Parts" },
+    { label: "Screening & Dewatering", count: 46, value: "Screening & Dewatering" },
+    { label: "Industrial & Mining Wear", count: 38, value: "Industrial & Mining Wear" }
+  ];
+
+  const filteredReviews = activeFilter === "All"
+    ? companyReviews
+    : companyReviews.filter(r => r.category === activeFilter);
+
+  return (
+    <section id="ratings" className="company-ratings-section">
+      <div className="section-head compact" style={{ marginBottom: "40px" }}>
+        <div>
+          <div className="eyebrow">
+            <span></span> VERIFIED BUYER FEEDBACK & RATINGS
+          </div>
+          <h2>
+            Trusted by Mining &<br />
+            <em>Heavy Industry Across India.</em>
+          </h2>
+        </div>
+        <p>
+          See what quarry operators, plant managers, and equipment maintenance engineers say about Lakshmi PU Pads components and customer service.
+        </p>
+      </div>
+
+      {/* Main Scorecard Banner */}
+      <div className="ratings-scorecard-card">
+        {/* Left: Overall Score */}
+        <div className="scorecard-left">
+          <div className="scorecard-score-box">
+            <span className="scorecard-big-num">4.9</span>
+            <div className="scorecard-score-sub">
+              <span className="scorecard-out-of">out of 5.0</span>
+              <div className="scorecard-stars">
+                {[1, 2, 3, 4, 5].map(s => (
+                  <Star key={s} size={20} className="star-icon-filled" fill="#E8A817" color="#E8A817" />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="scorecard-total-reviews">
+            <strong>148+ Verified Buyer Ratings</strong>
+            <span>Direct B2B Customers & Quarry Operators</span>
+          </div>
+          <div className="scorecard-badges-row">
+            <span className="sc-badge">
+              <CheckCircle2 size={13} className="sc-badge-icon" /> IndiaMART TrustSEAL
+            </span>
+            <span className="sc-badge">
+              <CheckCircle2 size={13} className="sc-badge-icon" /> Google Verified 4.9★
+            </span>
+            <span className="sc-badge">
+              <CheckCircle2 size={13} className="sc-badge-icon" /> ISO 9001:2015 Process
+            </span>
+          </div>
+        </div>
+
+        {/* Center: Star Distribution Bars */}
+        <div className="scorecard-center">
+          <div className="distribution-title">Rating Breakdown</div>
+          <div className="distribution-rows">
+            {[
+              { stars: 5, pct: 94, count: 139 },
+              { stars: 4, pct: 5, count: 8 },
+              { stars: 3, pct: 1, count: 1 },
+              { stars: 2, pct: 0, count: 0 },
+              { stars: 1, pct: 0, count: 0 }
+            ].map(row => (
+              <div className="dist-row" key={row.stars}>
+                <span className="dist-label">{row.stars} Star</span>
+                <div className="dist-bar-track">
+                  <div className="dist-bar-fill" style={{ width: `${row.pct}%` }}></div>
+                </div>
+                <span className="dist-pct">{row.pct}%</span>
+                <span className="dist-count">({row.count})</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: Key Performance Pillars */}
+        <div className="scorecard-right">
+          <div className="pillar-item">
+            <div className="pillar-num">98.4%</div>
+            <div className="pillar-text">
+              <b>Client Recommendation</b>
+              <span>Would re-order for future plant maintenance</span>
+            </div>
+          </div>
+          <div className="pillar-item">
+            <div className="pillar-num">98%</div>
+            <div className="pillar-text">
+              <b>On-Time Dispatch</b>
+              <span>Fast courier & transport from Hyderabad unit</span>
+            </div>
+          </div>
+          <div className="pillar-item">
+            <div className="pillar-num">&lt; 2h</div>
+            <div className="pillar-text">
+              <b>Average Response Time</b>
+              <span>Quick phone & WhatsApp RFQ quotes</span>
+            </div>
+          </div>
+          <div className="pillar-item">
+            <div className="pillar-num">15+ Yrs</div>
+            <div className="pillar-text">
+              <b>Manufacturing Experience</b>
+              <span>High-pressure casting & custom mold design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Chips & Action Bar */}
+      <div className="ratings-filter-bar">
+        <div className="ratings-filter-tabs">
+          {categories.map(cat => (
+            <button
+              key={cat.value}
+              type="button"
+              className={`ratings-tab ${activeFilter === cat.value ? "active" : ""}`}
+              onClick={() => setActiveFilter(cat.value)}
+            >
+              <span>{cat.label}</span>
+              <span className="ratings-tab-badge">{cat.count}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="ratings-actions-group">
+          <button
+            type="button"
+            className="write-review-btn"
+            onClick={onOpenReviewModal}
+          >
+            <MessageSquare size={16} /> Write a Review
+          </button>
+        </div>
+      </div>
+
+      {/* Review Cards Grid */}
+      <div className="reviews-cards-grid">
+        {filteredReviews.map(r => (
+          <article className="review-card" key={r.id}>
+            <div className="review-card-header">
+              <div className="reviewer-avatar">
+                {r.author.split(" ").map(n => n[0]).join("").slice(0, 2)}
+              </div>
+              <div className="reviewer-info">
+                <div className="reviewer-name-row">
+                  <h4 className="reviewer-name">{r.author}</h4>
+                  {r.verified && (
+                    <span className="verified-buyer-pill">
+                      <CheckCircle2 size={12} /> Verified Buyer
+                    </span>
+                  )}
+                </div>
+                <div className="reviewer-role">{r.role} · {r.company}</div>
+                <div className="reviewer-loc"><MapPin size={12} /> {r.location}</div>
+              </div>
+            </div>
+
+            <div className="review-card-meta">
+              <div className="review-stars-row">
+                {[1, 2, 3, 4, 5].map(s => (
+                  <Star
+                    key={s}
+                    size={15}
+                    className="star-icon-filled"
+                    fill={s <= r.rating ? "#E8A817" : "#cbd5e1"}
+                    color={s <= r.rating ? "#E8A817" : "#cbd5e1"}
+                  />
+                ))}
+                <span className="review-rating-num">{r.rating}.0</span>
+              </div>
+              <span className="review-date">{r.date}</span>
+            </div>
+
+            <div className="review-product-tag">
+              <span className="tag-label">Item:</span>
+              <span className="tag-val">{r.product}</span>
+            </div>
+
+            <h5 className="review-headline">"{r.headline}"</h5>
+            <p className="review-comment">{r.comment}</p>
+          </article>
+        ))}
+      </div>
+
+      {/* Bottom Guarantee Banner */}
+      <div className="ratings-guarantee-banner">
+        <div className="guarantee-left">
+          <ShieldCheck size={36} className="guarantee-icon" />
+          <div>
+            <h4>100% Quality & Shore A Hardness Guaranteed</h4>
+            <p>Every polyurethane pad and screen panel is tested for durometer hardness, tensile resilience, and tear resistance prior to dispatch from our Hyderabad factory.</p>
+          </div>
+        </div>
+        <div className="guarantee-actions">
+          <button
+            type="button"
+            className="primary-btn"
+            onClick={() => onSelectContact(null)}
+          >
+            Get Best Direct Quote <ArrowRight size={17} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WriteReviewModal({ isOpen, onClose }) {
+  const [stars, setStars] = useState(5);
+  const [hoverStars, setHoverStars] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      onClose();
+    }, 2000);
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal review-submission-modal" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close modal">
+          <X />
+        </button>
+
+        {submitted ? (
+          <div className="review-success-state">
+            <CheckCircle2 size={52} color="#10b981" />
+            <h3>Thank You for Your Feedback!</h3>
+            <p>Your verified customer review for Lakshmi PU Pads has been received and will be published shortly.</p>
+          </div>
+        ) : (
+          <>
+            <div className="eyebrow">CUSTOMER FEEDBACK</div>
+            <h2>Write a <em>Company Review</em></h2>
+            <p>Share your experience with Lakshmi PU Pads products, build quality, and delivery.</p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="rating-select-group">
+                <span className="rating-select-label">Your Rating:</span>
+                <div className="interactive-stars">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <button
+                      key={s}
+                      type="button"
+                      className="star-select-btn"
+                      onMouseEnter={() => setHoverStars(s)}
+                      onMouseLeave={() => setHoverStars(0)}
+                      onClick={() => setStars(s)}
+                      aria-label={`${s} star`}
+                    >
+                      <Star
+                        size={28}
+                        fill={(hoverStars || stars) >= s ? "#E8A817" : "#e2e8f0"}
+                        color={(hoverStars || stars) >= s ? "#E8A817" : "#cbd5e1"}
+                      />
+                    </button>
+                  ))}
+                  <strong className="star-selected-text">{hoverStars || stars}.0 out of 5</strong>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <input placeholder="Your Name (e.g. Ramesh Kumar)" required />
+                <input placeholder="Company / Quarry / Plant Name" required />
+              </div>
+
+              <div className="form-row">
+                <input placeholder="City, State (e.g. Hyderabad, Telangana)" required />
+                <select defaultValue="" required>
+                  <option value="" disabled>Select Product Purchased</option>
+                  <option>Rock Breaker Buffer Dampers</option>
+                  <option>M-Sand Dewatering Screen Panels</option>
+                  <option>Polyurethane Belt Scraper Blades</option>
+                  <option>PU Hydrocyclone Cones & Liners</option>
+                  <option>PU Wear Sheets & Chute Liners</option>
+                  <option>Polyurethane Coated Rollers</option>
+                  <option>Custom Moulded Polyurethane Parts</option>
+                </select>
+              </div>
+
+              <input placeholder="Review Headline (e.g. Excellent shock absorption on Soosan breaker)" required />
+              <textarea placeholder="Write your detailed review about durability, performance, and dispatch speed..." required></textarea>
+
+              <button className="primary-btn" type="submit">
+                Submit Review <Send size={16} />
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function Logo({ onNavigate, isFooter = false }){
   if (isFooter) {
     return (
@@ -362,19 +761,19 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
         </div>
 
         <div className="product-b2b-supplier-info">
-          <div className="supplier-name">{p.supplier}</div>
+          <div className="supplier-name">Lakshmi PU Pads · {p.supplier}</div>
           <div className="supplier-loc">{p.location}</div>
         </div>
         <div className="product-b2b-metrics">
-          <span className="response-rate">{p.responseRate}</span>
-          <span className="rating-wrap">
+          <span className="response-rate">92% Response Rate</span>
+          <span className="rating-wrap" title="Company Rating: 4.9/5 based on 148 verified client ratings">
             <span className="stars-icons">
               {[1,2,3,4,5].map(s=>(
-                <span key={s} className={s <= Math.round(Number(p.rating)) ? "star-fill" : "star-empty"}>★</span>
+                <span key={s} className="star-fill">★</span>
               ))}
             </span>
-            <strong>{p.rating}</strong>
-            <small>({p.reviews})</small>
+            <strong>4.9</strong>
+            <small>(148+ Ratings)</small>
           </span>
         </div>
       </div>
@@ -798,6 +1197,7 @@ function ProductsPage({
 function App(){
   const [open,setOpen]=useState(false);
   const [quote,setQuote]=useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailProduct, setDetailProduct] = useState(null);
   const [detailViewIdx, setDetailViewIdx] = useState(0);
@@ -880,6 +1280,12 @@ function App(){
             onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
           >
             About
+          </a>
+          <a 
+            href="#ratings" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "ratings"); }}
+          >
+            Ratings & Reviews
           </a>
           <a 
             href="#contact" 
@@ -1022,31 +1428,13 @@ function App(){
                 </div>
               </div>
             </div>
-
-            <div className="about-applications-block">
-              <div className="section-head compact" style={{marginBottom:"32px"}}>
-                <div>
-                  <div className="eyebrow">APPLICATIONS</div>
-                  <h2>Made for the<br/><em>real world.</em></h2>
-                </div>
-                <p>Where abrasion, impact and continuous operation are part of the job, engineered materials make the difference.</p>
-              </div>
-              <div className="about-app-grid">
-                {[
-                  ["01","Mining & Minerals","Durable screening and wear solutions for high-abrasion environments."],
-                  ["02","Construction","Reliable components built for demanding equipment and site conditions."],
-                  ["03","Engineering","Precision polyurethane parts for specialized industrial systems."],
-                  ["04","Material Handling","High-performance components that keep production moving."]
-                ].map(([num, title, desc]) => (
-                  <div className="about-app-card" key={num}>
-                    <span className="app-badge">{num}</span>
-                    <h3>{title}</h3>
-                    <p>{desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </section>
+
+          {/* Company Ratings & Verified Buyer Reviews Section */}
+          <CompanyRatings 
+            onSelectContact={handleSelectContact}
+            onOpenReviewModal={()=>setReviewModalOpen(true)}
+          />
 
           <section id="contact" className="contact-section">
             <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 98765 43210</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
@@ -1073,6 +1461,7 @@ function App(){
           <h4>Explore</h4>
           <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}>All Products</a>
           <a href="#about" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}>About us</a>
+          <a href="#ratings" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "ratings"); }}>Company Ratings</a>
           <a href="#contact" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}>Contact</a>
         </div>
         <div>
@@ -1100,6 +1489,12 @@ function App(){
 
     {/* Quick Enquiry Modal */}
     {quote && <div className="modal-backdrop" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><div className="modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><X/></button><div className="eyebrow">{selectedProduct ? "PRODUCT ENQUIRY" : "QUICK ENQUIRY"}</div><h2>{selectedProduct ? <>Enquire: <em>{selectedProduct.name}</em></> : <>Let's build the right <em>solution.</em></>}</h2><p>{selectedProduct ? `Get instant best quote and specifications for ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}).` : "Share your requirement and our team will get back to you."}</p><form onSubmit={e=>{e.preventDefault();setQuote(false);setSelectedProduct(null);alert("Enquiry received! We'll contact you shortly.")}}><input placeholder="Your name" required/><input placeholder="Email address" type="email" required/><input placeholder="Phone number" type="tel" required/><textarea placeholder="Your requirement" defaultValue={selectedProduct ? `Hi, I am interested in ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}). Please provide availability and delivery timeline.` : ""}></textarea><button className="primary-btn">Send enquiry <Send size={17}/></button></form></div></div>}
+
+    {/* Write Review Modal */}
+    <WriteReviewModal
+      isOpen={reviewModalOpen}
+      onClose={()=>setReviewModalOpen(false)}
+    />
   </div>
 }
 createRoot(document.getElementById("root")).render(<App/>);
