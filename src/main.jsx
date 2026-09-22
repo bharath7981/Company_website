@@ -340,29 +340,13 @@ function Logo({ onNavigate, isFooter = false }){
 }
 
 function ProductCard({ p, onSelectContact, onOpenDetails }){
-  const [viewIdx, setViewIdx] = useState(0);
-  const currentView = p.views[viewIdx] || p.views[0];
-
   return (
     <article className="product-b2b-card" key={p.id}>
-      <div className="product-b2b-img-wrap" onClick={()=>onOpenDetails(p, viewIdx)}>
-        <img src={currentView.src} alt={`${p.name} - ${currentView.label}`} className="product-b2b-img" />
-        <div className="view-angle-badge">{currentView.label}</div>
-        <div className="view-switcher-chips" onClick={e=>e.stopPropagation()}>
-          {p.views.map((v, i) => (
-            <button
-              key={v.label}
-              type="button"
-              className={`view-chip ${viewIdx === i ? "active" : ""}`}
-              onClick={()=>setViewIdx(i)}
-            >
-              {v.label}
-            </button>
-          ))}
-        </div>
+      <div className="product-b2b-img-wrap" onClick={()=>onOpenDetails(p, 0)}>
+        <img src={p.views[0]?.src} alt={p.name} className="product-b2b-img" />
       </div>
       <div className="product-b2b-body">
-        <h3 className="product-b2b-title" onClick={()=>onOpenDetails(p, viewIdx)}>{p.name}</h3>
+        <h3 className="product-b2b-title" onClick={()=>onOpenDetails(p, 0)}>{p.name}</h3>
         <div className="product-b2b-price">
           <strong>{p.price}</strong> <span className="unit">{p.unit}</span>
         </div>
