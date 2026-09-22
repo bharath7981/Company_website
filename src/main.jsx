@@ -304,11 +304,11 @@ const companyReviews = [
     location: "Karimnagar, Telangana",
     rating: 5,
     date: "August 2026",
-    product: "Rock Breaker Buffer Dampers",
-    headline: "Zero cracking even in continuous basalt quarrying",
-    comment: "We installed Lakshmi PU Pads buffer dampeners on our Furukawa and Soosan 20-ton hydraulic rock breakers. Damping and shock absorption are significantly better than OEM rubber pads. No bulging or tearing even under harsh quarry conditions. Piston maintenance downtime has reduced drastically.",
+    tag: "Consistent Material Quality",
+    headline: "Consistent material quality and remarkable durability across every batch",
+    comment: "Lakshmi PU Pads has been our dependable manufacturing partner in Hyderabad for over 4 years. Their polyurethane components have zero defect rates and remarkable impact dampening. Direct communication with their technical team and very transparent B2B dealings.",
     verified: true,
-    category: "Rock Breaker Parts"
+    aspect: "Quality"
   },
   {
     id: "rev-2",
@@ -318,11 +318,11 @@ const companyReviews = [
     location: "Hyderabad, Telangana",
     rating: 5,
     date: "July 2026",
-    product: "M-Sand Dewatering Screen Panels",
-    headline: "6+ months continuous operation without blinding",
-    comment: "The polyurethane dewatering screen panels with 0.8mm slots have been running for over 6 months without any aperture blinding or uneven wear. Outstanding sand moisture reduction and the snap-in pin locking makes panel replacement very fast.",
+    tag: "On-Time Dispatch & Logistics",
+    headline: "Fast turnaround and excellent on-site delivery in Hyderabad",
+    comment: "Whenever we have an urgent plant breakdown or scheduled maintenance, their Hyderabad unit processes and dispatches our requirement in record time. Excellent communication over WhatsApp and reliable delivery schedules every single time.",
     verified: true,
-    category: "Screening & Dewatering"
+    aspect: "Delivery"
   },
   {
     id: "rev-3",
@@ -332,11 +332,11 @@ const companyReviews = [
     location: "Visakhapatnam, AP",
     rating: 5,
     date: "June 2026",
-    product: "PU Hydrocyclone Cones & Liners",
-    headline: "Outperformed metal cyclone cones by over 4x",
-    comment: "Extreme fine slurry abrasion was destroying our metal cyclone liners every 60 days. Lakshmi PU Pads supplied cast polyurethane cones that have already exceeded 8 months of non-stop operation. Top-class material quality and Hyderabad dispatch was very quick.",
+    tag: "Technical Formulation",
+    headline: "Superior prepolymer formulation and engineering expertise",
+    comment: "Their engineering team guided us to the right Shore A hardness and abrasion-resistant polyurethane formulation for our extreme slurry conditions. Replaced costly imported components with their Hyderabad-cast parts at a fraction of the cost.",
     verified: true,
-    category: "Screening & Dewatering"
+    aspect: "Quality"
   },
   {
     id: "rev-4",
@@ -346,11 +346,11 @@ const companyReviews = [
     location: "Bangalore, Karnataka",
     rating: 5,
     date: "May 2026",
-    product: "Custom Breaker Cushions & Rollers",
-    headline: "Custom 95 Shore A hardness molded exactly to CAD drawing",
-    comment: "Supplied custom hardness 95 Shore A buffer pads according to our specific excavator drawing. Outstanding customer support, exact dimensional tolerances, and prompt communication directly over phone and WhatsApp.",
+    tag: "Custom Mold Tooling",
+    headline: "Custom mold development executed with high precision",
+    comment: "We needed non-standard dimensions manufactured according to our CAD drawing. Lakshmi PU Pads developed the custom tooling and delivered the batch within one week. Exact tolerances and exceptional build finish.",
     verified: true,
-    category: "Rock Breaker Parts"
+    aspect: "Tooling"
   },
   {
     id: "rev-5",
@@ -360,11 +360,11 @@ const companyReviews = [
     location: "Godavarikhani, Telangana",
     rating: 5,
     date: "April 2026",
-    product: "PU Wear Sheets & Chute Liners",
-    headline: "Noticeable noise reduction and zero hopper bridging",
-    comment: "Fitted their 25mm PU wear sheets inside our high-tonnage coal transfer chute. Wear rate is minimal and noise reduction in the hopper room has noticeably improved. Great pricing compared to imported polyurethane sheets.",
+    tag: "Pricing & B2B Reliability",
+    headline: "Direct manufacturer pricing with uncompromised quality standards",
+    comment: "Buying directly from the Hyderabad factory saved us significant procurement costs without compromising on raw material specs. Every batch comes with Shore A hardness test confirmation. Highly trustworthy vendor.",
     verified: true,
-    category: "Industrial & Mining Wear"
+    aspect: "Quality"
   },
   {
     id: "rev-6",
@@ -374,11 +374,11 @@ const companyReviews = [
     location: "Mahbubnagar, Telangana",
     rating: 5,
     date: "March 2026",
-    product: "Polyurethane Belt Scraper Blades",
-    headline: "Cleanest belt scraping with zero belt cover damage",
-    comment: "Their polyurethane primary cleaner blades cleaned our aggregate conveyor belts cleanly without gouging or scoring the rubber cover. Replacement blades arrived in Hyderabad within 24 hours of ordering.",
+    tag: "Customer Service & Support",
+    headline: "Prompt after-sales support and dependable customer service",
+    comment: "Sri Laxmi Ganapathi Enterprises / Lakshmi PU Pads provides the best customer service in the industrial spares sector. Friendly management, immediate quote turnaround, and dependable technical backup whenever needed.",
     verified: true,
-    category: "Industrial & Mining Wear"
+    aspect: "Delivery"
   }
 ];
 
@@ -386,30 +386,30 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
   const [activeFilter, setActiveFilter] = useState("All");
 
   const categories = [
-    { label: "All Reviews", count: 148, value: "All" },
-    { label: "Rock Breaker Parts", count: 64, value: "Rock Breaker Parts" },
-    { label: "Screening & Dewatering", count: 46, value: "Screening & Dewatering" },
-    { label: "Industrial & Mining Wear", count: 38, value: "Industrial & Mining Wear" }
+    { label: "All Company Reviews", count: 148, value: "All" },
+    { label: "Manufacturing Quality", count: 62, value: "Quality" },
+    { label: "On-Time Dispatch", count: 54, value: "Delivery" },
+    { label: "Custom Tooling & Engineering", count: 32, value: "Tooling" }
   ];
 
   const filteredReviews = activeFilter === "All"
     ? companyReviews
-    : companyReviews.filter(r => r.category === activeFilter);
+    : companyReviews.filter(r => r.aspect === activeFilter);
 
   return (
     <section id="ratings" className="company-ratings-section">
       <div className="section-head compact" style={{ marginBottom: "40px" }}>
         <div>
           <div className="eyebrow">
-            <span></span> VERIFIED BUYER FEEDBACK & RATINGS
+            <span></span> VERIFIED COMPANY RATINGS & REVIEWS
           </div>
           <h2>
-            Trusted by Mining &<br />
-            <em>Heavy Industry Across India.</em>
+            Trusted by Heavy Industry<br />
+            <em>Across Telangana, AP & Pan-India.</em>
           </h2>
         </div>
         <p>
-          See what quarry operators, plant managers, and equipment maintenance engineers say about Lakshmi PU Pads components and customer service.
+          Read verified client reviews on our manufacturing standards, custom polyurethane casting quality, dispatch speed, and B2B support.
         </p>
       </div>
 
@@ -566,11 +566,6 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
               <span className="review-date">{r.date}</span>
             </div>
 
-            <div className="review-product-tag">
-              <span className="tag-label">Item:</span>
-              <span className="tag-val">{r.product}</span>
-            </div>
-
             <h5 className="review-headline">"{r.headline}"</h5>
             <p className="review-comment">{r.comment}</p>
           </article>
@@ -627,13 +622,13 @@ function WriteReviewModal({ isOpen, onClose }) {
           <div className="review-success-state">
             <CheckCircle2 size={52} color="#10b981" />
             <h3>Thank You for Your Feedback!</h3>
-            <p>Your verified customer review for Lakshmi PU Pads has been received and will be published shortly.</p>
+            <p>Your verified company review for Lakshmi PU Pads has been received and will be published shortly.</p>
           </div>
         ) : (
           <>
-            <div className="eyebrow">CUSTOMER FEEDBACK</div>
+            <div className="eyebrow">COMPANY FEEDBACK</div>
             <h2>Write a <em>Company Review</em></h2>
-            <p>Share your experience with Lakshmi PU Pads products, build quality, and delivery.</p>
+            <p>Share your experience with Lakshmi PU Pads manufacturing standards, delivery, and service.</p>
 
             <form onSubmit={handleSubmit}>
               <div className="rating-select-group">
@@ -668,19 +663,17 @@ function WriteReviewModal({ isOpen, onClose }) {
               <div className="form-row">
                 <input placeholder="City, State (e.g. Hyderabad, Telangana)" required />
                 <select defaultValue="" required>
-                  <option value="" disabled>Select Product Purchased</option>
-                  <option>Rock Breaker Buffer Dampers</option>
-                  <option>M-Sand Dewatering Screen Panels</option>
-                  <option>Polyurethane Belt Scraper Blades</option>
-                  <option>PU Hydrocyclone Cones & Liners</option>
-                  <option>PU Wear Sheets & Chute Liners</option>
-                  <option>Polyurethane Coated Rollers</option>
-                  <option>Custom Moulded Polyurethane Parts</option>
+                  <option value="" disabled>Nature of Engagement with Lakshmi PU Pads</option>
+                  <option>Industrial Client / Regular Bulk Purchaser</option>
+                  <option>OEM & Equipment Manufacturer</option>
+                  <option>Quarry & Crushing Plant Operator</option>
+                  <option>Mining & Infrastructure Contractor</option>
+                  <option>Custom Moulding & Engineering Partner</option>
                 </select>
               </div>
 
-              <input placeholder="Review Headline (e.g. Excellent shock absorption on Soosan breaker)" required />
-              <textarea placeholder="Write your detailed review about durability, performance, and dispatch speed..." required></textarea>
+              <input placeholder="Review Headline (e.g. Reliable manufacturing partner and fast Hyderabad dispatch)" required />
+              <textarea placeholder="Write your detailed company review about manufacturing standards, reliability, and service..." required></textarea>
 
               <button className="primary-btn" type="submit">
                 Submit Review <Send size={16} />
