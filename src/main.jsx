@@ -4,7 +4,7 @@ import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
-  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare
+  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye
 } from "lucide-react";
 import "./styles.css";
 
@@ -782,10 +782,10 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
         <div className="product-b2b-actions">
           <button 
             type="button" 
-            className="product-b2b-contact-btn"
-            onClick={()=>onSelectContact(p)}
+            className="product-b2b-view-btn"
+            onClick={()=>onOpenDetails(p, 0)}
           >
-            <Send size={14} style={{transform:"rotate(-20deg)"}} /> Contact Supplier
+            <Eye size={15} /> View Details
           </button>
         </div>
 
