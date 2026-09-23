@@ -1496,8 +1496,6 @@ function App(){
             <a href="tel:+919876543210" className="hcd-phone">+91 98765 43210</a>
           </div>
         </div>
-
-        <button className="nav-cta" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Request a Quote <ArrowUpRight size={17}/></button>
       </div>
       <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
     </header>
