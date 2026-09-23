@@ -396,6 +396,8 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
     ? companyReviews
     : companyReviews.filter(r => r.aspect === activeFilter);
 
+  const visibleReviews = filteredReviews.slice(0, 3);
+
   return (
     <section id="ratings" className="company-ratings-section">
       <div className="section-head compact" style={{ marginBottom: "40px" }}>
@@ -528,9 +530,9 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
         </div>
       </div>
 
-      {/* Review Cards Grid */}
+      {/* Review Cards Grid - Single Row */}
       <div className="reviews-cards-grid">
-        {filteredReviews.map(r => (
+        {visibleReviews.map(r => (
           <article className="review-card" key={r.id}>
             <div className="review-card-header">
               <div className="reviewer-avatar">
