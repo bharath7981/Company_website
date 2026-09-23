@@ -351,34 +351,6 @@ const companyReviews = [
     comment: "We needed non-standard dimensions manufactured according to our CAD drawing. Lakshmi PU Pads developed the custom tooling and delivered the batch within one week. Exact tolerances and exceptional build finish.",
     verified: true,
     aspect: "Tooling"
-  },
-  {
-    id: "rev-5",
-    author: "D. N. Murthy",
-    role: "Materials & Spares Manager",
-    company: "Singareni Collieries Contractors",
-    location: "Godavarikhani, Telangana",
-    rating: 5,
-    date: "April 2026",
-    tag: "Pricing & B2B Reliability",
-    headline: "Direct manufacturer pricing with uncompromised quality standards",
-    comment: "Buying directly from the Hyderabad factory saved us significant procurement costs without compromising on raw material specs. Every batch comes with Shore A hardness test confirmation. Highly trustworthy vendor.",
-    verified: true,
-    aspect: "Quality"
-  },
-  {
-    id: "rev-6",
-    author: "Praveen Reddy",
-    role: "Managing Partner",
-    company: "Sri Sai Stone Crushers",
-    location: "Mahbubnagar, Telangana",
-    rating: 5,
-    date: "March 2026",
-    tag: "Customer Service & Support",
-    headline: "Prompt after-sales support and dependable customer service",
-    comment: "Sri Laxmi Ganapathi Enterprises / Lakshmi PU Pads provides the best customer service in the industrial spares sector. Friendly management, immediate quote turnaround, and dependable technical backup whenever needed.",
-    verified: true,
-    aspect: "Delivery"
   }
 ];
 
@@ -398,7 +370,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
           </h2>
         </div>
         <p>
-          Quality, durability, and dispatch benchmarks verified across 148+ industrial clients, quarries, and engineering plants.
+          Quality, durability, and dispatch benchmarks verified across industrial clients, quarries, and engineering plants.
         </p>
       </div>
 
@@ -418,7 +390,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
             </div>
           </div>
           <div className="scorecard-total-reviews">
-            <strong>148+ Verified Buyer Ratings</strong>
+            <strong>Verified Client Ratings</strong>
             <span>Direct B2B Customers & Quarry Operators</span>
           </div>
           <div className="scorecard-badges-row">
@@ -439,11 +411,11 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
           <div className="distribution-title">Rating Breakdown</div>
           <div className="distribution-rows">
             {[
-              { stars: 5, pct: 94, count: 139 },
-              { stars: 4, pct: 5, count: 8 },
-              { stars: 3, pct: 1, count: 1 },
-              { stars: 2, pct: 0, count: 0 },
-              { stars: 1, pct: 0, count: 0 }
+              { stars: 5, pct: 100 },
+              { stars: 4, pct: 0 },
+              { stars: 3, pct: 0 },
+              { stars: 2, pct: 0 },
+              { stars: 1, pct: 0 }
             ].map(row => (
               <div className="dist-row" key={row.stars}>
                 <span className="dist-label">{row.stars} Star</span>
@@ -451,7 +423,6 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
                   <div className="dist-bar-fill" style={{ width: `${row.pct}%` }}></div>
                 </div>
                 <span className="dist-pct">{row.pct}%</span>
-                <span className="dist-count">({row.count})</span>
               </div>
             ))}
           </div>
@@ -494,7 +465,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
       <div className="ratings-summary-action-bar">
         <div className="ratings-summary-text">
           <Star size={18} fill="#E8A817" color="#E8A817" />
-          <span><strong>4.9 / 5.0</strong> Rating based on 148 verified client evaluations</span>
+          <span><strong>5.0 / 5.0</strong> Rating · Verified Client Feedback</span>
         </div>
         <div className="ratings-action-btns">
           <button
@@ -502,7 +473,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
             className="view-all-reviews-btn"
             onClick={() => setAllReviewsOpen(true)}
           >
-            <MessageSquare size={16} /> View All Reviews (148) <ArrowRight size={15} />
+            <MessageSquare size={16} /> View Client Reviews ({companyReviews.length}) <ArrowRight size={15} />
           </button>
           <button
             type="button"
@@ -553,10 +524,10 @@ function AllReviewsModal({ isOpen, onClose, onOpenWriteReview }) {
   if (!isOpen) return null;
 
   const categories = [
-    { label: "All Company Reviews", count: 148, value: "All" },
-    { label: "Manufacturing Quality", count: 62, value: "Quality" },
-    { label: "On-Time Dispatch", count: 54, value: "Delivery" },
-    { label: "Custom Tooling & Engineering", count: 32, value: "Tooling" }
+    { label: "All Reviews", count: companyReviews.length, value: "All" },
+    { label: "Manufacturing Quality", count: companyReviews.filter(r => r.aspect === "Quality").length, value: "Quality" },
+    { label: "On-Time Dispatch", count: companyReviews.filter(r => r.aspect === "Delivery").length, value: "Delivery" },
+    { label: "Custom Tooling", count: companyReviews.filter(r => r.aspect === "Tooling").length, value: "Tooling" }
   ];
 
   const filteredReviews = activeFilter === "All"
@@ -573,7 +544,7 @@ function AllReviewsModal({ isOpen, onClose, onOpenWriteReview }) {
         <div className="all-reviews-header">
           <div className="all-reviews-title-col">
             <div className="eyebrow" style={{ marginBottom: "6px" }}>CLIENT TESTIMONIALS & FEEDBACK</div>
-            <h2>Verified Company Reviews (148)</h2>
+            <h2>Verified Company Reviews</h2>
             <p>Read authentic experiences and feedback from industrial buyers, plant managers, and quarry operators.</p>
           </div>
           <button
@@ -846,14 +817,14 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
         </div>
         <div className="product-b2b-metrics">
           <span className="response-rate">92% Response Rate</span>
-          <span className="rating-wrap" title="Company Rating: 4.9/5 based on 148 verified client ratings">
+          <span className="rating-wrap" title="Verified Manufacturer Rating: 4.9/5">
             <span className="stars-icons">
               {[1,2,3,4,5].map(s=>(
                 <span key={s} className="star-fill">★</span>
               ))}
             </span>
             <strong>4.9</strong>
-            <small>(148+ Ratings)</small>
+            <small>(Verified)</small>
           </span>
         </div>
       </div>
