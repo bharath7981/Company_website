@@ -383,27 +383,14 @@ const companyReviews = [
 ];
 
 function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const categories = [
-    { label: "All Company Reviews", count: 148, value: "All" },
-    { label: "Manufacturing Quality", count: 62, value: "Quality" },
-    { label: "On-Time Dispatch", count: 54, value: "Delivery" },
-    { label: "Custom Tooling & Engineering", count: 32, value: "Tooling" }
-  ];
-
-  const filteredReviews = activeFilter === "All"
-    ? companyReviews
-    : companyReviews.filter(r => r.aspect === activeFilter);
-
-  const visibleReviews = filteredReviews.slice(0, 3);
+  const [allReviewsOpen, setAllReviewsOpen] = useState(false);
 
   return (
     <section id="ratings" className="company-ratings-section">
-      <div className="section-head compact" style={{ marginBottom: "40px" }}>
+      <div className="section-head compact" style={{ marginBottom: "32px" }}>
         <div>
           <div className="eyebrow">
-            <span></span> VERIFIED COMPANY RATINGS & REVIEWS
+            <span></span> VERIFIED COMPANY RATINGS
           </div>
           <h2>
             Trusted by Heavy Industry<br />
@@ -411,7 +398,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
           </h2>
         </div>
         <p>
-          Read verified client reviews on our manufacturing standards, custom polyurethane casting quality, dispatch speed, and B2B support.
+          Quality, durability, and dispatch benchmarks verified across 148+ industrial clients, quarries, and engineering plants.
         </p>
       </div>
 
@@ -503,75 +490,28 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
         </div>
       </div>
 
-      {/* Filter Chips & Action Bar */}
-      <div className="ratings-filter-bar">
-        <div className="ratings-filter-tabs">
-          {categories.map(cat => (
-            <button
-              key={cat.value}
-              type="button"
-              className={`ratings-tab ${activeFilter === cat.value ? "active" : ""}`}
-              onClick={() => setActiveFilter(cat.value)}
-            >
-              <span>{cat.label}</span>
-              <span className="ratings-tab-badge">{cat.count}</span>
-            </button>
-          ))}
+      {/* Ratings Action Bar (Short & Sweet on Main UI) */}
+      <div className="ratings-summary-action-bar">
+        <div className="ratings-summary-text">
+          <Star size={18} fill="#E8A817" color="#E8A817" />
+          <span><strong>4.9 / 5.0</strong> Rating based on 148 verified client evaluations</span>
         </div>
-
-        <div className="ratings-actions-group">
+        <div className="ratings-action-btns">
           <button
             type="button"
-            className="write-review-btn"
+            className="view-all-reviews-btn"
+            onClick={() => setAllReviewsOpen(true)}
+          >
+            <MessageSquare size={16} /> View All Reviews (148) <ArrowRight size={15} />
+          </button>
+          <button
+            type="button"
+            className="write-review-outline-btn"
             onClick={onOpenReviewModal}
           >
-            <MessageSquare size={16} /> Write a Review
+            Write a Review
           </button>
         </div>
-      </div>
-
-      {/* Review Cards Grid - Single Row */}
-      <div className="reviews-cards-grid">
-        {visibleReviews.map(r => (
-          <article className="review-card" key={r.id}>
-            <div className="review-card-header">
-              <div className="reviewer-avatar">
-                {r.author.split(" ").map(n => n[0]).join("").slice(0, 2)}
-              </div>
-              <div className="reviewer-info">
-                <div className="reviewer-name-row">
-                  <h4 className="reviewer-name">{r.author}</h4>
-                  {r.verified && (
-                    <span className="verified-buyer-pill">
-                      <CheckCircle2 size={12} /> Verified Buyer
-                    </span>
-                  )}
-                </div>
-                <div className="reviewer-role">{r.role} · {r.company}</div>
-                <div className="reviewer-loc"><MapPin size={12} /> {r.location}</div>
-              </div>
-            </div>
-
-            <div className="review-card-meta">
-              <div className="review-stars-row">
-                {[1, 2, 3, 4, 5].map(s => (
-                  <Star
-                    key={s}
-                    size={15}
-                    className="star-icon-filled"
-                    fill={s <= r.rating ? "#E8A817" : "#cbd5e1"}
-                    color={s <= r.rating ? "#E8A817" : "#cbd5e1"}
-                  />
-                ))}
-                <span className="review-rating-num">{r.rating}.0</span>
-              </div>
-              <span className="review-date">{r.date}</span>
-            </div>
-
-            <h5 className="review-headline">"{r.headline}"</h5>
-            <p className="review-comment">{r.comment}</p>
-          </article>
-        ))}
       </div>
 
       {/* Bottom Guarantee Banner */}
@@ -593,7 +533,118 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
           </button>
         </div>
       </div>
+
+      {/* View All Reviews Modal */}
+      <AllReviewsModal
+        isOpen={allReviewsOpen}
+        onClose={() => setAllReviewsOpen(false)}
+        onOpenWriteReview={() => {
+          setAllReviewsOpen(false);
+          onOpenReviewModal();
+        }}
+      />
     </section>
+  );
+}
+
+function AllReviewsModal({ isOpen, onClose, onOpenWriteReview }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  if (!isOpen) return null;
+
+  const categories = [
+    { label: "All Company Reviews", count: 148, value: "All" },
+    { label: "Manufacturing Quality", count: 62, value: "Quality" },
+    { label: "On-Time Dispatch", count: 54, value: "Delivery" },
+    { label: "Custom Tooling & Engineering", count: 32, value: "Tooling" }
+  ];
+
+  const filteredReviews = activeFilter === "All"
+    ? companyReviews
+    : companyReviews.filter(r => r.aspect === activeFilter);
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal all-reviews-modal" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close modal">
+          <X size={18} />
+        </button>
+
+        <div className="all-reviews-header">
+          <div className="all-reviews-title-col">
+            <div className="eyebrow" style={{ marginBottom: "6px" }}>CLIENT TESTIMONIALS & FEEDBACK</div>
+            <h2>Verified Company Reviews (148)</h2>
+            <p>Read authentic experiences and feedback from industrial buyers, plant managers, and quarry operators.</p>
+          </div>
+          <button
+            type="button"
+            className="write-review-btn"
+            onClick={onOpenWriteReview}
+          >
+            <MessageSquare size={15} /> Write a Review
+          </button>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="all-reviews-filter-row">
+          {categories.map(cat => (
+            <button
+              key={cat.value}
+              type="button"
+              className={`ratings-tab ${activeFilter === cat.value ? "active" : ""}`}
+              onClick={() => setActiveFilter(cat.value)}
+            >
+              <span>{cat.label}</span>
+              <span className="ratings-tab-badge">{cat.count}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Reviews List */}
+        <div className="all-reviews-list">
+          {filteredReviews.map(r => (
+            <article className="all-reviews-item" key={r.id}>
+              <div className="review-card-header">
+                <div className="reviewer-avatar">
+                  {r.author.split(" ").map(n => n[0]).join("").slice(0, 2)}
+                </div>
+                <div className="reviewer-info">
+                  <div className="reviewer-name-row">
+                    <h4 className="reviewer-name">{r.author}</h4>
+                    {r.verified && (
+                      <span className="verified-buyer-pill">
+                        <CheckCircle2 size={12} /> Verified Buyer
+                      </span>
+                    )}
+                  </div>
+                  <div className="reviewer-role">{r.role} · {r.company}</div>
+                  <div className="reviewer-loc"><MapPin size={12} /> {r.location}</div>
+                </div>
+              </div>
+
+              <div className="review-card-meta">
+                <div className="review-stars-row">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <Star
+                      key={s}
+                      size={15}
+                      className="star-icon-filled"
+                      fill={s <= r.rating ? "#E8A817" : "#cbd5e1"}
+                      color={s <= r.rating ? "#E8A817" : "#cbd5e1"}
+                    />
+                  ))}
+                  <span className="review-rating-num">{r.rating}.0</span>
+                </div>
+                <span className="review-date">{r.date}</span>
+              </div>
+
+              <h5 className="review-headline">"{r.headline}"</h5>
+              <p className="review-comment">{r.comment}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
