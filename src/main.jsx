@@ -610,75 +610,109 @@ function WriteReviewModal({ isOpen, onClose }) {
     setTimeout(() => {
       setSubmitted(false);
       onClose();
-    }, 2000);
+    }, 2200);
   };
+
+  const getRatingLabel = (val) => {
+    switch (val) {
+      case 5: return "5.0 · Outstanding (Highest Quality & Service)";
+      case 4: return "4.0 · Very Good (Dependable Performance)";
+      case 3: return "3.0 · Satisfactory";
+      case 2: return "2.0 · Needs Improvement";
+      case 1: return "1.0 · Unsatisfactory";
+      default: return `${val}.0 out of 5`;
+    }
+  };
+
+  const currentScore = hoverStars || stars;
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal review-submission-modal" onClick={e => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close modal">
-          <X />
+          <X size={18} />
         </button>
 
         {submitted ? (
           <div className="review-success-state">
-            <CheckCircle2 size={52} color="#10b981" />
+            <CheckCircle2 size={54} color="#10b981" />
             <h3>Thank You for Your Feedback!</h3>
-            <p>Your verified company review for Lakshmi PU Pads has been received and will be published shortly.</p>
+            <p>Your verified company review for Lakshmi PU Pads has been received and will be published on our verified company profile.</p>
           </div>
         ) : (
           <>
-            <div className="eyebrow">COMPANY FEEDBACK</div>
-            <h2>Write a <em>Company Review</em></h2>
-            <p>Share your experience with Lakshmi PU Pads manufacturing standards, delivery, and service.</p>
+            <div className="review-modal-header">
+              <div className="eyebrow">COMPANY FEEDBACK</div>
+              <h2>Write a <em>Company Review</em></h2>
+              <p className="review-modal-desc">Share your experience with Lakshmi PU Pads manufacturing standards, delivery, and service.</p>
+            </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="rating-select-group">
-                <span className="rating-select-label">Your Rating:</span>
-                <div className="interactive-stars">
+            <form onSubmit={handleSubmit} className="review-form">
+              <div className="review-rating-picker-card">
+                <span className="picker-label">Rate Overall Experience:</span>
+                <div className="picker-stars-row">
                   {[1, 2, 3, 4, 5].map(s => (
                     <button
                       key={s}
                       type="button"
-                      className="star-select-btn"
+                      className="picker-star-btn"
                       onMouseEnter={() => setHoverStars(s)}
                       onMouseLeave={() => setHoverStars(0)}
                       onClick={() => setStars(s)}
                       aria-label={`${s} star`}
                     >
                       <Star
-                        size={28}
-                        fill={(hoverStars || stars) >= s ? "#E8A817" : "#e2e8f0"}
-                        color={(hoverStars || stars) >= s ? "#E8A817" : "#cbd5e1"}
+                        size={26}
+                        fill={currentScore >= s ? "#E8A817" : "#e2e8f0"}
+                        color={currentScore >= s ? "#E8A817" : "#cbd5e1"}
                       />
                     </button>
                   ))}
-                  <strong className="star-selected-text">{hoverStars || stars}.0 out of 5</strong>
+                  <span className="picker-score-badge">{getRatingLabel(currentScore)}</span>
                 </div>
               </div>
 
-              <div className="form-row">
-                <input placeholder="Your Name (e.g. Ramesh Kumar)" required />
-                <input placeholder="Company / Quarry / Plant Name" required />
+              <div className="review-form-grid">
+                <div className="review-form-field">
+                  <label>Your Name *</label>
+                  <input placeholder="e.g. Ramesh Kumar" required />
+                </div>
+                <div className="review-form-field">
+                  <label>Company / Plant Name *</label>
+                  <input placeholder="e.g. Deccan Aggregates & M-Sand" required />
+                </div>
               </div>
 
-              <div className="form-row">
-                <input placeholder="City, State (e.g. Hyderabad, Telangana)" required />
-                <select defaultValue="" required>
-                  <option value="" disabled>Nature of Engagement with Lakshmi PU Pads</option>
-                  <option>Industrial Client / Regular Bulk Purchaser</option>
-                  <option>OEM & Equipment Manufacturer</option>
-                  <option>Quarry & Crushing Plant Operator</option>
-                  <option>Mining & Infrastructure Contractor</option>
-                  <option>Custom Moulding & Engineering Partner</option>
-                </select>
+              <div className="review-form-grid">
+                <div className="review-form-field">
+                  <label>City & State *</label>
+                  <input placeholder="e.g. Hyderabad, Telangana" required />
+                </div>
+                <div className="review-form-field">
+                  <label>Engagement Nature *</label>
+                  <select defaultValue="" required>
+                    <option value="" disabled>Select Relationship</option>
+                    <option>Regular Industrial Client / Bulk Purchaser</option>
+                    <option>OEM & Equipment Manufacturer</option>
+                    <option>Quarry & Crushing Plant Operator</option>
+                    <option>Mining & Infrastructure Contractor</option>
+                    <option>Custom Moulding & Engineering Partner</option>
+                  </select>
+                </div>
               </div>
 
-              <input placeholder="Review Headline (e.g. Reliable manufacturing partner and fast Hyderabad dispatch)" required />
-              <textarea placeholder="Write your detailed company review about manufacturing standards, reliability, and service..." required></textarea>
+              <div className="review-form-field">
+                <label>Review Headline *</label>
+                <input placeholder="e.g. Reliable manufacturing partner and fast Hyderabad dispatch" required />
+              </div>
 
-              <button className="primary-btn" type="submit">
-                Submit Review <Send size={16} />
+              <div className="review-form-field">
+                <label>Detailed Feedback *</label>
+                <textarea rows={3} placeholder="Share details on Shore A hardness consistency, dispatch timeliness, communication, and engineering support..." required></textarea>
+              </div>
+
+              <button className="primary-btn review-submit-btn" type="submit">
+                Submit Verified Review <Send size={16} />
               </button>
             </form>
           </>

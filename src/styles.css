@@ -354,17 +354,38 @@ footer .logo{font-family:Manrope;font-size:18px;font-weight:800;letter-spacing:.
 .guarantee-left p{font-size:13px;color:#475569;margin:0;max-width:680px;line-height:1.5}
 .guarantee-actions .primary-btn{flex-shrink:0}
 
-/* Write Review Modal Styles */
-.review-submission-modal{width:min(580px,94vw);border-radius:14px;padding:38px}
-.rating-select-group{margin-bottom:18px;display:flex;flex-direction:column;gap:8px}
-.rating-select-label{font:700 13px Manrope;color:#0e202a}
-.interactive-stars{display:flex;align-items:center;gap:8px}
-.star-select-btn{background:none;border:none;padding:0;cursor:pointer;transition:.15s}
-.star-select-btn:hover{transform:scale(1.15)}
-.star-selected-text{font:800 14px Manrope;color:#E8A817;margin-left:6px}
-.review-success-state{text-align:center;padding:24px 10px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.review-success-state h3{font:800 22px Manrope;color:#0e202a;margin:0}
-.review-success-state p{font-size:14px;color:#475569;margin:0}
+/* Write Review Modal Styles (Enhanced UX) */
+.review-submission-modal{width:min(600px,94vw);max-height:88vh;overflow-y:auto;border-radius:16px;padding:30px 34px;background:#ffffff;box-shadow:0 25px 70px rgba(0,0,0,.35);scrollbar-width:thin}
+.review-modal-header{margin-bottom:14px}
+.review-modal-header .eyebrow{margin-bottom:4px;font-size:11px}
+.review-submission-modal h2{font:800 24px/1.2 Manrope !important;color:#0e202a !important;margin:0 0 6px !important;letter-spacing:-.02em !important}
+.review-submission-modal h2 em{font-style:normal;color:#E8A817}
+.review-modal-desc{font-size:13.5px;color:#64748b;margin:0;line-height:1.5}
+
+.review-form{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.review-rating-picker-card{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.picker-label{font:700 12px Manrope;color:#475569;text-transform:uppercase;letter-spacing:.05em}
+.picker-stars-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.picker-star-btn{background:none;border:none;padding:2px;cursor:pointer;transition:transform .15s ease;display:flex;align-items:center}
+.picker-star-btn:hover{transform:scale(1.2)}
+.picker-score-badge{font:800 13px Manrope;color:#b47b0a;background:#fef3c7;padding:3px 10px;border-radius:12px;margin-left:6px;border:1px solid #fde68a}
+
+.review-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:580px){.review-form-grid{grid-template-columns:1fr}}
+
+.review-form-field{display:flex;flex-direction:column;gap:5px}
+.review-form-field label{font:700 12px Manrope;color:#334155}
+.review-form-field input,.review-form-field select,.review-form-field textarea{width:100%;border:1.5px solid #cbd5e1;background:#ffffff;border-radius:8px;padding:10px 14px;font:500 13.5px "DM Sans",sans-serif;color:#0e202a;outline:none;transition:.2s ease}
+.review-form-field select{cursor:pointer;background-color:#fff}
+.review-form-field input:focus,.review-form-field select:focus,.review-form-field textarea:focus{border-color:#127b82;box-shadow:0 0 0 3px rgba(18,123,130,.15)}
+.review-form-field textarea{resize:vertical;min-height:80px}
+
+.review-submit-btn{width:100%;padding:13px 20px;font:700 14.5px Manrope;border-radius:8px;background:#127b82;color:#ffffff;margin-top:4px;box-shadow:0 4px 14px rgba(18,123,130,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.review-submit-btn:hover{background:#0d6268;transform:translateY(-2px);box-shadow:0 8px 20px rgba(18,123,130,.35)}
+
+.review-success-state{text-align:center;padding:36px 16px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.review-success-state h3{font:800 24px Manrope;color:#0e202a;margin:0}
+.review-success-state p{font-size:14px;color:#64748b;margin:0;max-width:420px;line-height:1.5}
 
 /* ── Contact ── */
 .contact-section{padding:115px 5.5%;display:grid;grid-template-columns:.9fr 1.1fr;gap:110px;background:#fff}
