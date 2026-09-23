@@ -4,7 +4,7 @@ import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
-  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye
+  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User
 } from "lucide-react";
 import "./styles.css";
 
@@ -915,6 +915,171 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact 
   );
 }
 
+function EnquiryModal({ isOpen, product, onClose }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage(
+        product
+          ? `Hi, I am interested in ${product.name} (${product.price} ${product.unit}). Please provide price quotation for bulk quantity and delivery timeline.`
+          : "Hi, I would like to get a quote and specifications for custom polyurethane components."
+      );
+    }
+  }, [isOpen, product]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal enquiry-modal-box" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close modal">
+          <X size={18} />
+        </button>
+
+        {submitted ? (
+          <div className="enquiry-success-state">
+            <CheckCircle2 size={52} color="#10b981" />
+            <h3>Enquiry Sent Successfully!</h3>
+            <p>
+              Thank you{name ? `, ${name}` : ""}! Your requirement for{" "}
+              <strong>{product ? product.name : "custom polyurethane components"}</strong> has been received.
+              Our sales engineering team will get back to you shortly with the best quote.
+            </p>
+            <div className="enquiry-success-details">
+              {phone && <span>📞 Phone: {phone}</span>}
+              {email && <span>✉️ Email: {email}</span>}
+            </div>
+            <button type="button" className="enquiry-submit-btn enquiry-success-btn" onClick={onClose}>
+              Done / Close
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="enquiry-modal-header">
+              <div className="enquiry-eyebrow">
+                <Sparkles size={13} />
+                <span>{product ? "PRODUCT ENQUIRY & RFQ" : "REQUEST A CUSTOM QUOTE"}</span>
+              </div>
+              <h2 className="enquiry-title">
+                {product ? (
+                  <>Get Best Quote for <em>{product.name}</em></>
+                ) : (
+                  <>Let's build the right <em>solution.</em></>
+                )}
+              </h2>
+              <p className="enquiry-desc">
+                {product
+                  ? `Direct manufacturer pricing from Lakshmi PU Pads with guaranteed quality standards.`
+                  : "Share your dimensions and technical requirement for immediate assistance."}
+              </p>
+            </div>
+
+            {product && (
+              <div className="enquiry-product-preview">
+                <div className="epp-thumb-wrap">
+                  <img src={product.views?.[0]?.src} alt={product.name} className="epp-thumb" />
+                </div>
+                <div className="epp-details">
+                  <div className="epp-category">{product.cat || "Polyurethane Components"}</div>
+                  <div className="epp-name" title={product.name}>{product.name}</div>
+                  <div className="epp-meta-row">
+                    <span className="epp-price-tag">{product.price} <small>{product.unit}</small></span>
+                    <span className="epp-badge">Min. {product.minOrder || "1 Piece"}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="enquiry-form">
+              <div className="enquiry-form-row">
+                <div className="enquiry-field">
+                  <label htmlFor="enquiry-name">Your Name *</label>
+                  <div className="input-with-icon">
+                    <User size={15} className="field-icon" />
+                    <input
+                      id="enquiry-name"
+                      placeholder="e.g. Rajesh Kumar"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="enquiry-field">
+                  <label htmlFor="enquiry-phone">Phone Number *</label>
+                  <div className="input-with-icon">
+                    <Phone size={15} className="field-icon" />
+                    <input
+                      id="enquiry-phone"
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="enquiry-field">
+                <label htmlFor="enquiry-email">Email Address (Optional)</label>
+                <div className="input-with-icon">
+                  <Mail size={15} className="field-icon" />
+                  <input
+                    id="enquiry-email"
+                    type="email"
+                    placeholder="name@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="enquiry-field">
+                <label htmlFor="enquiry-message">Requirement / Quantity Details *</label>
+                <textarea
+                  id="enquiry-message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={3}
+                  placeholder="Mention required quantity, dimensions, or specific technical criteria..."
+                  required
+                />
+              </div>
+
+              <button type="submit" className="enquiry-submit-btn">
+                <span>Send Enquiry for Best Quote</span>
+                <Send size={15} style={{transform: "rotate(-10deg)"}} />
+              </button>
+
+              <div className="enquiry-trust-banner">
+                <span>⚡ Direct Manufacturer Response</span>
+                <span>•</span>
+                <span>🔒 100% Confidential RFQ</span>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ProductsPage({ 
   products, 
   activeCategory, 
@@ -1516,8 +1681,15 @@ function App(){
       />
     )}
 
-    {/* Quick Enquiry Modal */}
-    {quote && <div className="modal-backdrop" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><div className="modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>{setQuote(false);setSelectedProduct(null);}}><X/></button><div className="eyebrow">{selectedProduct ? "PRODUCT ENQUIRY" : "QUICK ENQUIRY"}</div><h2>{selectedProduct ? <>Enquire: <em>{selectedProduct.name}</em></> : <>Let's build the right <em>solution.</em></>}</h2><p>{selectedProduct ? `Get instant best quote and specifications for ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}).` : "Share your requirement and our team will get back to you."}</p><form onSubmit={e=>{e.preventDefault();setQuote(false);setSelectedProduct(null);alert("Enquiry received! We'll contact you shortly.")}}><input placeholder="Your name" required/><input placeholder="Email address" type="email" required/><input placeholder="Phone number" type="tel" required/><textarea placeholder="Your requirement" defaultValue={selectedProduct ? `Hi, I am interested in ${selectedProduct.name} (${selectedProduct.price} ${selectedProduct.unit}). Please provide availability and delivery timeline.` : ""}></textarea><button className="primary-btn">Send enquiry <Send size={17}/></button></form></div></div>}
+    {/* Product & Quick Enquiry Modal */}
+    <EnquiryModal
+      isOpen={quote}
+      product={selectedProduct}
+      onClose={() => {
+        setQuote(false);
+        setSelectedProduct(null);
+      }}
+    />
 
     {/* Write Review Modal */}
     <WriteReviewModal
