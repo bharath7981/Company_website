@@ -1707,16 +1707,114 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .contact-section select{color:#66747a}
 
 /* ── Footer ── */
-footer{background:#091820;color:#fff;padding:70px 5.5% 20px}
-.footer-main{display:grid;grid-template-columns:1.5fr .6fr 1fr;gap:80px;padding-bottom:65px}
+/* ── Upgraded Industrial B2B Footer ── */
+footer{background:#07141b;color:#fff;padding:70px 5.5% 24px}
+.footer-main{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:44px;padding-bottom:50px}
 .footer-main .logo{color:#fff}
-.footer-main p{color:#8da0a8;max-width:340px;line-height:1.7;font-size:12px;margin:22px 0}
-.footer-main h4{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#6e858f;margin:4px 0 20px}
-.footer-main>div> a,.footer-main>div>span{display:block;color:#b2c0c5;font-size:11px;margin:11px 0}
-.socials{display:flex;gap:8px}
-.socials span{width:30px;height:30px;border:1px solid #33464e;display:grid;place-items:center}
-.socials svg{width:14px}
-.footer-bottom{border-top:1px solid #263a43;padding-top:20px;color:#637780;font-size:9px;display:flex;justify-content:space-between}
+.footer-main p{color:#8da0a8;max-width:340px;line-height:1.7;font-size:12.5px;margin:16px 0}
+.footer-badges-strip{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 20px}
+.footer-badge{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:4px 9px;border-radius:4px;font:700 10.5px var(--font-heading);color:#cbd5e1;text-transform:uppercase;letter-spacing:0.04em}
+.footer-main h4{font:800 12px var(--font-heading);text-transform:uppercase;letter-spacing:.12em;color:#94a3b8;margin:4px 0 18px}
+.footer-main>div> a,.footer-main>div>span{display:block;color:#cbd5e1;font-size:12px;margin:9px 0;transition:color 0.15s;text-decoration:none}
+.footer-main>div> a:hover{color:var(--color-accent);text-decoration:underline}
+.footer-contact-item{display:flex;align-items:flex-start;gap:8px;color:#cbd5e1;font-size:12px;margin:9px 0}
+.footer-contact-item svg{color:var(--color-accent);flex-shrink:0;margin-top:2px}
+.footer-contact-item a{color:#cbd5e1;text-decoration:none;transition:color 0.15s}
+.footer-contact-item a:hover{color:var(--color-accent);text-decoration:underline}
+.footer-hours-note{display:block;font-size:11px;color:#94a3b8;margin-top:4px}
+.socials{display:flex;gap:8px;margin-top:14px}
+.socials span{width:32px;height:32px;border:1px solid #33464e;border-radius:6px;display:grid;place-items:center;transition:all 0.15s}
+.socials span:hover{border-color:var(--color-accent);color:var(--color-accent)}
+.socials svg{width:15px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:22px;color:#64748b;font-size:11.5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+/* ── PDM Spec Sheet Action Buttons ── */
+.pdm-spec-actions-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.pdm-spec-action-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:6px;
+  border:1px solid #cbd5e1;
+  background:#ffffff;
+  color:#334155;
+  font:700 12px var(--font-heading);
+  cursor:pointer;
+  transition:all var(--transition-fast);
+}
+.pdm-spec-action-btn:hover{
+  background:#f8fafc;
+  border-color:#94a3b8;
+  color:var(--color-primary);
+}
+.pdm-spec-action-btn.primary{
+  background:rgba(18,123,130,0.08);
+  border-color:rgba(18,123,130,0.3);
+  color:var(--color-primary);
+}
+.pdm-spec-action-btn.primary:hover{
+  background:var(--color-primary);
+  color:#ffffff;
+}
+
+/* ── Sticky Mobile Bottom Action Bar (Phase 20) ── */
+.mobile-bottom-bar{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#0e202a;
+  border-top:1px solid rgba(255,255,255,0.12);
+  z-index:900;
+  padding:8px 12px;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  box-shadow:0 -6px 20px rgba(0,0,0,0.25);
+}
+@media(max-width:768px){
+  .mobile-bottom-bar{display:grid}
+  body{padding-bottom:60px}
+}
+.mobile-bar-btn{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:8px 4px;
+  border-radius:8px;
+  border:none;
+  text-decoration:none;
+  font:700 11px var(--font-heading);
+  cursor:pointer;
+  transition:all 0.15s ease;
+}
+.mobile-bar-btn.call{background:rgba(255,255,255,0.08);color:#f1f5f9}
+.mobile-bar-btn.call:active{background:rgba(255,255,255,0.16)}
+.mobile-bar-btn.rfq{background:rgba(18,123,130,0.25);border:1px solid rgba(18,123,130,0.5);color:#5eead4}
+.mobile-bar-btn.rfq:active{background:rgba(18,123,130,0.4)}
+.mobile-bar-btn.quote{background:var(--color-accent);color:#0e202a}
+.mobile-bar-btn.quote:active{background:#d49813}
+.mobile-rfq-badge-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+.mobile-bar-badge{
+  position:absolute;
+  top:-6px;
+  right:-10px;
+  background:#ef4444;
+  color:#fff;
+  font:800 9.5px var(--font-heading);
+  padding:1px 5px;
+  border-radius:10px;
+  min-width:16px;
+  text-align:center;
+}
 
 /* ── Modal ── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(4,17,23,.72);backdrop-filter:blur(5px);z-index:999;display:grid;place-items:center;padding:20px;overflow-y:auto}

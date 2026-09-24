@@ -634,8 +634,8 @@ function B2bConversionCtaSection({ onOpenQuote }) {
           <button type="button" className="b2b-cta-primary" onClick={onOpenQuote}>
             Request Official Quote <ArrowRight size={16} />
           </button>
-          <a href="tel:+919876543210" className="b2b-cta-phone">
-            <Phone size={15} /> Call: +91 98765 43210
+          <a href="tel:+919390244749" className="b2b-cta-phone">
+            <Phone size={15} /> Call: +91 93902 44749
           </a>
         </div>
       </div>
@@ -1286,6 +1286,31 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                     </tbody>
                   </table>
                 </div>
+
+                <div className="pdm-spec-actions-row">
+                  <button
+                    type="button"
+                    className="pdm-spec-action-btn"
+                    onClick={() => window.print()}
+                    title="Print or Save Specifications as PDF"
+                  >
+                    <FileText size={14} /> Print / Save Spec Sheet
+                  </button>
+                  <button
+                    type="button"
+                    className="pdm-spec-action-btn primary"
+                    onClick={() => {
+                      onClose();
+                      onSelectContact({
+                        ...product,
+                        name: `${product.name} (CAD & 3D Model Request)`
+                      });
+                    }}
+                    title="Request 2D/3D CAD Drawing"
+                  >
+                    <Wrench size={14} /> Request CAD Drawing
+                  </button>
+                </div>
               </div>
             )}
 
@@ -1465,7 +1490,7 @@ function RfqDrawer({ isOpen, onClose, cart, onUpdateQty, onRemoveItem, onClearCa
                     <input
                       required
                       type="tel"
-                      placeholder="e.g. +91 98765 43210"
+                      placeholder="e.g. +91 93902 44749"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     />
@@ -1510,6 +1535,7 @@ function RfqDrawer({ isOpen, onClose, cart, onUpdateQty, onRemoveItem, onClearCa
 
 function EnquiryModal({ isOpen, product, onClose }) {
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
@@ -1519,6 +1545,7 @@ function EnquiryModal({ isOpen, product, onClose }) {
     if (isOpen) {
       setSubmitted(false);
       setName("");
+      setCompany("");
       setEmail("");
       setPhone("");
       setMessage(
@@ -1553,6 +1580,7 @@ function EnquiryModal({ isOpen, product, onClose }) {
               Our sales engineering team will get back to you shortly with the best quote.
             </p>
             <div className="enquiry-success-details">
+              {company && <span>🏢 Company: {company}</span>}
               {phone && <span>📞 Phone: {phone}</span>}
               {email && <span>✉️ Email: {email}</span>}
             </div>
@@ -1620,12 +1648,25 @@ function EnquiryModal({ isOpen, product, onClose }) {
                     <input
                       id="enquiry-phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 93902 44749"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required
                     />
                   </div>
+                </div>
+              </div>
+
+              <div className="enquiry-field">
+                <label htmlFor="enquiry-company">Company / Organization (Optional)</label>
+                <div className="input-with-icon">
+                  <Factory size={15} className="field-icon" />
+                  <input
+                    id="enquiry-company"
+                    placeholder="e.g. Hyderabad Mining & Infra Ltd."
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
                 </div>
               </div>
 
@@ -2001,6 +2042,28 @@ function ProductsPage({
                         </tbody>
                       </table>
                     </div>
+
+                    <div className="pdm-spec-actions-row">
+                      <button
+                        type="button"
+                        className="pdm-spec-action-btn"
+                        onClick={() => window.print()}
+                        title="Print or Save Specifications as PDF"
+                      >
+                        <FileText size={14} /> Print / Save Spec Sheet
+                      </button>
+                      <button
+                        type="button"
+                        className="pdm-spec-action-btn primary"
+                        onClick={() => onSelectContact({
+                          ...currentProduct,
+                          name: `${currentProduct.name} (CAD & 3D Model Request)`
+                        })}
+                        title="Request 2D/3D CAD Drawing"
+                      >
+                        <Wrench size={14} /> Request CAD Drawing
+                      </button>
+                    </div>
                   </div>
                 )}
 
@@ -2330,7 +2393,7 @@ function App(){
             <div className="hcd-icon"><Phone size={15}/></div>
             <div className="hcd-info">
               <span className="hcd-label">Call Supplier</span>
-              <a href="tel:+919876543210" className="hcd-phone">+91 98765 43210</a>
+              <a href="tel:+919390244749" className="hcd-phone">+91 93902 44749</a>
             </div>
           </div>
 
@@ -2508,7 +2571,7 @@ function App(){
 
           {/* 12. Contact Form */}
           <section id="contact" className="contact-section">
-            <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 98765 43210</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
+            <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 93902 44749</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
             <form onSubmit={e=>{e.preventDefault();setQuote(false);alert("Thank you! We'll contact you shortly.")}}>
               <div className="form-row"><input placeholder="Your name"/><input placeholder="Company name"/></div>
               <div className="form-row"><input placeholder="Email address"/><input placeholder="Phone number"/></div>
@@ -2521,32 +2584,100 @@ function App(){
       )}
     </main>
 
+    {/* Upgraded 4-Column Industrial B2B Footer (Phase 19) */}
     <footer>
       <div className="footer-main">
         <div>
           <Logo onNavigate={navigateTo} isFooter={true}/>
-          <p>Engineered polyurethane pads and industrial solutions built for demanding applications.</p>
-          <div className="socials"><span><Linkedin/></span><span><Instagram/></span></div>
+          <p>
+            Specialized manufacturer of high-performance cast polyurethane components, hydraulic breaker pads, vibrating screen media, and custom elastomeric wear parts.
+          </p>
+          <div className="footer-badges-strip">
+            <span className="footer-badge">100% Cast PU</span>
+            <span className="footer-badge">90°–95° Shore A</span>
+            <span className="footer-badge">Pan-India Dispatch</span>
+          </div>
+          <div className="socials">
+            <span title="LinkedIn"><Linkedin size={15} /></span>
+            <span title="Instagram"><Instagram size={15} /></span>
+          </div>
         </div>
+
         <div>
-          <h4>Explore</h4>
-          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}>All Products</a>
-          <a href="#about" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}>About us</a>
-          <a href="#ratings" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "ratings"); }}>Company Ratings</a>
-          <a href="#contact" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}>Contact</a>
+          <h4>Polyurethane Products</h4>
+          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Rock Breaker Parts"); }}>Rock Breaker Parts & Dampers</a>
+          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Screening & Dewatering"); }}>Screening & Dewatering Media</a>
+          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Industrial & Mining Wear"); }}>Conveyor & Mining Wear Parts</a>
+          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "All"); }}>View All 8 Components</a>
+          <a href="#about" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}>Custom Moulding & Tooling</a>
         </div>
+
         <div>
-          <h4>Contact</h4>
-          <span>Hyderabad, Telangana, India</span>
-          <span>+91 98765 43210</span>
-          <span>info@lakshmipupads.com</span>
+          <h4>Industries Served</h4>
+          <span>Quarries & Aggregates Crushing</span>
+          <span>M-Sand Washing & Dewatering</span>
+          <span>Open-Cast Mining & Processing</span>
+          <span>Bulk Material Handling</span>
+          <span>Heavy Earthmoving & Demolition</span>
+        </div>
+
+        <div>
+          <h4>Works & Engineering Support</h4>
+          <div className="footer-contact-item">
+            <MapPin size={15} />
+            <span>Sri Laxmi Ganapathi Enterprises · Hyderabad, Telangana, India</span>
+          </div>
+          <div className="footer-contact-item">
+            <Phone size={15} />
+            <a href="tel:+919390244749">+91 93902 44749</a>
+          </div>
+          <div className="footer-contact-item">
+            <Mail size={15} />
+            <a href="mailto:info@lakshmipupads.com">info@lakshmipupads.com</a>
+          </div>
+          <span className="footer-hours-note">Mon – Sat: 9:00 AM – 7:00 PM IST</span>
+          <span className="footer-hours-note" style={{color: "var(--color-accent)", fontWeight: 700}}>Direct Engineer Consultation Available</span>
         </div>
       </div>
+
       <div className="footer-bottom">
-        <span>© 2026 Lakshmi PU Pads. All rights reserved.</span>
-        <span>Built for performance.</span>
+        <span>© 2026 Lakshmi PU Pads (Sri Laxmi Ganapathi Enterprises). All rights reserved.</span>
+        <span>Registered Indian Manufacturer · ISO Compliant Testing · Hyderabad, Telangana</span>
       </div>
     </footer>
+
+    {/* Sticky Mobile Bottom Procurement Bar (Phase 20) */}
+    <div className="mobile-bottom-bar" aria-label="Mobile quick actions">
+      <a href="tel:+919390244749" className="mobile-bar-btn call" aria-label="Call engineer">
+        <Phone size={17} />
+        <span>Call Hotline</span>
+      </a>
+      <button 
+        type="button" 
+        className="mobile-bar-btn rfq" 
+        onClick={() => setRfqDrawerOpen(true)}
+        aria-label="View RFQ Cart"
+      >
+        <div className="mobile-rfq-badge-wrap">
+          <ClipboardList size={17} />
+          {rfqCart.length > 0 && (
+            <span className="mobile-bar-badge">
+              {rfqCart.reduce((sum, item) => sum + item.quantity, 0)}
+            </span>
+          )}
+        </div>
+        <span>RFQ List</span>
+      </button>
+      <button 
+        type="button" 
+        className="mobile-bar-btn quote" 
+        onClick={() => { setSelectedProduct(null); setQuote(true); }}
+        aria-label="Request quote"
+      >
+        <Send size={17} />
+        <span>Get Quote</span>
+      </button>
+    </div>
 
     {/* Detail Specifications Modal */}
     {detailProduct && (
