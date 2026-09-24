@@ -1,13 +1,14 @@
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:"DM Sans",sans-serif;color:#12202a;background:#f8f9f7}
+html{scroll-behavior:smooth;scroll-padding-top:108px}
+body{margin:0;font-family:"DM Sans",sans-serif;color:#12202a;background:#f8f9f7;overflow-x:clip}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
-.app{overflow:hidden}
+.app{overflow-x:clip;position:relative;width:100%}
+section[id],div[id]{scroll-margin-top:108px}
 
 /* ── Header ── */
-.header{min-height:112px;padding:10px 5.5%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e7ece9;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.header{min-height:104px;padding:8px 5.5%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e7ece9;position:sticky;top:0;z-index:800;box-shadow:0 2px 14px rgba(0,0,0,.06);width:100%}
 
 /* ── Brand & Logo ── */
 .brand-header-group{display:flex;align-items:center;gap:22px;flex-shrink:0}
