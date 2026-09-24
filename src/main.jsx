@@ -431,207 +431,7 @@ function PuCategoriesSection({ onSelectCategory }) {
   );
 }
 
-function WhyPolyurethaneSection() {
-  const [showMatrix, setShowMatrix] = useState(false);
 
-  const points = [
-    {
-      icon: <ShieldCheck size={22} />,
-      title: "High Abrasion Resistance",
-      desc: "Thermoset polyurethane outlasts rubber, carbon steel, and wire mesh by 4x to 10x under harsh quarry slurries and continuous mineral flow.",
-      stat: "4x to 10x vs Rubber"
-    },
-    {
-      icon: <CircleGauge size={22} />,
-      title: "Dynamic Shock Absorption",
-      desc: "High elastomer rebound resilience (>55%) absorbs intense reciprocating vibration, eliminating damaging metal-to-metal fatigue.",
-      stat: ">55% Impact Resilience"
-    },
-    {
-      icon: <Layers3 size={22} />,
-      title: "Hydrolysis & Chemical Immunity",
-      desc: "Custom prepolymers resist water wash, aggressive wet fines, hydraulic oils, and harsh weather without degrading or embrittling.",
-      stat: "-35°C to +90°C Rated"
-    },
-    {
-      icon: <Settings2 size={22} />,
-      title: "Formulated Shore Durometers",
-      desc: "Cast precisely from 65° Shore A for flexible scrapers and seals up to 75° Shore D for heavy-duty structural bushings and dampers.",
-      stat: "65° Shore A to 75° Shore D"
-    }
-  ];
-
-  return (
-    <section id="why-pu" className="why-pu-section">
-      <div className="section-head">
-        <div>
-          <div className="eyebrow"><span></span> TECHNICAL ADVANTAGE</div>
-          <h2>Why Polyurethane for<br/><em>Demanding Industrial Duty?</em></h2>
-        </div>
-        <p>
-          Unlike rubber that tears under shear loads or metal that wears thin from abrasive erosion, cast polyurethane delivers the ideal mechanical balance of elasticity and hardness.
-        </p>
-      </div>
-
-      <div className="why-pu-grid">
-        {points.map((pt) => (
-          <div className="why-pu-card" key={pt.title}>
-            <div className="why-pu-icon">{pt.icon}</div>
-            <h3>{pt.title}</h3>
-            <p>{pt.desc}</p>
-            <span className="why-pu-stat">{pt.stat}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Interactive Material Comparison Matrix */}
-      <div className="why-pu-matrix-wrapper">
-        <div className="why-pu-matrix-header">
-          <div>
-            <h3>Material Engineering Benchmark</h3>
-            <p>Comparing thermoset cast polyurethane with conventional industrial rubber, UHMW-PE, and manganese steel across key operating parameters.</p>
-          </div>
-          <button
-            type="button"
-            className="why-pu-matrix-toggle"
-            onClick={() => setShowMatrix(!showMatrix)}
-          >
-            {showMatrix ? "Hide Detailed Matrix" : "View Comparison Matrix"}
-            {showMatrix ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </button>
-        </div>
-
-        {showMatrix && (
-          <div className="why-pu-matrix-table-wrap">
-            <table className="why-pu-matrix-table">
-              <thead>
-                <tr>
-                  <th>Performance Metric</th>
-                  <th className="highlight-col">Cast Polyurethane (PU)</th>
-                  <th>Industrial Rubber (NBR/SBR)</th>
-                  <th>UHMW-PE Plastic</th>
-                  <th>Manganese / Carbon Steel</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><b>Abrasion Resistance (DIN 53516)</b></td>
-                  <td className="highlight-col"><b>30–40 mm³ loss</b> <span className="matrix-badge best">Lowest Wear</span></td>
-                  <td>140–160 mm³ loss (4x higher)</td>
-                  <td>85–110 mm³ loss</td>
-                  <td>Rapid erosion under abrasive slurry</td>
-                </tr>
-                <tr>
-                  <td><b>Tensile Strength</b></td>
-                  <td className="highlight-col"><b>45–55 MPa</b></td>
-                  <td>15–20 MPa</td>
-                  <td>30–40 MPa</td>
-                  <td>&gt;400 MPa (Rigid / No damping)</td>
-                </tr>
-                <tr>
-                  <td><b>Tear Strength</b></td>
-                  <td className="highlight-col"><b>&gt;105 kN/m</b> <span className="matrix-badge">Resists Gouging</span></td>
-                  <td>35–45 kN/m (Prone to tearing)</td>
-                  <td>50–60 kN/m</td>
-                  <td>N/A (Shears or deforms)</td>
-                </tr>
-                <tr>
-                  <td><b>Impact Damping &amp; Rebound</b></td>
-                  <td className="highlight-col"><b>&gt;55% Rebound Absorption</b></td>
-                  <td>Good damping, low load limit</td>
-                  <td>Poor (Cold flows under load)</td>
-                  <td>Zero damping (Transfers shock)</td>
-                </tr>
-                <tr>
-                  <td><b>Noise Reduction</b></td>
-                  <td className="highlight-col"><b>10 to 15 dB Attenuation</b></td>
-                  <td>6 to 8 dB</td>
-                  <td>4 to 6 dB</td>
-                  <td>Severe metallic resonance (&gt;95 dB)</td>
-                </tr>
-                <tr>
-                  <td><b>Slurry &amp; Oil Hydrolysis</b></td>
-                  <td className="highlight-col"><b>Immune to oil &amp; washdown</b></td>
-                  <td>Swells in hydrocarbons</td>
-                  <td>Good, but low heat limit</td>
-                  <td>Corrodes and rusts in wet fines</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-function ApplicationsSection({ onNavigateToCategory }) {
-  const applications = [
-    {
-      icon: <Factory size={22} />,
-      sector: "Hydraulic Rock Breakers & Mining",
-      desc: "Reciprocating buffer pads and damping blocks isolating violent shock in excavator hammers and quarry breakers.",
-      category: "Rock Breaker Parts",
-      parts: "Buffer Pads · Dampers · Wear Bushings"
-    },
-    {
-      icon: <Boxes size={22} />,
-      sector: "M-Sand & Aggregate Dewatering",
-      desc: "Fine-aperture modular screen mats, slotted dewatering panels, and hydrocyclone cones for high-throughput classification.",
-      category: "Screening & Dewatering",
-      parts: "Screen Decks · Dewatering Panels · Hydrocyclones"
-    },
-    {
-      icon: <CircleGauge size={22} />,
-      sector: "Bulk Conveying & Plant Handling",
-      desc: "Heavy-duty polyurethane coated drive rollers and conveyor belt cleaner blades preventing carryback in ports, cement, and power plants.",
-      category: "Industrial & Mining Wear",
-      parts: "PU Drive Rollers · Belt Scrapers · Guides"
-    },
-    {
-      icon: <ShieldCheck size={22} />,
-      sector: "Chutes, Hoppers & Transfer Towers",
-      desc: "Heavy-tonnage polyurethane liner plates with countersunk bolt apertures absorbing severe aggregate fall impact.",
-      category: "Industrial & Mining Wear",
-      parts: "Wear Sheets · Chute Liners · Feeder Plates"
-    }
-  ];
-
-  return (
-    <section id="applications" className="applications-section">
-      <div className="section-head">
-        <div>
-          <div className="eyebrow"><span></span> INDUSTRIAL APPLICATIONS</div>
-          <h2>Engineered for Heavy Duty<br/><em>Across Core Industries.</em></h2>
-        </div>
-        <p>
-          From aggregate washing plants and stone quarries to cement works and automated conveyors, our cast components keep critical production lines operating.
-        </p>
-      </div>
-
-      <div className="applications-grid">
-        {applications.map((app) => (
-          <div 
-            className="app-industry-card" 
-            key={app.sector}
-            onClick={() => onNavigateToCategory(app.category)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onNavigateToCategory(app.category); }}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="app-icon-wrap">{app.icon}</div>
-            <h3>{app.sector}</h3>
-            <p>{app.desc}</p>
-            <div className="app-parts-list">
-              <span>{app.parts}</span> <ArrowRight size={13} />
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function CustomPuSection({ onOpenQuote }) {
   return (
@@ -666,39 +466,7 @@ function CustomPuSection({ onOpenQuote }) {
   );
 }
 
-function ManufacturingQualitySection() {
-  const steps = [
-    { num: "01", title: "Resin Formulation", desc: "Formulation of high-grade prepolymers and curatives tailored to target durometer hardness." },
-    { num: "02", title: "Tooling & Cores", desc: "Precision CNC machined steel cores, inserts, and aluminum mold tooling." },
-    { num: "03", title: "Heated Casting", desc: "High-pressure, temperature-controlled degassed casting eliminating voids and porosity." },
-    { num: "04", title: "Oven Vulcanization", desc: "Multi-stage thermal curing ensuring optimal molecular cross-linking and maximum tear strength." },
-    { num: "05", title: "Quality Verification", desc: "Rigorous Durometer Shore testing, caliper inspection, and rebound resilience checks." }
-  ];
 
-  return (
-    <section id="quality" className="mfg-quality-section">
-      <div className="section-head">
-        <div>
-          <div className="eyebrow"><span></span> MANUFACTURING & QUALITY ASSURANCE</div>
-          <h2>Quality You Can Depend On<br/><em>In Every Cast Batch.</em></h2>
-        </div>
-        <p>
-          Strict quality control from raw chemical prepolymer formulation to final durometer testing ensures consistent tolerances and zero delamination under load.
-        </p>
-      </div>
-
-      <div className="mfg-steps-grid">
-        {steps.map((st) => (
-          <div className="mfg-step-card" key={st.num}>
-            <div className="mfg-step-num">{st.num}</div>
-            <h4>{st.title}</h4>
-            <p>{st.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function B2bConversionCtaSection({ onOpenQuote }) {
   return (
@@ -2456,24 +2224,7 @@ function App(){
             </div>
           </div>
 
-          <a 
-            href="#applications" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "applications"); }}
-          >
-            Applications
-          </a>
-          <a 
-            href="#why-pu" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "why-pu"); }}
-          >
-            Why PU?
-          </a>
-          <a 
-            href="#quality" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "quality"); }}
-          >
-            Quality
-          </a>
+
           <a 
             href="#about" 
             onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
@@ -2602,17 +2353,8 @@ function App(){
             </div>
           </section>
 
-          {/* 5. Why Polyurethane? (Phase 14) */}
-          <WhyPolyurethaneSection />
-
-          {/* 6. Applications & Industries (Phase 13) */}
-          <ApplicationsSection onNavigateToCategory={(catId) => navigateTo("products", null, catId)} />
-
-          {/* 7. Custom PU Components Tooling (Phase 12) */}
+          {/* 5. Custom PU Components Tooling (Phase 12) */}
           <CustomPuSection onOpenQuote={() => { setSelectedProduct(null); setQuote(true); }} />
-
-          {/* 8. Manufacturing & Quality Standards (Phases 15 & 16) */}
-          <ManufacturingQualitySection />
 
           {/* 9. About Lakshmi PU Pads (Phase 17) */}
           <section id="about" className="about-unified-section">
