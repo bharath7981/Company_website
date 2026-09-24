@@ -355,81 +355,7 @@ const companyReviews = [
   }
 ];
 
-function PuCategoriesSection({ onSelectCategory }) {
-  const categoriesList = [
-    {
-      id: "Rock Breaker Parts",
-      title: "Rock Breaker & Mining Parts",
-      img: "/rock-pad-front.jpg",
-      pill: "High Impact Elastomer",
-      count: "2 Components",
-      desc: "Shock buffer pads, damping cushions, and breaker housing wear protection engineered to absorb violent reciprocating loads in hydraulic hammers.",
-      badges: ["90°–95° Shore A", "Tensile >45 MPa", "OEM Compatibility"]
-    },
-    {
-      id: "Screening & Dewatering",
-      title: "Screening & Dewatering Media",
-      img: "/pu-screen-panel.jpg",
-      pill: "Severe Slurry Wear",
-      count: "3 Components",
-      desc: "Interlocking modular screen deck mats, M-sand fine dewatering panels, and hydrocyclone liners with self-relieving non-blinding apertures.",
-      badges: ["0.3mm to 65mm Slots", "Embedded Steel Skeleton", "High Throughput"]
-    },
-    {
-      id: "Industrial & Mining Wear",
-      title: "Industrial & Conveyor Wear Protection",
-      img: "/pu-roller.jpg",
-      pill: "Drive & Sliding Wear",
-      count: "3 Components",
-      desc: "Direct-vulcanized polyurethane coated drive rollers, conveyor belt cleaner blades, and high-impact wear liner sheets for bulk material handling.",
-      badges: ["Vulcanized Steel Core", "Tear Strength >105 kN/m", "Non-Marking"]
-    }
-  ];
 
-  return (
-    <section className="pu-categories-section">
-      <div className="section-head">
-        <div>
-          <div className="eyebrow"><span></span> OUR POLYURETHANE SOLUTIONS</div>
-          <h2>Specialized Elastomer<br/><em>Engineering Capabilities.</em></h2>
-        </div>
-        <p>
-          Polyurethane components formulated specifically for extreme abrasion, high-frequency cyclic vibration, and continuous aggregate impact.
-        </p>
-      </div>
-
-      <div className="pu-categories-grid">
-        {categoriesList.map((cat) => (
-          <div 
-            className="pu-cat-card" 
-            key={cat.id}
-            onClick={() => onSelectCategory(cat.id)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onSelectCategory(cat.id); }}
-          >
-            <div className="pu-cat-img-box">
-              <img src={cat.img} alt={cat.title} className="pu-cat-img" />
-              <span className="pu-cat-pill">{cat.pill}</span>
-            </div>
-            <div className="pu-cat-body">
-              <h3 className="pu-cat-title">{cat.title}</h3>
-              <p className="pu-cat-desc">{cat.desc}</p>
-              <div className="pu-cat-highlights">
-                {cat.badges.map((b) => (
-                  <span className="pu-cat-badge" key={b}>{b}</span>
-                ))}
-              </div>
-              <span className="pu-cat-explore-btn">
-                Browse {cat.count} <ArrowRight size={15} />
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 
 
@@ -2319,8 +2245,6 @@ function App(){
             <b>PAN-INDIA DISPATCH</b>
           </section>
 
-          {/* 3. PU Product Categories (Phase 7) */}
-          <PuCategoriesSection onSelectCategory={(catId) => navigateTo("products", null, catId)} />
 
           {/* 4. Featured Product Range */}
           <section id="products" className="section products-section">
