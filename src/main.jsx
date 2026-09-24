@@ -355,6 +355,294 @@ const companyReviews = [
   }
 ];
 
+function PuCategoriesSection({ onSelectCategory }) {
+  const categoriesList = [
+    {
+      id: "Rock Breaker Parts",
+      title: "Rock Breaker & Mining Parts",
+      img: "/rock-pad-front.jpg",
+      pill: "High Impact Elastomer",
+      count: "2 Components",
+      desc: "Shock buffer pads, damping cushions, and breaker housing wear protection engineered to absorb violent reciprocating loads in hydraulic hammers.",
+      badges: ["90°–95° Shore A", "Tensile >45 MPa", "OEM Compatibility"]
+    },
+    {
+      id: "Screening & Dewatering",
+      title: "Screening & Dewatering Media",
+      img: "/pu-screen-panel.jpg",
+      pill: "Severe Slurry Wear",
+      count: "3 Components",
+      desc: "Interlocking modular screen deck mats, M-sand fine dewatering panels, and hydrocyclone liners with self-relieving non-blinding apertures.",
+      badges: ["0.3mm to 65mm Slots", "Embedded Steel Skeleton", "High Throughput"]
+    },
+    {
+      id: "Industrial & Mining Wear",
+      title: "Industrial & Conveyor Wear Protection",
+      img: "/pu-roller.jpg",
+      pill: "Drive & Sliding Wear",
+      count: "3 Components",
+      desc: "Direct-vulcanized polyurethane coated drive rollers, conveyor belt cleaner blades, and high-impact wear liner sheets for bulk material handling.",
+      badges: ["Vulcanized Steel Core", "Tear Strength >105 kN/m", "Non-Marking"]
+    }
+  ];
+
+  return (
+    <section className="pu-categories-section">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow"><span></span> OUR POLYURETHANE SOLUTIONS</div>
+          <h2>Specialized Elastomer<br/><em>Engineering Capabilities.</em></h2>
+        </div>
+        <p>
+          Polyurethane components formulated specifically for extreme abrasion, high-frequency cyclic vibration, and continuous aggregate impact.
+        </p>
+      </div>
+
+      <div className="pu-categories-grid">
+        {categoriesList.map((cat) => (
+          <div 
+            className="pu-cat-card" 
+            key={cat.id}
+            onClick={() => onSelectCategory(cat.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onSelectCategory(cat.id); }}
+          >
+            <div className="pu-cat-img-box">
+              <img src={cat.img} alt={cat.title} className="pu-cat-img" />
+              <span className="pu-cat-pill">{cat.pill}</span>
+            </div>
+            <div className="pu-cat-body">
+              <h3 className="pu-cat-title">{cat.title}</h3>
+              <p className="pu-cat-desc">{cat.desc}</p>
+              <div className="pu-cat-highlights">
+                {cat.badges.map((b) => (
+                  <span className="pu-cat-badge" key={b}>{b}</span>
+                ))}
+              </div>
+              <span className="pu-cat-explore-btn">
+                Browse {cat.count} <ArrowRight size={15} />
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function WhyPolyurethaneSection() {
+  const points = [
+    {
+      icon: <ShieldCheck size={22} />,
+      title: "High Abrasion Resistance",
+      desc: "Thermoset polyurethane outlasts rubber, carbon steel, and wire mesh by 4x to 10x under harsh quarry slurries and continuous mineral flow.",
+      stat: "4x to 10x vs Rubber"
+    },
+    {
+      icon: <CircleGauge size={22} />,
+      title: "Dynamic Shock Absorption",
+      desc: "High elastomer rebound resilience (>55%) absorbs intense reciprocating vibration, eliminating damaging metal-to-metal fatigue.",
+      stat: ">55% Impact Resilience"
+    },
+    {
+      icon: <Layers3 size={22} />,
+      title: "Hydrolysis & Chemical Immunity",
+      desc: "Custom prepolymers resist water wash, aggressive wet fines, hydraulic oils, and harsh weather without degrading or embrittling.",
+      stat: "-35°C to +90°C Rated"
+    },
+    {
+      icon: <Settings2 size={22} />,
+      title: "Formulated Shore Durometers",
+      desc: "Cast precisely from 65° Shore A for flexible scrapers and seals up to 75° Shore D for heavy-duty structural bushings and dampers.",
+      stat: "65° Shore A to 75° Shore D"
+    }
+  ];
+
+  return (
+    <section id="why-pu" className="why-pu-section">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow"><span></span> TECHNICAL ADVANTAGE</div>
+          <h2>Why Polyurethane for<br/><em>Demanding Industrial Duty?</em></h2>
+        </div>
+        <p>
+          Unlike rubber that tears under shear loads or metal that wears thin from abrasive erosion, cast polyurethane delivers the ideal mechanical balance of elasticity and hardness.
+        </p>
+      </div>
+
+      <div className="why-pu-grid">
+        {points.map((pt) => (
+          <div className="why-pu-card" key={pt.title}>
+            <div className="why-pu-icon">{pt.icon}</div>
+            <h3>{pt.title}</h3>
+            <p>{pt.desc}</p>
+            <span className="why-pu-stat">{pt.stat}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ApplicationsSection({ onNavigateToCategory }) {
+  const applications = [
+    {
+      icon: <Factory size={22} />,
+      sector: "Hydraulic Rock Breakers & Mining",
+      desc: "Reciprocating buffer pads and damping blocks isolating violent shock in excavator hammers and quarry breakers.",
+      category: "Rock Breaker Parts",
+      parts: "Buffer Pads · Dampers · Wear Bushings"
+    },
+    {
+      icon: <Boxes size={22} />,
+      sector: "M-Sand & Aggregate Dewatering",
+      desc: "Fine-aperture modular screen mats, slotted dewatering panels, and hydrocyclone cones for high-throughput classification.",
+      category: "Screening & Dewatering",
+      parts: "Screen Decks · Dewatering Panels · Hydrocyclones"
+    },
+    {
+      icon: <CircleGauge size={22} />,
+      sector: "Bulk Conveying & Plant Handling",
+      desc: "Heavy-duty polyurethane coated drive rollers and conveyor belt cleaner blades preventing carryback in ports, cement, and power plants.",
+      category: "Industrial & Mining Wear",
+      parts: "PU Drive Rollers · Belt Scrapers · Guides"
+    },
+    {
+      icon: <ShieldCheck size={22} />,
+      sector: "Chutes, Hoppers & Transfer Towers",
+      desc: "Heavy-tonnage polyurethane liner plates with countersunk bolt apertures absorbing severe aggregate fall impact.",
+      category: "Industrial & Mining Wear",
+      parts: "Wear Sheets · Chute Liners · Feeder Plates"
+    }
+  ];
+
+  return (
+    <section id="applications" className="applications-section">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow"><span></span> INDUSTRIAL APPLICATIONS</div>
+          <h2>Engineered for Heavy Duty<br/><em>Across Core Industries.</em></h2>
+        </div>
+        <p>
+          From aggregate washing plants and stone quarries to cement works and automated conveyors, our cast components keep critical production lines operating.
+        </p>
+      </div>
+
+      <div className="applications-grid">
+        {applications.map((app) => (
+          <div 
+            className="app-industry-card" 
+            key={app.sector}
+            onClick={() => onNavigateToCategory(app.category)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onNavigateToCategory(app.category); }}
+            style={{ cursor: "pointer" }}
+          >
+            <div className="app-icon-wrap">{app.icon}</div>
+            <h3>{app.sector}</h3>
+            <p>{app.desc}</p>
+            <div className="app-parts-list">
+              <span>{app.parts}</span> <ArrowRight size={13} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CustomPuSection({ onOpenQuote }) {
+  return (
+    <section className="custom-pu-section">
+      <div className="custom-pu-card">
+        <div className="custom-pu-content">
+          <div className="eyebrow" style={{ color: "var(--color-accent)", marginBottom: "12px" }}>
+            <span></span> BESPOKE CASTING & TOOLING
+          </div>
+          <h2>Need a Custom Polyurethane<br/><em>Component or CAD Drawing?</em></h2>
+          <p>
+            We develop custom mold tooling, reverse-engineer discontinued OEM parts, and formulate tailored Shore A/D hardness compounds to match your precise operating temperatures, impact stresses, and dimensional tolerances.
+          </p>
+          <div className="custom-pu-specs-row">
+            <div className="custom-pu-spec-item"><Check size={14}/> Custom Mold Development</div>
+            <div className="custom-pu-spec-item"><Check size={14}/> In-house Steel Core Bonding</div>
+            <div className="custom-pu-spec-item"><Check size={14}/> Fast Turnaround in Hyderabad</div>
+          </div>
+          <div className="custom-pu-actions">
+            <button type="button" className="custom-pu-btn" onClick={onOpenQuote}>
+              Request Custom Quote <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+        <div className="custom-pu-visual">
+          <Wrench size={38} />
+          <h4>CAD / Sample Reverse Engineering</h4>
+          <p>Provide sample components or technical dimension sketches for prompt manufacturing assessment and tooling quote.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ManufacturingQualitySection() {
+  const steps = [
+    { num: "01", title: "Resin Formulation", desc: "Formulation of high-grade prepolymers and curatives tailored to target durometer hardness." },
+    { num: "02", title: "Tooling & Cores", desc: "Precision CNC machined steel cores, inserts, and aluminum mold tooling." },
+    { num: "03", title: "Heated Casting", desc: "High-pressure, temperature-controlled degassed casting eliminating voids and porosity." },
+    { num: "04", title: "Oven Vulcanization", desc: "Multi-stage thermal curing ensuring optimal molecular cross-linking and maximum tear strength." },
+    { num: "05", title: "Quality Verification", desc: "Rigorous Durometer Shore testing, caliper inspection, and rebound resilience checks." }
+  ];
+
+  return (
+    <section id="quality" className="mfg-quality-section">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow"><span></span> MANUFACTURING & QUALITY ASSURANCE</div>
+          <h2>Quality You Can Depend On<br/><em>In Every Cast Batch.</em></h2>
+        </div>
+        <p>
+          Strict quality control from raw chemical prepolymer formulation to final durometer testing ensures consistent tolerances and zero delamination under load.
+        </p>
+      </div>
+
+      <div className="mfg-steps-grid">
+        {steps.map((st) => (
+          <div className="mfg-step-card" key={st.num}>
+            <div className="mfg-step-num">{st.num}</div>
+            <h4>{st.title}</h4>
+            <p>{st.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function B2bConversionCtaSection({ onOpenQuote }) {
+  return (
+    <section className="b2b-conversion-cta">
+      <div className="b2b-cta-inner">
+        <div className="b2b-cta-text">
+          <h2>Looking for the Right<br/><em>Polyurethane Component?</em></h2>
+          <p>
+            Direct manufacturer pricing from Lakshmi PU Pads with guaranteed quality standards, fast dispatch from Hyderabad, and tailored B2B quotation.
+          </p>
+        </div>
+        <div className="b2b-cta-actions">
+          <button type="button" className="b2b-cta-primary" onClick={onOpenQuote}>
+            Request Official Quote <ArrowRight size={16} />
+          </button>
+          <a href="tel:+919876543210" className="b2b-cta-phone">
+            <Phone size={15} /> Call: +91 98765 43210
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
   const [allReviewsOpen, setAllReviewsOpen] = useState(false);
 
@@ -1915,33 +2203,43 @@ function App(){
         <>
           <section id="home" className="hero">
             <div className="hero-copy">
-              <div className="eyebrow"><span></span> ENGINEERED INDUSTRIAL SOLUTIONS</div>
-              <h1>Built for the<br/><em>hardest</em> work.</h1>
-              <p>High-performance polyurethane and industrial components engineered for durability, precision and dependable performance.</p>
+              <div className="hero-badge">
+                <Sparkles size={13} />
+                <span>LAKSHMI PU PADS · HYDERABAD, TELANGANA</span>
+              </div>
+              <h1>Built for the<br/><em>hardest</em> work.<br/><span className="pu-highlight">Engineered in PU.</span></h1>
+              <p>High-performance cast polyurethane and industrial wear components engineered for heavy impact dampening, extreme slurry abrasion, and dependable service life.</p>
               <div className="hero-actions">
-                <button type="button" className="primary-btn" onClick={()=>navigateTo("products")}>Explore products <ArrowRight size={18}/></button>
-                <button type="button" className="text-btn" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Talk to an expert <MoveUpRight size={17}/></button>
+                <button type="button" className="primary-btn" onClick={()=>navigateTo("products")}>Explore PU Components <ArrowRight size={18}/></button>
+                <button type="button" className="hero-quote-btn" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Request a Quote <MoveUpRight size={16}/></button>
               </div>
               <div className="hero-proof">
-                <div><strong>15+</strong><span>Years of<br/>experience</span></div>
-                <div><strong>500+</strong><span>Custom<br/>solutions</span></div>
-                <div><strong>98%</strong><span>On-time<br/>delivery</span></div>
+                <div><strong>90°–95°</strong><span>Shore A<br/>Durometer</span></div>
+                <div><strong>15+</strong><span>Years foundry<br/>experience</span></div>
+                <div><strong>100%</strong><span>Made in India<br/>(Hyderabad)</span></div>
               </div>
             </div>
             <div className="hero-visual">
               <div className="hero-image"></div>
-              <div className="hero-floating top"><span>01</span><b>Wear<br/>resistant</b></div>
-              <div className="hero-floating bottom"><CircleGauge size={22}/><div><b>Precision engineered</b><small>Made for performance</small></div></div>
+              <div className="hero-floating top"><span>01</span><b>Heavy impact<br/>shock absorption</b></div>
+              <div className="hero-floating bottom"><CircleGauge size={22}/><div><b>High Slurry Wear Resistance</b><small>Outlasts rubber 4x–10x</small></div></div>
               <div className="hero-grid"></div>
             </div>
           </section>
 
           <section className="trust">
-            <span>Trusted engineering for demanding applications</span>
+            <span>Engineering Excellence for Demanding Industry</span>
             <div className="trust-line"></div>
-            <b>QUALITY</b><b>PRECISION</b><b>DURABILITY</b><b>CUSTOM</b>
+            <b>CAST ELASTOMERS</b>
+            <b>90°–95° SHORE A</b>
+            <b>DIRECT MANUFACTURER PRICING</b>
+            <b>PAN-INDIA DISPATCH</b>
           </section>
 
+          {/* 3. PU Product Categories (Phase 7) */}
+          <PuCategoriesSection onSelectCategory={(catId) => navigateTo("products", null, catId)} />
+
+          {/* 4. Featured Product Range */}
           <section id="products" className="section products-section">
             <div className="section-head">
               <div><div className="eyebrow">FEATURED PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
@@ -1972,6 +2270,19 @@ function App(){
             </div>
           </section>
 
+          {/* 5. Why Polyurethane? (Phase 14) */}
+          <WhyPolyurethaneSection />
+
+          {/* 6. Applications & Industries (Phase 13) */}
+          <ApplicationsSection onNavigateToCategory={(catId) => navigateTo("products", null, catId)} />
+
+          {/* 7. Custom PU Components Tooling (Phase 12) */}
+          <CustomPuSection onOpenQuote={() => { setSelectedProduct(null); setQuote(true); }} />
+
+          {/* 8. Manufacturing & Quality Standards (Phases 15 & 16) */}
+          <ManufacturingQualitySection />
+
+          {/* 9. About Lakshmi PU Pads (Phase 17) */}
           <section id="about" className="about-unified-section">
             <div className="about-unified-top">
               <div className="about-unified-intro">
@@ -2023,12 +2334,16 @@ function App(){
             </div>
           </section>
 
-          {/* Company Ratings & Verified Buyer Reviews Section */}
+          {/* 10. Company Ratings & Verified Buyer Reviews Section */}
           <CompanyRatings 
             onSelectContact={handleSelectContact}
             onOpenReviewModal={()=>setReviewModalOpen(true)}
           />
 
+          {/* 11. B2B Conversion CTA Banner (Phase 18) */}
+          <B2bConversionCtaSection onOpenQuote={() => { setSelectedProduct(null); setQuote(true); }} />
+
+          {/* 12. Contact Form */}
           <section id="contact" className="contact-section">
             <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 98765 43210</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
             <form onSubmit={e=>{e.preventDefault();setQuote(false);alert("Thank you! We'll contact you shortly.")}}>
