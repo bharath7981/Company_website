@@ -432,6 +432,8 @@ function PuCategoriesSection({ onSelectCategory }) {
 }
 
 function WhyPolyurethaneSection() {
+  const [showMatrix, setShowMatrix] = useState(false);
+
   const points = [
     {
       icon: <ShieldCheck size={22} />,
@@ -480,6 +482,84 @@ function WhyPolyurethaneSection() {
             <span className="why-pu-stat">{pt.stat}</span>
           </div>
         ))}
+      </div>
+
+      {/* Interactive Material Comparison Matrix */}
+      <div className="why-pu-matrix-wrapper">
+        <div className="why-pu-matrix-header">
+          <div>
+            <h3>Material Engineering Benchmark</h3>
+            <p>Comparing thermoset cast polyurethane with conventional industrial rubber, UHMW-PE, and manganese steel across key operating parameters.</p>
+          </div>
+          <button
+            type="button"
+            className="why-pu-matrix-toggle"
+            onClick={() => setShowMatrix(!showMatrix)}
+          >
+            {showMatrix ? "Hide Detailed Matrix" : "View Comparison Matrix"}
+            {showMatrix ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+        </div>
+
+        {showMatrix && (
+          <div className="why-pu-matrix-table-wrap">
+            <table className="why-pu-matrix-table">
+              <thead>
+                <tr>
+                  <th>Performance Metric</th>
+                  <th className="highlight-col">Cast Polyurethane (PU)</th>
+                  <th>Industrial Rubber (NBR/SBR)</th>
+                  <th>UHMW-PE Plastic</th>
+                  <th>Manganese / Carbon Steel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Abrasion Resistance (DIN 53516)</b></td>
+                  <td className="highlight-col"><b>30–40 mm³ loss</b> <span className="matrix-badge best">Lowest Wear</span></td>
+                  <td>140–160 mm³ loss (4x higher)</td>
+                  <td>85–110 mm³ loss</td>
+                  <td>Rapid erosion under abrasive slurry</td>
+                </tr>
+                <tr>
+                  <td><b>Tensile Strength</b></td>
+                  <td className="highlight-col"><b>45–55 MPa</b></td>
+                  <td>15–20 MPa</td>
+                  <td>30–40 MPa</td>
+                  <td>&gt;400 MPa (Rigid / No damping)</td>
+                </tr>
+                <tr>
+                  <td><b>Tear Strength</b></td>
+                  <td className="highlight-col"><b>&gt;105 kN/m</b> <span className="matrix-badge">Resists Gouging</span></td>
+                  <td>35–45 kN/m (Prone to tearing)</td>
+                  <td>50–60 kN/m</td>
+                  <td>N/A (Shears or deforms)</td>
+                </tr>
+                <tr>
+                  <td><b>Impact Damping &amp; Rebound</b></td>
+                  <td className="highlight-col"><b>&gt;55% Rebound Absorption</b></td>
+                  <td>Good damping, low load limit</td>
+                  <td>Poor (Cold flows under load)</td>
+                  <td>Zero damping (Transfers shock)</td>
+                </tr>
+                <tr>
+                  <td><b>Noise Reduction</b></td>
+                  <td className="highlight-col"><b>10 to 15 dB Attenuation</b></td>
+                  <td>6 to 8 dB</td>
+                  <td>4 to 6 dB</td>
+                  <td>Severe metallic resonance (&gt;95 dB)</td>
+                </tr>
+                <tr>
+                  <td><b>Slurry &amp; Oil Hydrolysis</b></td>
+                  <td className="highlight-col"><b>Immune to oil &amp; washdown</b></td>
+                  <td>Swells in hydrocarbons</td>
+                  <td>Good, but low heat limit</td>
+                  <td>Corrodes and rusts in wet fines</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -1730,6 +1810,7 @@ function ProductsPage({
   const [activeViewIdx, setActiveViewIdx] = useState(0);
   const [activeTab, setActiveTab] = useState("specs");
   const [showcaseQty, setShowcaseQty] = useState(1);
+  const [hardnessFilter, setHardnessFilter] = useState("All");
   const searchRef = useRef(null);
 
   // Close dropdown on outside click
@@ -1743,9 +1824,14 @@ function ProductsPage({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Filter products by search text and active category
+  // Filter products by search text, category, and durometer hardness
   const filteredProducts = products.filter(p => {
     const matchesCat = activeCategory === "All" || p.categoryGroup === activeCategory;
+    const matchesHardness = hardnessFilter === "All" || (
+      hardnessFilter === "90-95A" ? p.specs.some(s => (s.label.includes("Hardness")) && (s.value.includes("95") || s.value.includes("92") || s.value.includes("90"))) :
+      hardnessFilter === "85-90A" ? p.specs.some(s => (s.label.includes("Hardness")) && (s.value.includes("85") || s.value.includes("88") || s.value.includes("90"))) :
+      true
+    );
     const query = searchQuery.trim().toLowerCase();
     const matchesSearch = !query || 
       p.name.toLowerCase().includes(query) ||
@@ -1753,7 +1839,7 @@ function ProductsPage({
       p.categoryGroup.toLowerCase().includes(query) ||
       p.description.toLowerCase().includes(query) ||
       p.specs.some(s => s.value.toLowerCase().includes(query) || s.label.toLowerCase().includes(query));
-    return matchesCat && matchesSearch;
+    return matchesCat && matchesHardness && matchesSearch;
   });
 
   // Current selected product (fallback safely)
@@ -1905,6 +1991,25 @@ function ProductsPage({
               </button>
             );
           })}
+        </div>
+
+        {/* Durometer & Hardness Filter Chips */}
+        <div className="product-hardness-chips-row">
+          <span className="hardness-chips-label">Shore Durometer:</span>
+          {[
+            { id: "All", label: "All Hardness" },
+            { id: "90-95A", label: "90°–95° Shore A (High Impact Buffer)" },
+            { id: "85-90A", label: "85°–90° Shore A (Wear & Slurry Duty)" }
+          ].map(h => (
+            <button
+              key={h.id}
+              type="button"
+              className={`hardness-chip ${hardnessFilter === h.id ? "active" : ""}`}
+              onClick={() => setHardnessFilter(h.id)}
+            >
+              {h.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -2124,6 +2229,7 @@ function ProductsPage({
               onClick={() => {
                 setSearchQuery("");
                 setActiveCategory("All");
+                setHardnessFilter("All");
               }}
             >
               Reset Filters

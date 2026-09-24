@@ -821,6 +821,143 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
   border:1px solid rgba(232,168,23,0.25);
 }
 
+/* ── Why PU Comparison Matrix ── */
+.why-pu-matrix-wrapper{
+  margin-top:40px;
+  background:#142a36;
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+}
+.why-pu-matrix-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:22px 26px;
+  flex-wrap:wrap;
+  gap:16px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.why-pu-matrix-header h3{
+  margin:0 0 6px;
+  font:800 18px var(--font-heading);
+  color:#ffffff;
+}
+.why-pu-matrix-header p{
+  margin:0;
+  font-size:13px;
+  color:#94a3b8;
+  max-width:620px;
+  line-height:1.5;
+}
+.why-pu-matrix-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(18,123,130,0.25);
+  border:1px solid rgba(18,123,130,0.5);
+  color:#5eead4;
+  padding:9px 16px;
+  border-radius:6px;
+  font:700 12.5px var(--font-heading);
+  cursor:pointer;
+  transition:all var(--transition-fast);
+}
+.why-pu-matrix-toggle:hover{
+  background:var(--color-primary);
+  color:#ffffff;
+}
+.why-pu-matrix-table-wrap{
+  overflow-x:auto;
+  padding:16px 20px 24px;
+}
+.why-pu-matrix-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12.5px;
+  text-align:left;
+  min-width:640px;
+}
+.why-pu-matrix-table th{
+  padding:12px 14px;
+  font:700 12px var(--font-heading);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:#94a3b8;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.why-pu-matrix-table td{
+  padding:12px 14px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  color:#cbd5e1;
+  line-height:1.5;
+}
+.why-pu-matrix-table tr:hover td{
+  background:rgba(255,255,255,0.02);
+}
+.why-pu-matrix-table .highlight-col{
+  background:rgba(18,123,130,0.12);
+  color:#ffffff;
+}
+.why-pu-matrix-table th.highlight-col{
+  color:var(--color-accent);
+  background:rgba(18,123,130,0.2);
+}
+.matrix-badge{
+  display:inline-block;
+  font:700 10px var(--font-heading);
+  background:rgba(255,255,255,0.1);
+  padding:2px 6px;
+  border-radius:3px;
+  margin-left:6px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.matrix-badge.best{
+  background:rgba(232,168,23,0.2);
+  color:var(--color-accent);
+  border:1px solid rgba(232,168,23,0.3);
+}
+
+/* ── Hardness & Technical Filter Chips in Catalog ── */
+.product-hardness-chips-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  padding:10px 14px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:8px;
+}
+.hardness-chips-label{
+  font:700 12px var(--font-heading);
+  color:#475569;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.hardness-chip{
+  background:#ffffff;
+  border:1px solid #cbd5e1;
+  border-radius:20px;
+  padding:5px 12px;
+  font:600 11.5px var(--font-heading);
+  color:#475569;
+  cursor:pointer;
+  transition:all var(--transition-fast);
+}
+.hardness-chip:hover{
+  border-color:var(--color-primary);
+  color:var(--color-primary);
+}
+.hardness-chip.active{
+  background:var(--color-primary);
+  border-color:var(--color-primary);
+  color:#ffffff;
+  font-weight:700;
+}
+
 /* ── Applications / Industries Section (Phase 13) ── */
 .applications-section{
   padding:90px 5.5%;
