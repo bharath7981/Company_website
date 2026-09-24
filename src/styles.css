@@ -1245,7 +1245,18 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .pdm-thumb-btn span{font:700 10.5px Manrope;color:#334155}
 .pdm-gallery-cta{margin-top:6px}
 
-.pdm-info{display:flex;flex-direction:column;gap:22px}
+.pdm-breadcrumbs{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font:600 11px var(--font-heading);
+  color:#64748b;
+  margin-bottom:6px;
+}
+.pdm-breadcrumbs span.sep{color:#cbd5e1}
+.pdm-breadcrumbs span.current{color:var(--color-primary);font-weight:700}
+
+.pdm-info{display:flex;flex-direction:column;gap:18px}
 .pdm-price-banner{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 18px}
 .pdm-price-val{display:flex;align-items:baseline;gap:6px}
 .pdm-price-val strong{font:800 24px Manrope;color:#0e202a}
@@ -1253,8 +1264,93 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .pdm-min-order{font-size:12.5px;color:#475569}
 .pdm-min-order b{color:#0e202a;font-weight:700;margin-left:4px}
 
-.pdm-section h4{font:700 14px Manrope;text-transform:uppercase;letter-spacing:.05em;color:#0e202a;margin:0 0 10px;display:flex;align-items:center;gap:6px}
+.pdm-qty-picker{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:6px;
+  padding:8px 14px;
+  margin-top:10px;
+}
+.pdm-qty-label{font:700 12px var(--font-heading);color:#334155}
+.pdm-qty-controls{display:flex;align-items:center;gap:8px}
+
+.pdm-tabs-nav{
+  display:flex;
+  gap:4px;
+  border-bottom:1.5px solid #e2e8f0;
+  margin-bottom:14px;
+}
+.pdm-tab-btn{
+  background:none;
+  border:none;
+  padding:8px 12px;
+  font:700 12.5px var(--font-heading);
+  color:#64748b;
+  cursor:pointer;
+  position:relative;
+  transition:all var(--transition-fast);
+}
+.pdm-tab-btn:hover{color:var(--color-primary)}
+.pdm-tab-btn.active{
+  color:var(--color-primary);
+  font-weight:800;
+}
+.pdm-tab-btn.active::after{
+  content:"";
+  position:absolute;
+  bottom:-1.5px;
+  left:0;
+  right:0;
+  height:2.5px;
+  background:var(--color-primary);
+  border-radius:2px;
+}
+
+.pdm-section h4{font:700 13.5px Manrope;text-transform:uppercase;letter-spacing:.05em;color:#0e202a;margin:0 0 10px;display:flex;align-items:center;gap:6px}
 .pdm-desc{font-size:13.5px;color:#475569;line-height:1.7;margin:0}
+
+/* Catalog Grid Header */
+.catalog-grid-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 0 16px;
+  border-bottom:1px solid #e2e8f0;
+  margin-bottom:24px;
+}
+.catalog-grid-header h3{
+  margin:0;
+  font:800 18px var(--font-heading);
+  color:var(--color-dark);
+}
+.catalog-subhead{
+  margin:4px 0 0;
+  font-size:13px;
+  color:#64748b;
+  line-height:1.5;
+}
+
+.catalog-empty-state{
+  text-align:center;
+  padding:48px 24px;
+  background:#f8fafc;
+  border:1px dashed #cbd5e1;
+  border-radius:12px;
+  margin:20px 0 40px;
+}
+.catalog-empty-state h4{
+  font:800 18px var(--font-heading);
+  color:var(--color-dark);
+  margin:0 0 8px;
+}
+.catalog-empty-state p{
+  font-size:14px;
+  color:#64748b;
+  margin:0 0 18px;
+}
 
 .pdm-specs-table{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
 .pdm-specs-table table{width:100%;border-collapse:collapse;font-size:12.5px}

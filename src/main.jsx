@@ -1136,6 +1136,8 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
 
 function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }){
   const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
+  const [activeTab, setActiveTab] = useState("specs");
+  const [qty, setQty] = useState(1);
   const currentView = product.views[activeViewIdx] || product.views[0];
 
   return (
@@ -1143,18 +1145,26 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
       <div className="product-detail-modal" onClick={e=>e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close details"><X/></button>
         
+        <div className="pdm-breadcrumbs">
+          <span>Products</span>
+          <span className="sep">/</span>
+          <span>{product.categoryGroup || "Polyurethane"}</span>
+          <span className="sep">/</span>
+          <span className="current">{product.name}</span>
+        </div>
+
         <div className="pdm-header">
           <div className="eyebrow">{product.cat}</div>
           <h2>{product.name}</h2>
           <div className="pdm-subhead">
-            <span className="pdm-supplier">{product.supplier}</span>
+            <span className="pdm-supplier">Lakshmi PU Pads · {product.supplier}</span>
             <span className="pdm-dot">·</span>
             <span className="pdm-location">{product.location}</span>
           </div>
         </div>
 
         <div className="pdm-layout">
-          {/* Left Column: Gallery */}
+          {/* Left Column: Multi-Angle Gallery & Actions */}
           <div className="pdm-gallery">
             <div className="pdm-main-img-box">
               <img src={currentView.src} alt={`${product.name} - ${currentView.label}`} />
@@ -1174,6 +1184,30 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
               ))}
             </div>
 
+            {/* Quantity Selector */}
+            <div className="pdm-qty-picker">
+              <span className="pdm-qty-label">Order / Quote Quantity:</span>
+              <div className="pdm-qty-controls">
+                <button
+                  type="button"
+                  className="rfq-qty-btn"
+                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  aria-label="Decrease quantity"
+                >
+                  <Minus size={12} />
+                </button>
+                <span className="rfq-qty-display">{qty}</span>
+                <button
+                  type="button"
+                  className="rfq-qty-btn"
+                  onClick={() => setQty(qty + 1)}
+                  aria-label="Increase quantity"
+                >
+                  <Plus size={12} />
+                </button>
+              </div>
+            </div>
+
             <div className="pdm-gallery-cta">
               <button
                 type="button"
@@ -1183,23 +1217,24 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                   onSelectContact(product);
                 }}
               >
-                <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
+                <Send size={16} style={{transform:"rotate(-20deg)"}} /> Instant Quote Enquiry
               </button>
               {onAddToRfq && (
                 <button
                   type="button"
                   className="product-b2b-rfq-add-btn"
                   onClick={()=>{
-                    onAddToRfq(product, 1);
+                    onAddToRfq(product, qty);
+                    onClose();
                   }}
                 >
-                  <ClipboardList size={16} /> Add to Multi-Item RFQ List
+                  <ClipboardList size={16} /> Add {qty} to Multi-Item RFQ List
                 </button>
               )}
             </div>
           </div>
 
-          {/* Right Column: Specs & Description */}
+          {/* Right Column: Tabbed Specs, Overview & Features */}
           <div className="pdm-info">
             <div className="pdm-price-banner">
               <div className="pdm-price-val">
@@ -1211,38 +1246,69 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
               </div>
             </div>
 
-            <div className="pdm-section">
-              <h4>Product Description</h4>
-              <p className="pdm-desc">{product.description}</p>
+            {/* Navigation Tabs */}
+            <div className="pdm-tabs-nav">
+              <button
+                type="button"
+                className={`pdm-tab-btn ${activeTab === "specs" ? "active" : ""}`}
+                onClick={() => setActiveTab("specs")}
+              >
+                Technical Specifications
+              </button>
+              <button
+                type="button"
+                className={`pdm-tab-btn ${activeTab === "overview" ? "active" : ""}`}
+                onClick={() => setActiveTab("overview")}
+              >
+                Overview
+              </button>
+              <button
+                type="button"
+                className={`pdm-tab-btn ${activeTab === "features" ? "active" : ""}`}
+                onClick={() => setActiveTab("features")}
+              >
+                Performance Features
+              </button>
             </div>
 
-            <div className="pdm-section">
-              <h4>Technical Specifications</h4>
-              <div className="pdm-specs-table">
-                <table>
-                  <tbody>
-                    {product.specs.map(s => (
-                      <tr key={s.label}>
-                        <td className="spec-label">{s.label}</td>
-                        <td className="spec-value">{s.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {activeTab === "specs" && (
+              <div className="pdm-section">
+                <h4>Verified Engineering Specifications</h4>
+                <div className="pdm-specs-table">
+                  <table>
+                    <tbody>
+                      {product.specs.map(s => (
+                        <tr key={s.label}>
+                          <td className="spec-label">{s.label}</td>
+                          <td className="spec-value">{s.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            )}
 
-            <div className="pdm-section">
-              <h4>Key Performance Features</h4>
-              <ul className="pdm-features-list">
-                {product.features.map(f => (
-                  <li key={f}>
-                    <Check size={16} className="feature-check-icon"/>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {activeTab === "overview" && (
+              <div className="pdm-section">
+                <h4>Component Description & Duty</h4>
+                <p className="pdm-desc">{product.description}</p>
+              </div>
+            )}
+
+            {activeTab === "features" && (
+              <div className="pdm-section">
+                <h4>Key Performance Advantages</h4>
+                <ul className="pdm-features-list">
+                  {product.features.map(f => (
+                    <li key={f}>
+                      <Check size={16} className="feature-check-icon"/>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -1621,6 +1687,8 @@ function ProductsPage({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedProdId, setSelectedProdId] = useState(products[0]?.id || "");
   const [activeViewIdx, setActiveViewIdx] = useState(0);
+  const [activeTab, setActiveTab] = useState("specs");
+  const [showcaseQty, setShowcaseQty] = useState(1);
   const searchRef = useRef(null);
 
   // Close dropdown on outside click
@@ -1655,6 +1723,8 @@ function ProductsPage({
   const handleSelectProduct = (product) => {
     setSelectedProdId(product.id);
     setActiveViewIdx(0);
+    setShowcaseQty(1);
+    setActiveTab("specs");
     setIsDropdownOpen(false);
   };
 
@@ -1846,6 +1916,29 @@ function ProductsPage({
                   ))}
                 </div>
 
+                <div className="pdm-qty-picker">
+                  <span className="pdm-qty-label">Procurement Quantity:</span>
+                  <div className="pdm-qty-controls">
+                    <button
+                      type="button"
+                      className="rfq-qty-btn"
+                      onClick={() => setShowcaseQty(q => Math.max(1, q - 1))}
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus size={13} />
+                    </button>
+                    <span className="rfq-qty-num">{showcaseQty}</span>
+                    <button
+                      type="button"
+                      className="rfq-qty-btn"
+                      onClick={() => setShowcaseQty(q => q + 1)}
+                      aria-label="Increase quantity"
+                    >
+                      <Plus size={13} />
+                    </button>
+                  </div>
+                </div>
+
                 <div className="pdm-gallery-cta">
                   <button
                     type="button"
@@ -1858,50 +1951,120 @@ function ProductsPage({
                     <button
                       type="button"
                       className="product-b2b-rfq-add-btn"
-                      onClick={() => onAddToRfq(currentProduct, 1)}
+                      onClick={() => onAddToRfq(currentProduct, showcaseQty)}
                     >
-                      <ClipboardList size={16} /> Add to Multi-Item RFQ List
+                      <ClipboardList size={16} /> Add {showcaseQty} to Multi-Item RFQ List
                     </button>
                   )}
                 </div>
               </div>
 
-              {/* Right Column: Specifications & Description */}
+              {/* Right Column: Tabbed Specifications & Description */}
               <div className="pdm-info">
-                <div className="pdm-section">
-                  <h4>Product Description</h4>
-                  <p className="pdm-desc">{currentProduct.description}</p>
+                {/* Navigation Tabs */}
+                <div className="pdm-tabs-nav">
+                  <button
+                    type="button"
+                    className={`pdm-tab-btn ${activeTab === "specs" ? "active" : ""}`}
+                    onClick={() => setActiveTab("specs")}
+                  >
+                    Technical Specifications
+                  </button>
+                  <button
+                    type="button"
+                    className={`pdm-tab-btn ${activeTab === "overview" ? "active" : ""}`}
+                    onClick={() => setActiveTab("overview")}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    type="button"
+                    className={`pdm-tab-btn ${activeTab === "features" ? "active" : ""}`}
+                    onClick={() => setActiveTab("features")}
+                  >
+                    Performance Features
+                  </button>
                 </div>
 
-                <div className="pdm-section">
-                  <h4>Technical Specifications</h4>
-                  <div className="pdm-specs-table">
-                    <table>
-                      <tbody>
-                        {currentProduct.specs.map(s => (
-                          <tr key={s.label}>
-                            <td className="spec-label">{s.label}</td>
-                            <td className="spec-value">{s.value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                {activeTab === "specs" && (
+                  <div className="pdm-section">
+                    <h4>Verified Engineering Specifications</h4>
+                    <div className="pdm-specs-table">
+                      <table>
+                        <tbody>
+                          {currentProduct.specs.map(s => (
+                            <tr key={s.label}>
+                              <td className="spec-label">{s.label}</td>
+                              <td className="spec-value">{s.value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="pdm-section">
-                  <h4>Key Performance Features</h4>
-                  <ul className="pdm-features-list">
-                    {currentProduct.features.map(f => (
-                      <li key={f}>
-                        <Check size={16} className="feature-check-icon"/>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {activeTab === "overview" && (
+                  <div className="pdm-section">
+                    <h4>Component Description & Duty</h4>
+                    <p className="pdm-desc">{currentProduct.description}</p>
+                  </div>
+                )}
+
+                {activeTab === "features" && (
+                  <div className="pdm-section">
+                    <h4>Key Performance Advantages</h4>
+                    <ul className="pdm-features-list">
+                      {currentProduct.features.map(f => (
+                        <li key={f}>
+                          <Check size={16} className="feature-check-icon"/>
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Full B2B Products Catalog Grid */}
+        <div className="catalog-grid-header">
+          <div>
+            <h3>All Available Polyurethane Components</h3>
+            <p className="catalog-subhead">
+              Displaying {filteredProducts.length} items in {activeCategory === "All" ? "all categories" : activeCategory}. Click "View Details" for durometer ratings, engineering specs & CAD request.
+            </p>
+          </div>
+        </div>
+
+        <div className="product-grid">
+          {filteredProducts.map(p => (
+            <ProductCard
+              key={p.id}
+              p={p}
+              onSelectContact={onSelectContact}
+              onOpenDetails={onOpenDetails}
+              onAddToRfq={onAddToRfq}
+            />
+          ))}
+        </div>
+
+        {filteredProducts.length === 0 && (
+          <div className="catalog-empty-state">
+            <h4>No components matched your search</h4>
+            <p>Try clearing your search query or selecting a different category from above.</p>
+            <button
+              type="button"
+              className="primary-btn"
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("All");
+              }}
+            >
+              Reset Filters
+            </button>
           </div>
         )}
 
