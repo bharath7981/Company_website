@@ -4,7 +4,8 @@ import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
-  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User
+  Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User,
+  ClipboardList, FileText, Trash2, Minus, Wrench
 } from "lucide-react";
 import "./styles.css";
 
@@ -789,7 +790,7 @@ function Logo({ onNavigate, isFooter = false }){
   );
 }
 
-function ProductCard({ p, onSelectContact, onOpenDetails }){
+function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
   return (
     <article className="product-b2b-card" key={p.id}>
       <div className="product-b2b-img-wrap" onClick={()=>onOpenDetails(p, 0)}>
@@ -809,6 +810,19 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
           >
             <Eye size={15} /> View Details
           </button>
+          {onAddToRfq && (
+            <button
+              type="button"
+              className="product-b2b-rfq-pill-btn"
+              title="Add to multi-item RFQ list"
+              onClick={(e)=>{
+                e.stopPropagation();
+                onAddToRfq(p, 1);
+              }}
+            >
+              <Plus size={14} /> RFQ
+            </button>
+          )}
         </div>
 
         <div className="product-b2b-supplier-info">
@@ -832,7 +846,7 @@ function ProductCard({ p, onSelectContact, onOpenDetails }){
   );
 }
 
-function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact }){
+function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }){
   const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
   const currentView = product.views[activeViewIdx] || product.views[0];
 
@@ -883,6 +897,17 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact 
               >
                 <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
               </button>
+              {onAddToRfq && (
+                <button
+                  type="button"
+                  className="product-b2b-rfq-add-btn"
+                  onClick={()=>{
+                    onAddToRfq(product, 1);
+                  }}
+                >
+                  <ClipboardList size={16} /> Add to Multi-Item RFQ List
+                </button>
+              )}
             </div>
           </div>
 
@@ -931,6 +956,198 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact 
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RfqDrawer({ isOpen, onClose, cart, onUpdateQty, onRemoveItem, onClearCart }) {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="rfq-drawer-backdrop" onClick={onClose}>
+      <div className="rfq-drawer" onClick={(e) => e.stopPropagation()}>
+        <div className="rfq-drawer-header">
+          <div className="rfq-dh-title">
+            <ClipboardList size={20} color="var(--color-primary)" />
+            <h3>B2B Quote Request List</h3>
+            <span className="rfq-dh-badge">{cart.length} {cart.length === 1 ? "Product" : "Products"}</span>
+          </div>
+          <button className="rfq-drawer-close" onClick={onClose} aria-label="Close quote list">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="rfq-drawer-body">
+          {submitted ? (
+            <div className="enquiry-success-state" style={{ padding: "40px 10px" }}>
+              <CheckCircle2 size={54} color="#10b981" />
+              <h3>Consolidated RFQ Received!</h3>
+              <p>
+                Thank you{name ? `, ${name}` : ""}{company ? ` from ${company}` : ""}! Your formal request for quotation for{" "}
+                <strong>{cart.length} polyurethane component{cart.length > 1 ? "s" : ""}</strong> has been forwarded to our engineering sales division in Hyderabad.
+              </p>
+              <div className="enquiry-success-details">
+                {phone && <span>📞 Follow-up Phone: {phone}</span>}
+                {email && <span>✉️ Quotation Email: {email}</span>}
+              </div>
+              <button
+                type="button"
+                className="enquiry-submit-btn enquiry-success-btn"
+                onClick={() => {
+                  onClearCart();
+                  onClose();
+                }}
+              >
+                Close & Return
+              </button>
+            </div>
+          ) : cart.length === 0 ? (
+            <div className="rfq-drawer-empty">
+              <div className="rfq-empty-icon">
+                <ClipboardList size={32} />
+              </div>
+              <h4>Your Quote List is Empty</h4>
+              <p>
+                Browse our polyurethane components and click <strong>"Add to Quote List"</strong> or <strong>"+ RFQ"</strong> on any product card to compile a multi-item enquiry.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="rfq-items-list">
+                {cart.map((item) => (
+                  <div className="rfq-item-card" key={item.product.id}>
+                    <img
+                      src={item.product.views?.[0]?.src}
+                      alt={item.product.name}
+                      className="rfq-item-img"
+                    />
+                    <div className="rfq-item-info">
+                      <div className="rfq-item-title" title={item.product.name}>
+                        {item.product.name}
+                      </div>
+                      <div className="rfq-item-meta">
+                        <span>{item.product.price} {item.product.unit}</span>
+                        <span>·</span>
+                        <span>Min. {item.product.minOrder}</span>
+                      </div>
+                      <div className="rfq-item-qty-row">
+                        <button
+                          type="button"
+                          className="rfq-qty-btn"
+                          onClick={() => onUpdateQty(item.product.id, -1)}
+                          title="Decrease quantity"
+                        >
+                          <Minus size={12} />
+                        </button>
+                        <span className="rfq-qty-display">{item.quantity}</span>
+                        <button
+                          type="button"
+                          className="rfq-qty-btn"
+                          onClick={() => onUpdateQty(item.product.id, 1)}
+                          title="Increase quantity"
+                        >
+                          <Plus size={12} />
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="rfq-item-remove-btn"
+                      onClick={() => onRemoveItem(item.product.id)}
+                      title="Remove from quote list"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={handleSubmit} className="rfq-form-section">
+                <h4>
+                  <FileText size={15} color="var(--color-primary)" />
+                  Submit Multi-Item Requirement
+                </h4>
+                <div className="rfq-form-grid">
+                  <div className="rfq-form-field">
+                    <label>Your Name *</label>
+                    <input
+                      required
+                      placeholder="e.g. Ramesh Kumar"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div className="rfq-form-field">
+                    <label>Company / Plant *</label>
+                    <input
+                      required
+                      placeholder="e.g. Deccan Mining Corp"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                    />
+                  </div>
+                  <div className="rfq-form-field">
+                    <label>Phone Number *</label>
+                    <input
+                      required
+                      type="tel"
+                      placeholder="e.g. +91 98765 43210"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                  <div className="rfq-form-field">
+                    <label>Email Address *</label>
+                    <input
+                      required
+                      type="email"
+                      placeholder="e.g. purchase@company.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="rfq-form-field">
+                  <label>Application / Custom Dimensions (Optional)</label>
+                  <textarea
+                    placeholder="Specify operating environment, machine model, custom Shore A hardness or required delivery timeline..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  />
+                </div>
+
+                <button type="submit" className="rfq-submit-btn">
+                  <Send size={15} /> Request Consolidated Official Quote
+                </button>
+
+                <div className="rfq-drawer-trust-note">
+                  <ShieldCheck size={14} color="#10b981" />
+                  <span>Direct manufacturer quotation · GST compliant invoice</span>
+                </div>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -1109,7 +1326,8 @@ function ProductsPage({
   categories, 
   onSelectContact, 
   onOpenDetails, 
-  onNavigateHome 
+  onNavigateHome,
+  onAddToRfq 
 }){
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -1348,6 +1566,15 @@ function ProductsPage({
                   >
                     <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
                   </button>
+                  {onAddToRfq && (
+                    <button
+                      type="button"
+                      className="product-b2b-rfq-add-btn"
+                      onClick={() => onAddToRfq(currentProduct, 1)}
+                    >
+                      <ClipboardList size={16} /> Add to Multi-Item RFQ List
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -1418,6 +1645,8 @@ function App(){
   const [detailProduct, setDetailProduct] = useState(null);
   const [detailViewIdx, setDetailViewIdx] = useState(0);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [rfqCart, setRfqCart] = useState([]);
+  const [rfqDrawerOpen, setRfqDrawerOpen] = useState(false);
 
   const [page, setPage] = useState(() => {
     if (typeof window !== "undefined" && (window.location.hash === "#all-products" || window.location.hash === "#products")) {
@@ -1441,8 +1670,48 @@ function App(){
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const navigateTo = (targetPage, sectionId = null) => {
+  const handleAddToRfq = (product, qty = 1) => {
+    setRfqCart((prev) => {
+      const existing = prev.find((item) => item.product.id === product.id);
+      if (existing) {
+        return prev.map((item) =>
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + qty }
+            : item
+        );
+      }
+      return [...prev, { product, quantity: qty }];
+    });
+    setRfqDrawerOpen(true);
+  };
+
+  const handleUpdateRfqQty = (productId, delta) => {
+    setRfqCart((prev) =>
+      prev
+        .map((item) => {
+          if (item.product.id === productId) {
+            const newQty = item.quantity + delta;
+            return newQty > 0 ? { ...item, quantity: newQty } : null;
+          }
+          return item;
+        })
+        .filter(Boolean)
+    );
+  };
+
+  const handleRemoveFromRfq = (productId) => {
+    setRfqCart((prev) => prev.filter((item) => item.product.id !== productId));
+  };
+
+  const handleClearRfqCart = () => {
+    setRfqCart([]);
+  };
+
+  const navigateTo = (targetPage, sectionId = null, category = null) => {
     setOpen(false);
+    if (category) {
+      setActiveCategory(category);
+    }
     if (targetPage === "products") {
       setPage("products");
       window.location.hash = "all-products";
@@ -1484,12 +1753,106 @@ function App(){
           >
             Home
           </a>
+
+          {/* Products Dropdown (PU Priority) */}
+          <div className="nav-dropdown-wrapper">
+            <button
+              type="button"
+              className={`nav-dropdown-trigger ${page === "products" ? "active" : ""}`}
+              onClick={() => navigateTo("products")}
+              aria-expanded="false"
+            >
+              <span>Products</span>
+              <ChevronDown size={14} />
+            </button>
+            <div className="nav-dropdown">
+              <div className="nav-dropdown-eyebrow">
+                <Sparkles size={12} />
+                <span>POLYURETHANE COMPONENTS (PRIMARY SPECIALTY)</span>
+              </div>
+              <a
+                href="#all-products"
+                className="nav-dropdown-item"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("products", null, "Rock Breaker Parts");
+                }}
+              >
+                <div className="nav-dropdown-icon"><Boxes size={16}/></div>
+                <div className="nav-dropdown-text">
+                  <strong>Rock Breaker & Mining Parts</strong>
+                  <span>Buffer pads, impact damper cushions, wear kits</span>
+                </div>
+              </a>
+              <a
+                href="#all-products"
+                className="nav-dropdown-item"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("products", null, "Screening & Dewatering");
+                }}
+              >
+                <div className="nav-dropdown-icon"><Layers3 size={16}/></div>
+                <div className="nav-dropdown-text">
+                  <strong>Screening & Dewatering Media</strong>
+                  <span>Modular screen panels, M-sand dewatering, hydrocyclones</span>
+                </div>
+              </a>
+              <a
+                href="#all-products"
+                className="nav-dropdown-item"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("products", null, "Industrial & Mining Wear");
+                }}
+              >
+                <div className="nav-dropdown-icon"><Settings2 size={16}/></div>
+                <div className="nav-dropdown-text">
+                  <strong>Industrial & Conveyor Wear Protection</strong>
+                  <span>PU coated rollers, belt cleaner blades, wear liner sheets</span>
+                </div>
+              </a>
+              <div className="nav-dropdown-footer">
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedProduct(null);
+                    setQuote(true);
+                  }}
+                >
+                  ⚡ Custom Moulding & CAD Tooling
+                </a>
+                <a
+                  href="#all-products"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("products", null, "All");
+                  }}
+                >
+                  View All 8 Products →
+                </a>
+              </div>
+            </div>
+          </div>
+
           <a 
-            href="#all-products" 
-            className={page === "products" ? "active" : ""}
-            onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
+            href="#applications" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "applications"); }}
           >
-            Products
+            Applications
+          </a>
+          <a 
+            href="#why-pu" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "why-pu"); }}
+          >
+            Why PU?
+          </a>
+          <a 
+            href="#quality" 
+            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "quality"); }}
+          >
+            Quality
           </a>
           <a 
             href="#about" 
@@ -1501,7 +1864,7 @@ function App(){
             href="#ratings" 
             onClick={(e)=>{ e.preventDefault(); navigateTo("home", "ratings"); }}
           >
-            Ratings & Reviews
+            Ratings
           </a>
           <a 
             href="#contact" 
@@ -1511,15 +1874,29 @@ function App(){
           </a>
         </nav>
 
-        <div className="header-contact-direct">
-          <div className="hcd-icon"><Phone size={15}/></div>
-          <div className="hcd-info">
-            <span className="hcd-label">Call Supplier</span>
-            <a href="tel:+919876543210" className="hcd-phone">+91 98765 43210</a>
+        <div className="header-actions">
+          <div className="header-contact-direct">
+            <div className="hcd-icon"><Phone size={15}/></div>
+            <div className="hcd-info">
+              <span className="hcd-label">Call Supplier</span>
+              <a href="tel:+919876543210" className="hcd-phone">+91 98765 43210</a>
+            </div>
           </div>
+
+          <button
+            type="button"
+            className="header-rfq-cart-btn"
+            onClick={() => setRfqDrawerOpen(true)}
+            aria-label={`View Quote Request List with ${rfqCart.length} items`}
+          >
+            <ClipboardList size={16} />
+            <span>RFQ List</span>
+            <span className="rfq-cart-count-badge">{rfqCart.length}</span>
+          </button>
+
+          <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
         </div>
       </div>
-      <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
     </header>
 
     <main>
@@ -1532,6 +1909,7 @@ function App(){
           onSelectContact={handleSelectContact}
           onOpenDetails={handleOpenDetails}
           onNavigateHome={()=>navigateTo("home")}
+          onAddToRfq={handleAddToRfq}
         />
       ) : (
         <>
@@ -1577,6 +1955,7 @@ function App(){
                   p={p} 
                   onSelectContact={handleSelectContact} 
                   onOpenDetails={handleOpenDetails} 
+                  onAddToRfq={handleAddToRfq}
                 />
               ))}
             </div>
@@ -1698,6 +2077,7 @@ function App(){
         initialViewIdx={detailViewIdx}
         onClose={()=>setDetailProduct(null)}
         onSelectContact={handleSelectContact}
+        onAddToRfq={handleAddToRfq}
       />
     )}
 
@@ -1709,6 +2089,16 @@ function App(){
         setQuote(false);
         setSelectedProduct(null);
       }}
+    />
+
+    {/* Multi-Item B2B RFQ Cart Drawer */}
+    <RfqDrawer
+      isOpen={rfqDrawerOpen}
+      onClose={()=>setRfqDrawerOpen(false)}
+      cart={rfqCart}
+      onUpdateQty={handleUpdateRfqQty}
+      onRemoveItem={handleRemoveFromRfq}
+      onClearCart={handleClearRfqCart}
     />
 
     {/* Write Review Modal */}
