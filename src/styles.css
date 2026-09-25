@@ -530,7 +530,7 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
   color:var(--color-dark);
 }
 .hero h1 em{font-style:normal;color:var(--color-accent)}
-.hero h1 span.pu-highlight{color:var(--color-primary)}
+.hero h1 span.pu-highlight{color:var(--color-accent)}
 .hero p{
   max-width:540px;
   color:var(--color-text-muted);
@@ -540,16 +540,20 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 }
 .hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .hero-actions .primary-btn{
-  background:var(--color-primary);
-  color:#fff;
+  background:var(--color-accent);
+  color:#0e202a;
   padding:14px 24px;
   font-size:13.5px;
-  font-weight:700;
+  font-weight:800;
+  border-radius:var(--radius-md);
+  border:1.5px solid var(--color-accent);
 }
 .hero-actions .primary-btn:hover{
-  background:var(--color-primary-hover);
+  background:var(--color-accent-hover);
+  border-color:var(--color-accent-hover);
+  color:#0e202a;
   transform:translateY(-2px);
-  box-shadow:0 8px 22px rgba(18,123,130,0.28);
+  box-shadow:0 8px 22px rgba(232,168,23,0.38);
 }
 .hero-actions .hero-quote-btn{
   background:#ffffff;
