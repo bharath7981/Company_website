@@ -394,28 +394,7 @@ function CustomPuSection({ onOpenQuote }) {
 
 
 
-function B2bConversionCtaSection({ onOpenQuote }) {
-  return (
-    <section className="b2b-conversion-cta">
-      <div className="b2b-cta-inner">
-        <div className="b2b-cta-text">
-          <h2>Looking for the Right<br/><em>Polyurethane Component?</em></h2>
-          <p>
-            Direct manufacturer pricing from Lakshmi PU Pads with guaranteed quality standards, fast dispatch from Hyderabad, and tailored B2B quotation.
-          </p>
-        </div>
-        <div className="b2b-cta-actions">
-          <button type="button" className="b2b-cta-primary" onClick={onOpenQuote}>
-            Request Official Quote <ArrowRight size={16} />
-          </button>
-          <a href="tel:+919390244749" className="b2b-cta-phone">
-            <Phone size={15} /> Call: +91 93902 44749
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
+
 
 function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
   const [allReviewsOpen, setAllReviewsOpen] = useState(false);
@@ -548,25 +527,7 @@ function CompanyRatings({ onSelectContact, onOpenReviewModal }) {
         </div>
       </div>
 
-      {/* Bottom Guarantee Banner */}
-      <div className="ratings-guarantee-banner">
-        <div className="guarantee-left">
-          <ShieldCheck size={36} className="guarantee-icon" />
-          <div>
-            <h4>100% Quality & Shore A Hardness Guaranteed</h4>
-            <p>Every polyurethane pad and screen panel is tested for durometer hardness, tensile resilience, and tear resistance prior to dispatch from our Hyderabad factory.</p>
-          </div>
-        </div>
-        <div className="guarantee-actions">
-          <button
-            type="button"
-            className="primary-btn"
-            onClick={() => onSelectContact(null)}
-          >
-            Get Best Direct Quote <ArrowRight size={17} />
-          </button>
-        </div>
-      </div>
+
 
       {/* View All Reviews Modal */}
       <AllReviewsModal
@@ -2338,8 +2299,6 @@ function App(){
             onOpenReviewModal={()=>setReviewModalOpen(true)}
           />
 
-          {/* 11. B2B Conversion CTA Banner (Phase 18) */}
-          <B2bConversionCtaSection onOpenQuote={() => { setSelectedProduct(null); setQuote(true); }} />
 
           {/* 12. Contact Form */}
           <section id="contact" className="contact-section">
