@@ -1467,7 +1467,6 @@ function ProductsPage({
   const [activeViewIdx, setActiveViewIdx] = useState(0);
   const [activeTab, setActiveTab] = useState("specs");
   const [showcaseQty, setShowcaseQty] = useState(1);
-  const [hardnessFilter, setHardnessFilter] = useState("All");
   const searchRef = useRef(null);
 
   // Close dropdown on outside click
@@ -1481,14 +1480,9 @@ function ProductsPage({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Filter products by search text, category, and durometer hardness
+  // Filter products by search text and category
   const filteredProducts = products.filter(p => {
     const matchesCat = activeCategory === "All" || p.categoryGroup === activeCategory;
-    const matchesHardness = hardnessFilter === "All" || (
-      hardnessFilter === "90-95A" ? p.specs.some(s => (s.label.includes("Hardness")) && (s.value.includes("95") || s.value.includes("92") || s.value.includes("90"))) :
-      hardnessFilter === "85-90A" ? p.specs.some(s => (s.label.includes("Hardness")) && (s.value.includes("85") || s.value.includes("88") || s.value.includes("90"))) :
-      true
-    );
     const query = searchQuery.trim().toLowerCase();
     const matchesSearch = !query || 
       p.name.toLowerCase().includes(query) ||
@@ -1496,7 +1490,7 @@ function ProductsPage({
       p.categoryGroup.toLowerCase().includes(query) ||
       p.description.toLowerCase().includes(query) ||
       p.specs.some(s => s.value.toLowerCase().includes(query) || s.label.toLowerCase().includes(query));
-    return matchesCat && matchesHardness && matchesSearch;
+    return matchesCat && matchesSearch;
   });
 
   // Current selected product (fallback safely)
@@ -1637,52 +1631,6 @@ function ProductsPage({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Category Tabs */}
-        <div className="product-filter-tabs">
-          {categories.map(cat => {
-            const count = cat === "All" ? products.length : products.filter(p => p.categoryGroup === cat).length;
-            return (
-              <button
-                key={cat}
-                type="button"
-                className={`filter-tab ${activeCategory === cat ? "active" : ""}`}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  if (cat !== "All") {
-                    const firstInCat = products.find(p => p.categoryGroup === cat);
-                    if (firstInCat) {
-                      setSelectedProdId(firstInCat.id);
-                      setActiveViewIdx(0);
-                    }
-                  }
-                }}
-              >
-                <span>{cat === "All" ? "All Products" : cat}</span>
-                <span className="badge">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Durometer & Hardness Filter Chips */}
-        <div className="product-hardness-chips-row">
-          <span className="hardness-chips-label">Shore Durometer:</span>
-          {[
-            { id: "All", label: "All Hardness" },
-            { id: "90-95A", label: "90°–95° Shore A (High Impact Buffer)" },
-            { id: "85-90A", label: "85°–90° Shore A (Wear & Slurry Duty)" }
-          ].map(h => (
-            <button
-              key={h.id}
-              type="button"
-              className={`hardness-chip ${hardnessFilter === h.id ? "active" : ""}`}
-              onClick={() => setHardnessFilter(h.id)}
-            >
-              {h.label}
-            </button>
-          ))}
         </div>
       </div>
 
