@@ -1457,7 +1457,9 @@ function ProductsPage({
   onSelectContact, 
   onOpenDetails, 
   onNavigateHome,
-  onAddToRfq 
+  onAddToRfq,
+  onOpenRfq,
+  rfqCartCount = 0
 }){
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -1521,11 +1523,27 @@ function ProductsPage({
           <span className="breadcrumb-current">All Products</span>
         </nav>
         
-        <div className="eyebrow">OUR CATALOG</div>
-        <h1>All Products</h1>
-        <p>
-          Search or select any polyurethane component from the dropdown to view its full engineering specifications and views.
-        </p>
+        <div className="products-page-title-row">
+          <div>
+            <div className="eyebrow">OUR CATALOG</div>
+            <h1>All Products</h1>
+            <p>
+              Search or select any polyurethane component from the dropdown to view its full engineering specifications and views.
+            </p>
+          </div>
+          {onOpenRfq && (
+            <button
+              type="button"
+              className="products-rfq-trigger-btn catalog-rfq-btn"
+              onClick={onOpenRfq}
+              aria-label={`View Quote Request List with ${rfqCartCount} items`}
+            >
+              <ClipboardList size={18} />
+              <span>RFQ List</span>
+              <span className="rfq-cart-count-badge">{rfqCartCount}</span>
+            </button>
+          )}
+        </div>
 
         {/* Search Bar with Interactive Dropdown */}
         <div className="product-search-wrapper" ref={searchRef}>
@@ -2141,17 +2159,6 @@ function App(){
             </div>
           </div>
 
-          <button
-            type="button"
-            className="header-rfq-cart-btn"
-            onClick={() => setRfqDrawerOpen(true)}
-            aria-label={`View Quote Request List with ${rfqCart.length} items`}
-          >
-            <ClipboardList size={16} />
-            <span>RFQ List</span>
-            <span className="rfq-cart-count-badge">{rfqCart.length}</span>
-          </button>
-
           <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
         </div>
       </div>
@@ -2168,6 +2175,8 @@ function App(){
           onOpenDetails={handleOpenDetails}
           onNavigateHome={()=>navigateTo("home")}
           onAddToRfq={handleAddToRfq}
+          onOpenRfq={() => setRfqDrawerOpen(true)}
+          rfqCartCount={rfqCart.length}
         />
       ) : (
         <>
@@ -2209,9 +2218,24 @@ function App(){
 
           {/* 4. Featured Product Range */}
           <section id="products" className="section products-section">
-            <div className="section-head">
-              <div><div className="eyebrow">FEATURED PRODUCT RANGE</div><h2>Components that<br/><em>keep industry moving.</em></h2></div>
-              <p>Explore our most in-demand polyurethane components built to withstand heavy impacts and severe abrasive wear.</p>
+            <div className="section-head products-section-head">
+              <div>
+                <div className="eyebrow">FEATURED PRODUCT RANGE</div>
+                <h2>Components that<br/><em>keep industry moving.</em></h2>
+              </div>
+              <div className="section-head-aside">
+                <p>Explore our most in-demand polyurethane components built to withstand heavy impacts and severe abrasive wear.</p>
+                <button
+                  type="button"
+                  className="products-rfq-trigger-btn"
+                  onClick={() => setRfqDrawerOpen(true)}
+                  aria-label={`View Quote Request List with ${rfqCart.length} items`}
+                >
+                  <ClipboardList size={17} />
+                  <span>RFQ List</span>
+                  <span className="rfq-cart-count-badge">{rfqCart.length}</span>
+                </button>
+              </div>
             </div>
 
             <div className="product-grid">
@@ -2226,7 +2250,7 @@ function App(){
               ))}
             </div>
 
-            <div className="center-link">
+            <div className="products-section-footer-actions">
               <button
                 type="button"
                 className="view-more-products-btn"
@@ -2234,6 +2258,16 @@ function App(){
                 onClick={() => navigateTo("products")}
               >
                 View Complete Product Range ({products.length} Products) <ArrowRight size={17}/>
+              </button>
+              <button
+                type="button"
+                className="products-rfq-trigger-btn secondary"
+                onClick={() => setRfqDrawerOpen(true)}
+                aria-label={`View Quote Request List with ${rfqCart.length} items`}
+              >
+                <ClipboardList size={17} />
+                <span>View RFQ List</span>
+                <span className="rfq-cart-count-badge">{rfqCart.length}</span>
               </button>
             </div>
           </section>
