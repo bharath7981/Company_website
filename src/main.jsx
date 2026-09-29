@@ -831,7 +831,7 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
             className="product-b2b-view-btn"
             onClick={()=>onOpenDetails(p, 0)}
           >
-            <Eye size={15} /> View Details
+            View
           </button>
           {onAddToRfq && (
             <button
