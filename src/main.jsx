@@ -1995,87 +1995,13 @@ function App(){
             Home
           </a>
 
-          {/* Products Dropdown (PU Priority) */}
-          <div className="nav-dropdown-wrapper">
-            <button
-              type="button"
-              className={`nav-dropdown-trigger ${page === "products" ? "active" : ""}`}
-              onClick={() => navigateTo("products")}
-              aria-expanded="false"
-            >
-              <span>Products</span>
-              <ChevronDown size={14} />
-            </button>
-            <div className="nav-dropdown">
-              <div className="nav-dropdown-eyebrow">
-                <Sparkles size={12} />
-                <span>POLYURETHANE COMPONENTS (PRIMARY SPECIALTY)</span>
-              </div>
-              <a
-                href="#all-products"
-                className="nav-dropdown-item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("products", null, "Rock Breaker Parts");
-                }}
-              >
-                <div className="nav-dropdown-icon"><Boxes size={16}/></div>
-                <div className="nav-dropdown-text">
-                  <strong>Rock Breaker & Mining Parts</strong>
-                  <span>Buffer pads, impact damper cushions, wear kits</span>
-                </div>
-              </a>
-              <a
-                href="#all-products"
-                className="nav-dropdown-item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("products", null, "Screening & Dewatering");
-                }}
-              >
-                <div className="nav-dropdown-icon"><Layers3 size={16}/></div>
-                <div className="nav-dropdown-text">
-                  <strong>Screening & Dewatering Media</strong>
-                  <span>Modular screen panels, M-sand dewatering, hydrocyclones</span>
-                </div>
-              </a>
-              <a
-                href="#all-products"
-                className="nav-dropdown-item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo("products", null, "Industrial & Mining Wear");
-                }}
-              >
-                <div className="nav-dropdown-icon"><Settings2 size={16}/></div>
-                <div className="nav-dropdown-text">
-                  <strong>Industrial & Conveyor Wear Protection</strong>
-                  <span>PU coated rollers, belt cleaner blades, wear liner sheets</span>
-                </div>
-              </a>
-              <div className="nav-dropdown-footer">
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedProduct(null);
-                    setQuote(true);
-                  }}
-                >
-                  ⚡ Custom Moulding & CAD Tooling
-                </a>
-                <a
-                  href="#all-products"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo("products", null, "All");
-                  }}
-                >
-                  View All 8 Products →
-                </a>
-              </div>
-            </div>
-          </div>
+          <a 
+            href="#products" 
+            className={page === "products" ? "active" : ""}
+            onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
+          >
+            Products
+          </a>
 
 
           <a 
