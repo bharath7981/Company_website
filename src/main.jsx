@@ -1939,16 +1939,24 @@ function App(){
     }
     if (targetPage === "products") {
       setPage("products");
-      window.location.hash = "all-products";
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
+      const isAlreadyHome = page === "home";
       setPage("home");
-      window.location.hash = sectionId ? sectionId : "home";
-      if (sectionId) {
+      if (sectionId && sectionId !== "home") {
         setTimeout(() => {
           const el = document.getElementById(sectionId);
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }, 60);
+          if (el) {
+            const header = document.querySelector(".header");
+            const headerHeight = header ? header.offsetHeight : 96;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+            window.scrollTo({
+              top: Math.max(0, offsetPosition),
+              behavior: "smooth"
+            });
+          }
+        }, isAlreadyHome ? 20 : 80);
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }

@@ -39,13 +39,13 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:108px}
+html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font-body);color:var(--color-text-main);background:var(--color-bg-canvas);overflow-x:clip}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
 .app{overflow-x:clip;position:relative;width:100%}
-section[id],div[id]{scroll-margin-top:108px}
+section[id],div[id]{scroll-margin-top:96px}
 
 /* ── Header ── */
 .header{
@@ -1023,7 +1023,7 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 
 /* ── Custom PU Components Service (Phase 12) ── */
 .custom-pu-section{
-  padding:80px 5.5%;
+  padding:44px 5.5% 44px;
   background:#ffffff;
   border-bottom:1px solid #e2e8f0;
 }
@@ -1206,9 +1206,9 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .b2b-cta-phone:hover{background:rgba(255,255,255,0.16);border-color:#fff}
 
 /* ── Section Common ── */
-.section{padding:110px 5.5%}
+.section{padding:48px 5.5% 70px}
 .products-section{background:#fff}
-.section-head{display:grid;grid-template-columns:1fr .7fr;gap:60px;align-items:end;margin-bottom:55px}
+.section-head{display:grid;grid-template-columns:1fr .7fr;gap:60px;align-items:end;margin-bottom:32px}
 .section-head h2,.split-copy h2,.about-text h2,.contact-section h2{font:800 clamp(40px,4vw,61px)/.98 Manrope;letter-spacing:-.05em;margin:0;color:#13232c}
 .section-head>p{color:#758187;line-height:1.75;font-size:14px;max-width:470px;margin:0 0 3px}
 
@@ -1590,7 +1590,7 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .feature-check-icon{color:#127b82;flex-shrink:0;margin-top:2px}
 
 /* ── About Unified Section (White Theme) ── */
-.about-unified-section{padding:100px 5.5%;background:#ffffff;color:#12202a;border-top:1px solid #e5eae8}
+.about-unified-section{padding:40px 5.5% 70px;background:#ffffff;color:#12202a;border-top:1px solid #e5eae8}
 .about-unified-section .eyebrow{color:#E8A817}
 .about-unified-section .eyebrow:before{content:"";width:26px;height:2px;background:#E8A817}
 .about-unified-intro h2{color:#0e202a;font:800 clamp(36px,3.8vw,56px)/1 Manrope;letter-spacing:-.04em;margin:0 0 20px}
@@ -1615,7 +1615,7 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .about-stat-box span{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#64748b;font-weight:700}
 
 /* ── Company Ratings & Reviews Section (White Theme) ── */
-.company-ratings-section{padding:90px 5.5%;background:#f8fafc;color:#12202a;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
+.company-ratings-section{padding:44px 5.5% 70px;background:#f8fafc;color:#12202a;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
 .company-ratings-section .eyebrow{color:#E8A817}
 .company-ratings-section .eyebrow span{background:#E8A817}
 .company-ratings-section .section-head h2{color:#0e202a}
@@ -1917,7 +1917,7 @@ footer .logo{font-family:var(--font-heading);font-size:18px;font-weight:800;lett
 .review-success-state p{font-size:14px;color:#64748b;margin:0;max-width:420px;line-height:1.5}
 
 /* ── Contact ── */
-.contact-section{padding:115px 5.5%;display:grid;grid-template-columns:.9fr 1.1fr;gap:110px;background:#fff}
+.contact-section{padding:48px 5.5% 80px;display:grid;grid-template-columns:.9fr 1.1fr;gap:110px;background:#fff}
 .contact-section>div>p{max-width:440px;color:#748087;line-height:1.8;font-size:14px;margin:25px 0 30px}
 .contact-mini{display:flex;flex-direction:column;gap:13px}
 .contact-mini span{display:flex;gap:10px;align-items:center;font-size:12px}
