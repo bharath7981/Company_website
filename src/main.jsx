@@ -1500,22 +1500,20 @@ function ProductsPage({
 
   return (
     <div className="products-page">
-      <div className="products-page-header">
-        <nav className="breadcrumbs" aria-label="Breadcrumb">
-          <button type="button" className="breadcrumb-link" onClick={onNavigateHome}>
-            Home
-          </button>
-          <span className="breadcrumb-sep">/</span>
-          <span className="breadcrumb-current">All Products</span>
-        </nav>
-        
-        <div className="products-page-title-row">
+      <div className="products-page-header compact">
+        <div className="products-header-top-bar">
           <div>
-            <div className="eyebrow">OUR CATALOG</div>
-            <h1>All Products</h1>
-            <p>
-              Search or select any polyurethane component from the dropdown to view its full engineering specifications and views.
-            </p>
+            <nav className="breadcrumbs" aria-label="Breadcrumb">
+              <button type="button" className="breadcrumb-link" onClick={onNavigateHome}>
+                Home
+              </button>
+              <span className="breadcrumb-sep">/</span>
+              <span className="breadcrumb-current">All Products</span>
+            </nav>
+            <div className="products-compact-heading">
+              <h1>All Products</h1>
+              <span className="products-catalog-sub">· Search or select any polyurethane component from the dropdown</span>
+            </div>
           </div>
           {onOpenRfq && (
             <button
@@ -1524,7 +1522,7 @@ function ProductsPage({
               onClick={onOpenRfq}
               aria-label={`View Wish list with ${rfqCartCount} items`}
             >
-              <ClipboardList size={18} />
+              <ClipboardList size={16} />
               <span>Wish list</span>
               <span className="rfq-cart-count-badge">{rfqCartCount}</span>
             </button>
@@ -1627,7 +1625,7 @@ function ProductsPage({
       </div>
 
       {/* Selected Product Details Showcase */}
-      <section className="section products-section" style={{paddingTop: "32px"}}>
+      <section className="section products-section" style={{paddingTop: "20px", paddingBottom: "50px"}}>
         {/* Main Product Showcase Card */}
         {currentProduct && (
           <div className="product-showcase-card">
