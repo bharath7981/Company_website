@@ -1025,14 +1025,6 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                 <div className="pdm-spec-actions-row">
                   <button
                     type="button"
-                    className="pdm-spec-action-btn"
-                    onClick={() => window.print()}
-                    title="Print or Save Specifications as PDF"
-                  >
-                    <FileText size={14} /> Print / Save Spec Sheet
-                  </button>
-                  <button
-                    type="button"
                     className="pdm-spec-action-btn primary"
                     onClick={() => {
                       onClose();
@@ -1770,14 +1762,6 @@ function ProductsPage({
                     </div>
 
                     <div className="pdm-spec-actions-row">
-                      <button
-                        type="button"
-                        className="pdm-spec-action-btn"
-                        onClick={() => window.print()}
-                        title="Print or Save Specifications as PDF"
-                      >
-                        <FileText size={14} /> Print / Save Spec Sheet
-                      </button>
                       <button
                         type="button"
                         className="pdm-spec-action-btn primary"
