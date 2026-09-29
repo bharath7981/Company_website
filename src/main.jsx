@@ -837,13 +837,13 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
             <button
               type="button"
               className="product-b2b-rfq-pill-btn"
-              title="Add to multi-item RFQ list"
+              title="Add to Wish list"
               onClick={(e)=>{
                 e.stopPropagation();
                 onAddToRfq(p, 1);
               }}
             >
-              <Plus size={14} /> RFQ
+              <Plus size={14} /> Wish list
             </button>
           )}
         </div>
@@ -963,7 +963,7 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                     onClose();
                   }}
                 >
-                  <ClipboardList size={16} /> Add {qty} to Multi-Item RFQ List
+                  <ClipboardList size={16} /> Add {qty} to Wish list
                 </button>
               )}
             </div>
@@ -1103,7 +1103,7 @@ function RfqDrawer({ isOpen, onClose, cart, onUpdateQty, onRemoveItem, onClearCa
         <div className="rfq-drawer-header">
           <div className="rfq-dh-title">
             <ClipboardList size={20} color="var(--color-primary)" />
-            <h3>B2B Quote Request List</h3>
+            <h3>Wish list</h3>
             <span className="rfq-dh-badge">{cart.length} {cart.length === 1 ? "Product" : "Products"}</span>
           </div>
           <button className="rfq-drawer-close" onClick={onClose} aria-label="Close quote list">
@@ -1530,10 +1530,10 @@ function ProductsPage({
               type="button"
               className="products-rfq-trigger-btn catalog-rfq-btn"
               onClick={onOpenRfq}
-              aria-label={`View Quote Request List with ${rfqCartCount} items`}
+              aria-label={`View Wish list with ${rfqCartCount} items`}
             >
               <ClipboardList size={18} />
-              <span>RFQ List</span>
+              <span>Wish list</span>
               <span className="rfq-cart-count-badge">{rfqCartCount}</span>
             </button>
           )}
@@ -1720,7 +1720,7 @@ function ProductsPage({
                       className="product-b2b-rfq-add-btn"
                       onClick={() => onAddToRfq(currentProduct, showcaseQty)}
                     >
-                      <ClipboardList size={16} /> Add {showcaseQty} to Multi-Item RFQ List
+                      <ClipboardList size={16} /> Add {showcaseQty} to Wish list
                     </button>
                   )}
                 </div>
@@ -2103,10 +2103,10 @@ function App(){
                   type="button"
                   className="products-rfq-trigger-btn"
                   onClick={() => setRfqDrawerOpen(true)}
-                  aria-label={`View Quote Request List with ${rfqCart.length} items`}
+                  aria-label={`View Wish list with ${rfqCart.length} items`}
                 >
                   <ClipboardList size={17} />
-                  <span>RFQ List</span>
+                  <span>Wish list</span>
                   <span className="rfq-cart-count-badge">{rfqCart.length}</span>
                 </button>
               </div>
@@ -2137,10 +2137,10 @@ function App(){
                 type="button"
                 className="products-rfq-trigger-btn secondary"
                 onClick={() => setRfqDrawerOpen(true)}
-                aria-label={`View Quote Request List with ${rfqCart.length} items`}
+                aria-label={`View Wish list with ${rfqCart.length} items`}
               >
                 <ClipboardList size={17} />
-                <span>View RFQ List</span>
+                <span>View Wish list</span>
                 <span className="rfq-cart-count-badge">{rfqCart.length}</span>
               </button>
             </div>
@@ -2295,7 +2295,7 @@ function App(){
         type="button" 
         className="mobile-bar-btn rfq" 
         onClick={() => setRfqDrawerOpen(true)}
-        aria-label="View RFQ Cart"
+        aria-label="View Wish list"
       >
         <div className="mobile-rfq-badge-wrap">
           <ClipboardList size={17} />
@@ -2305,7 +2305,7 @@ function App(){
             </span>
           )}
         </div>
-        <span>RFQ List</span>
+        <span>Wish list</span>
       </button>
       <button 
         type="button" 
