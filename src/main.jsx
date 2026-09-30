@@ -99,9 +99,9 @@ const products = [
     reviews: "31",
     views: [
       { label: "Front View", src: "/pu-screen-panel.jpg" },
-      { label: "Back View", src: "/screen-panel-back.jpg" }
+      { label: "Panel Angle", src: "/screen-panel-back.jpg" }
     ],
-    description: "Interlocking polyurethane modular screen deck mats for vibrating screens, dewatering equipment, and mineral classification. Engineered with tapered non-blinding square apertures and an internal steel reinforcement skeleton to maximize screening throughput and resist severe slurry abrasion.",
+    description: "Interlocking polyurethane modular screen deck panels for vibrating screens, dewatering equipment, and mineral classification. Engineered with tapered non-blinding slotted apertures and high-integrity polyurethane construction to maximize screening throughput and resist severe slurry abrasion.",
     specs: [
       { label: "Material", value: "Premium Polyurethane Elastomer + Steel Reinforcement" },
       { label: "Aperture Sizes", value: "0.5 mm to 65 mm (Square, Slotted, Hexagonal)" },
