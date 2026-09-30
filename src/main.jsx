@@ -293,6 +293,43 @@ const products = [
       "Internal steel skeleton prevents sagging and distortion under heavy sand load",
       "Quick snap-in modular replacement without dismantling entire screen deck"
     ]
+  },
+  {
+    id: "pu-cyclone-spigot",
+    name: "Polyurethane Hydrocyclone Apex / Spigot Nozzle",
+    cat: "Mineral Separation & Dewatering",
+    categoryGroup: "Screening & Dewatering",
+    price: "₹ 1,850",
+    unit: "/Piece",
+    minOrder: "2 Pieces",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "93% Response Rate",
+    rating: "4.9",
+    reviews: "22",
+    views: [
+      { label: "Studio Product View", src: "/pu-cyclone-spigot.jpg" },
+      { label: "Internal Vortex View", src: "/pu-hydrocyclone-back.jpg" }
+    ],
+    description: "Heavy-duty cast polyurethane hydrocyclone apex nozzle (spigot / discharge cone) engineered for the underflow discharge orifice of industrial slurry hydrocyclones. Specially formulated with ultra-high abrasion resistant polyurethane elastomer to withstand extreme slurry velocity, grit cavitation, and aggressive particle wear in M-Sand washing plants and mineral beneficiation circuits.",
+    specs: [
+      { label: "Material", value: "High-Performance Cast Polyurethane Elastomer" },
+      { label: "Hardness", value: "90° - 95° Shore A (High Slurry Abrasion Grade)" },
+      { label: "Color", value: "Industrial Safety Red / Orange" },
+      { label: "Discharge Aperture (ID)", value: "25 mm to 120 mm (Custom Bore Diameters)" },
+      { label: "Inlet Collar", value: "Heavy-Duty Flanged Collar for Clamp or Bolted Fitment" },
+      { label: "Tensile Strength", value: "> 50 MPa" },
+      { label: "Tear Strength", value: "> 115 kN/m" },
+      { label: "Operating Temperature", value: "-20°C to +85°C" },
+      { label: "Usage / Application", value: "Hydrocyclone Underflow Discharge, M-Sand Washing, Slurry Desliming" },
+      { label: "Country of Origin", value: "Made in India (Hyderabad, Telangana)" }
+    ],
+    features: [
+      "Extreme slurry abrasion resistance outlasting rubber and metallic alloy spigots by 4x to 8x",
+      "Precision-molded smooth inner vortex angle ensures stable conical spray and sharp cut-point",
+      "Reinforced heavy-duty mounting flange prevents slurry leakage and resists hydraulic surge pressure",
+      "High chemical and cavitation resilience under continuous heavy sand slurry processing"
+    ]
   }
 ];
 
