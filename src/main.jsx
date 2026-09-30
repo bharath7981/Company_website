@@ -435,38 +435,6 @@ const companyReviews = [
 
 
 
-function CustomPuSection({ onOpenQuote }) {
-  return (
-    <section className="custom-pu-section">
-      <div className="custom-pu-card">
-        <div className="custom-pu-content">
-          <div className="eyebrow" style={{ color: "var(--color-accent)", marginBottom: "12px" }}>
-            <span></span> BESPOKE CASTING & TOOLING
-          </div>
-          <h2>Need a Custom Polyurethane<br/><em>Component or CAD Drawing?</em></h2>
-          <p>
-            We develop custom mold tooling, reverse-engineer discontinued OEM parts, and formulate tailored Shore A/D hardness compounds to match your precise operating temperatures, impact stresses, and dimensional tolerances.
-          </p>
-          <div className="custom-pu-specs-row">
-            <div className="custom-pu-spec-item"><Check size={14}/> Custom Mold Development</div>
-            <div className="custom-pu-spec-item"><Check size={14}/> In-house Steel Core Bonding</div>
-            <div className="custom-pu-spec-item"><Check size={14}/> Fast Turnaround in Hyderabad</div>
-          </div>
-          <div className="custom-pu-actions">
-            <button type="button" className="custom-pu-btn" onClick={onOpenQuote}>
-              Request Custom Quote <ArrowRight size={16} />
-            </button>
-          </div>
-        </div>
-        <div className="custom-pu-visual">
-          <Wrench size={38} />
-          <h4>CAD / Sample Reverse Engineering</h4>
-          <p>Provide sample components or technical dimension sketches for prompt manufacturing assessment and tooling quote.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 
 
@@ -2211,9 +2179,6 @@ function App(){
               </button>
             </div>
           </section>
-
-          {/* 5. Custom PU Components Tooling (Phase 12) */}
-          <CustomPuSection onOpenQuote={() => { setSelectedProduct(null); setQuote(true); }} />
 
           {/* 9. About Lakshmi PU Pads (Phase 17) */}
           <section id="about" className="about-unified-section">
