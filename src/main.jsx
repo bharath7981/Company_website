@@ -330,6 +330,44 @@ const products = [
       "Reinforced heavy-duty mounting flange prevents slurry leakage and resists hydraulic surge pressure",
       "High chemical and cavitation resilience under continuous heavy sand slurry processing"
     ]
+  },
+  {
+    id: "pu-dewatering-deck-assembly",
+    name: "Polyurethane Dewatering Screen Deck Assembly",
+    cat: "Screening & Dewatering Systems",
+    categoryGroup: "Screening & Dewatering",
+    price: "₹ 18,500",
+    unit: "/Set",
+    minOrder: "1 Set",
+    supplier: "Sri Laxmi Ganapathi Enterprises",
+    location: "Hyderabad, Telangana · 5 yrs",
+    responseRate: "94% Response Rate",
+    rating: "4.9",
+    reviews: "18",
+    views: [
+      { label: "Full Deck Assembly", src: "/pu-dewatering-deck-system.jpg" },
+      { label: "Modular Panel Detail", src: "/pu-dewatering-front.jpg" }
+    ],
+    description: "Complete heavy-duty polyurethane dewatering screen deck assembly engineered for high-frequency vibrating screens in M-Sand washing plants, mineral classification, and tailings recovery. Includes precision slotted polyurethane modular panels, upright side wear liners to eliminate frame abrasion and slurry spillover, and a longitudinal central dividing weir for dual-channel slurry flow optimization.",
+    specs: [
+      { label: "Material", value: "Cast Polyurethane Elastomer + Embedded High-Tensile Steel Wire Framework" },
+      { label: "Hardness", value: "85° - 90° Shore A (High Rebound & Slurry Wear Resistant)" },
+      { label: "Aperture Size", value: "0.3 mm to 2.5 mm (Slotted Dewatering Profile)" },
+      { label: "Deck Dimensions", value: "Customized to fit all Screen Sizes (e.g., 1.2m x 2.4m, 1.5m x 3.0m, 1.8m x 3.6m)" },
+      { label: "System Inclusions", value: "Slotted PU Panels, Vertical Side Wear Skirts, Center Divider Weir, Fasteners" },
+      { label: "Open Area Ratio", value: "Up to 38% High-Drainage Area" },
+      { label: "Mounting Type", value: "Countersunk Bolted / Pin & Sleeve Stringer Fitment" },
+      { label: "Usage / Application", value: "M-Sand Dewatering Screens, High Frequency Screens, Tailings Recovery" },
+      { label: "Compatible OEM Screens", value: "Puzzolana, Propel, Terex, Metso, McLanahan, Hailstone" },
+      { label: "Country of Origin", value: "Made in India (Hyderabad, Telangana)" }
+    ],
+    features: [
+      "Integrated system with modular deck panels, upright side liners, and central flow divider",
+      "Tapered non-blinding slotted openings maximize slurry drainage and water recovery",
+      "Vertical side wear skirts isolate structural steel side plates from abrasive rock wash",
+      "Independent modular panels allow localized zone replacement without discarding whole deck",
+      "Absorbs dynamic screen vibrations, lowering noise levels and extending bearing service life"
+    ]
   }
 ];
 
