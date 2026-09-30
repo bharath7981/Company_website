@@ -133,19 +133,20 @@ const products = [
     rating: "4.7",
     reviews: "14",
     views: [
-      { label: "Front View", src: "/pu-roller.jpg" },
-      { label: "Side View", src: "/pu-roller-side.jpg" }
+      { label: "Full Roller View", src: "/pu-roller.jpg" },
+      { label: "Drive Shaft & Keyway", src: "/pu-roller-side.jpg" }
     ],
-    description: "Heavy-duty industrial drive and guide rollers coated with high-performance polyurethane vulcanized directly onto machined steel cores. Provides superior traction, non-marking contact, chemical resistance, and high cut resistance for conveyors, steel mills, and automated processing lines.",
+    description: "Heavy-duty industrial drive and conveyor rollers coated with high-performance polyurethane vulcanized directly onto precision CNC-machined steel cores. Features precision-turned drive shaft journals with milled keyways, superior traction, non-marking contact, chemical resistance, and extreme cut resistance for conveyors, mining equipment, steel mills, and automated production lines.",
     specs: [
-      { label: "Coating Material", value: "Thermoset Polyurethane Elastomer" },
-      { label: "Core Material", value: "EN8 / Mild Steel / Stainless Steel" },
-      { label: "Hardness Range", value: "65° Shore A to 75° Shore D" },
-      { label: "Diameter", value: "50 mm to 450 mm (Custom Built)" },
+      { label: "Coating Material", value: "Thermoset Cast Polyurethane Elastomer" },
+      { label: "Core & Shaft Material", value: "EN8 / EN24 / Mild Steel / Stainless Steel" },
+      { label: "Color", value: "Industrial Red / Custom Durometer Colors" },
+      { label: "Hardness Range", value: "70° Shore A to 95° Shore A / 75° Shore D" },
+      { label: "Roller Diameter", value: "50 mm to 450 mm (Custom Built)" },
       { label: "Face Length", value: "100 mm to 2500 mm" },
-      { label: "Bearing Fitment", value: "Machined Bearing Housing with Keyway" },
-      { label: "Usage / Application", value: "Conveyor Systems, Printing, Packaging, Steel Slitting" },
-      { label: "Country of Origin", value: "Made in India" }
+      { label: "Shaft Configuration", value: "CNC Stepped Journal with Milled Keyway & Thread" },
+      { label: "Usage / Application", value: "Belt Conveyors, Mining, Material Handling, Printing & Steel Slitting" },
+      { label: "Country of Origin", value: "Made in India (Hyderabad, Telangana)" }
     ],
     features: [
       "Chemical bonding between PU and steel core prevents delamination under load",
