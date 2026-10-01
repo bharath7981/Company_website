@@ -5,7 +5,7 @@ import {
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
   Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User,
-  ClipboardList, FileText, Trash2, Minus, Wrench
+  ClipboardList, FileText, Trash2, Minus
 } from "lucide-react";
 import "./styles.css";
 
@@ -45,7 +45,7 @@ const products = [
       "Eliminates destructive metal-to-metal contact inside breaker housing",
       "Superior tear strength and high dynamic impact load capacity",
       "Resistant to hydraulic oil, grease, abrasive rock dust, and moisture",
-      "Manufactured to precise OEM dimensions or custom CAD drawing"
+      "Manufactured to precise OEM dimensions or custom drawing specifications"
     ]
   },
   {
@@ -425,7 +425,7 @@ const companyReviews = [
     date: "May 2026",
     tag: "Custom Mold Tooling",
     headline: "Custom mold development executed with high precision",
-    comment: "We needed non-standard dimensions manufactured according to our CAD drawing. Lakshmi PU Pads developed the custom tooling and delivered the batch within one week. Exact tolerances and exceptional build finish.",
+    comment: "We needed non-standard dimensions manufactured according to our custom specifications. Lakshmi PU Pads developed the custom tooling and delivered the batch within one week. Exact tolerances and exceptional build finish.",
     verified: true,
     aspect: "Tooling"
   }
@@ -1065,23 +1065,6 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                     </tbody>
                   </table>
                 </div>
-
-                <div className="pdm-spec-actions-row">
-                  <button
-                    type="button"
-                    className="pdm-spec-action-btn primary"
-                    onClick={() => {
-                      onClose();
-                      onSelectContact({
-                        ...product,
-                        name: `${product.name} (CAD & 3D Model Request)`
-                      });
-                    }}
-                    title="Request 2D/3D CAD Drawing"
-                  >
-                    <Wrench size={14} /> Request CAD Drawing
-                  </button>
-                </div>
               </div>
             )}
 
@@ -1672,7 +1655,7 @@ function ProductsPage({
           <div>
             <h3>All Available Polyurethane Components</h3>
             <p className="catalog-subhead">
-              Displaying {filteredProducts.length} items in {activeCategory === "All" ? "all categories" : activeCategory}. Click "View" for durometer ratings, engineering specs & CAD request.
+              Displaying {filteredProducts.length} items in {activeCategory === "All" ? "all categories" : activeCategory}. Click "View" for durometer ratings, engineering specifications & quotes.
             </p>
           </div>
         </div>
@@ -1709,7 +1692,7 @@ function ProductsPage({
 
         <div className="products-custom-cta-box">
           <div>
-            <h3>Need a Custom Formulation, Hardness or CAD Drawing?</h3>
+            <h3>Need a Custom Formulation, Hardness or Custom Tooling?</h3>
             <p>
               We specialize in custom polyurethane tooling, reverse engineering, and custom prepolymer formulation tailored to your operating temperatures, shock loads, and abrasive materials.
             </p>
