@@ -1499,10 +1499,6 @@ function ProductsPage({
 }){
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedProdId, setSelectedProdId] = useState(products[0]?.id || "");
-  const [activeViewIdx, setActiveViewIdx] = useState(0);
-  const [activeTab, setActiveTab] = useState("specs");
-  const [showcaseQty, setShowcaseQty] = useState(1);
   const searchRef = useRef(null);
 
   // Close dropdown on outside click
@@ -1529,17 +1525,9 @@ function ProductsPage({
     return matchesCat && matchesSearch;
   });
 
-  // Current selected product (fallback safely)
-  const currentProduct = products.find(p => p.id === selectedProdId) || filteredProducts[0] || products[0];
-  const currentView = currentProduct?.views?.[activeViewIdx] || currentProduct?.views?.[0];
-
-
   const handleSelectProduct = (product) => {
-    setSelectedProdId(product.id);
-    setActiveViewIdx(0);
-    setShowcaseQty(1);
-    setActiveTab("specs");
     setIsDropdownOpen(false);
+    onOpenDetails(product, 0);
   };
 
   return (
@@ -1556,7 +1544,7 @@ function ProductsPage({
             </nav>
             <div className="products-compact-heading">
               <h1>All Products</h1>
-              <span className="products-catalog-sub">· Search or select any polyurethane component from the dropdown</span>
+              <span className="products-catalog-sub">· Search or select any polyurethane component from the catalog</span>
             </div>
           </div>
           {onOpenRfq && (
@@ -1621,11 +1609,11 @@ function ProductsPage({
             </button>
           </div>
 
-          {/* Dropdown Menu showing all product names without images */}
+          {/* Dropdown Menu showing all product names */}
           {isDropdownOpen && (
             <div className="product-dropdown-menu">
               <div className="dropdown-menu-header">
-                <span className="dm-title">SELECT A PRODUCT</span>
+                <span className="dm-title">SELECT A PRODUCT TO VIEW DETAILS</span>
                 <span className="dm-badge">{filteredProducts.length} Available</span>
               </div>
               <div className="dropdown-menu-list">
@@ -1644,212 +1632,47 @@ function ProductsPage({
                     </button>
                   </div>
                 ) : (
-                  filteredProducts.map((p) => {
-                    const isSelected = p.id === currentProduct?.id;
-                    return (
-                      <div
-                        key={p.id}
-                        className={`dropdown-name-item ${isSelected ? "selected" : ""}`}
-                        onClick={() => handleSelectProduct(p)}
-                      >
-                        <span className="dropdown-item-name">{p.name}</span>
-                        {isSelected && (
-                          <span className="dropdown-item-selected-badge">
-                            <Check size={14} /> Selected
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })
+                  filteredProducts.map((p) => (
+                    <div
+                      key={p.id}
+                      className="dropdown-name-item"
+                      onClick={() => handleSelectProduct(p)}
+                    >
+                      <span className="dropdown-item-name">{p.name}</span>
+                      <span className="dropdown-item-arrow"><ArrowRight size={14}/></span>
+                    </div>
+                  ))
                 )}
               </div>
             </div>
           )}
         </div>
-      </div>
 
-      {/* Selected Product Details Showcase */}
-      <section className="section products-section" style={{paddingTop: "20px", paddingBottom: "50px"}}>
-        {/* Main Product Showcase Card */}
-        {currentProduct && (
-          <div className="product-showcase-card">
-            <div className="showcase-header">
-              <div className="showcase-header-left">
-                <div className="eyebrow">{currentProduct.cat}</div>
-                <h2>{currentProduct.name}</h2>
-                <div className="pdm-subhead">
-                  <span className="pdm-supplier">{currentProduct.supplier}</span>
-                  <span className="pdm-dot">·</span>
-                  <span className="pdm-location">{currentProduct.location}</span>
-                  <span className="pdm-dot">·</span>
-                  <span className="response-rate">{currentProduct.responseRate}</span>
-                </div>
-              </div>
-              <div className="showcase-header-right">
-                <div className="pdm-price-val">
-                  <strong>{currentProduct.price}</strong>
-                  <span>{currentProduct.unit}</span>
-                </div>
-                <div className="pdm-min-order">
-                  <span>Min. Order:</span> <b>{currentProduct.minOrder}</b>
-                </div>
-              </div>
-            </div>
-
-            <div className="pdm-layout">
-              {/* Left Column: Multi-angle views & Contact */}
-              <div className="pdm-gallery">
-                <div className="pdm-main-img-box">
-                  <img src={currentView?.src} alt={`${currentProduct.name} - ${currentView?.label}`} />
-                  <div className="pdm-active-tag">{currentView?.label}</div>
-                </div>
-                <div className="pdm-thumbnails">
-                  {currentProduct.views.map((v, idx) => (
-                    <button
-                      key={v.label}
-                      type="button"
-                      className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
-                      onClick={() => setActiveViewIdx(idx)}
-                    >
-                      <img src={v.src} alt={v.label} />
-                      <span>{v.label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="pdm-qty-picker">
-                  <span className="pdm-qty-label">Procurement Quantity:</span>
-                  <div className="pdm-qty-controls">
-                    <button
-                      type="button"
-                      className="rfq-qty-btn"
-                      onClick={() => setShowcaseQty(q => Math.max(1, q - 1))}
-                      aria-label="Decrease quantity"
-                    >
-                      <Minus size={13} />
-                    </button>
-                    <span className="rfq-qty-num">{showcaseQty}</span>
-                    <button
-                      type="button"
-                      className="rfq-qty-btn"
-                      onClick={() => setShowcaseQty(q => q + 1)}
-                      aria-label="Increase quantity"
-                    >
-                      <Plus size={13} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="pdm-gallery-cta">
-                  <button
-                    type="button"
-                    className="product-b2b-contact-btn large"
-                    onClick={() => onSelectContact(currentProduct)}
-                  >
-                    <Send size={16} style={{transform:"rotate(-20deg)"}} /> Contact Supplier for Best Quote
-                  </button>
-                  {onAddToRfq && (
-                    <button
-                      type="button"
-                      className="product-b2b-rfq-add-btn"
-                      onClick={() => onAddToRfq(currentProduct, showcaseQty)}
-                    >
-                      <ClipboardList size={16} /> Add {showcaseQty} to Wish list
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Right Column: Tabbed Specifications & Description */}
-              <div className="pdm-info">
-                {/* Navigation Tabs */}
-                <div className="pdm-tabs-nav">
-                  <button
-                    type="button"
-                    className={`pdm-tab-btn ${activeTab === "specs" ? "active" : ""}`}
-                    onClick={() => setActiveTab("specs")}
-                  >
-                    Technical Specifications
-                  </button>
-                  <button
-                    type="button"
-                    className={`pdm-tab-btn ${activeTab === "overview" ? "active" : ""}`}
-                    onClick={() => setActiveTab("overview")}
-                  >
-                    Overview
-                  </button>
-                  <button
-                    type="button"
-                    className={`pdm-tab-btn ${activeTab === "features" ? "active" : ""}`}
-                    onClick={() => setActiveTab("features")}
-                  >
-                    Performance Features
-                  </button>
-                </div>
-
-                {activeTab === "specs" && (
-                  <div className="pdm-section">
-                    <h4>Verified Engineering Specifications</h4>
-                    <div className="pdm-specs-table">
-                      <table>
-                        <tbody>
-                          {currentProduct.specs.map(s => (
-                            <tr key={s.label}>
-                              <td className="spec-label">{s.label}</td>
-                              <td className="spec-value">{s.value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    <div className="pdm-spec-actions-row">
-                      <button
-                        type="button"
-                        className="pdm-spec-action-btn primary"
-                        onClick={() => onSelectContact({
-                          ...currentProduct,
-                          name: `${currentProduct.name} (CAD & 3D Model Request)`
-                        })}
-                        title="Request 2D/3D CAD Drawing"
-                      >
-                        <Wrench size={14} /> Request CAD Drawing
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "overview" && (
-                  <div className="pdm-section">
-                    <h4>Component Description & Duty</h4>
-                    <p className="pdm-desc">{currentProduct.description}</p>
-                  </div>
-                )}
-
-                {activeTab === "features" && (
-                  <div className="pdm-section">
-                    <h4>Key Performance Advantages</h4>
-                    <ul className="pdm-features-list">
-                      {currentProduct.features.map(f => (
-                        <li key={f}>
-                          <Check size={16} className="feature-check-icon"/>
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+        {/* Category Filter Chips */}
+        {categories && (
+          <div className="product-hardness-chips-row" style={{marginTop: "16px"}}>
+            <span className="hardness-chips-label">Categories:</span>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`hardness-chip ${activeCategory === cat ? "active" : ""}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         )}
+      </div>
 
-        {/* Full B2B Products Catalog Grid */}
+      {/* Full B2B Products Catalog Grid */}
+      <section className="section products-section" style={{paddingTop: "24px", paddingBottom: "50px"}}>
         <div className="catalog-grid-header">
           <div>
             <h3>All Available Polyurethane Components</h3>
             <p className="catalog-subhead">
-              Displaying {filteredProducts.length} items in {activeCategory === "All" ? "all categories" : activeCategory}. Click "View Details" for durometer ratings, engineering specs & CAD request.
+              Displaying {filteredProducts.length} items in {activeCategory === "All" ? "all categories" : activeCategory}. Click "View" for durometer ratings, engineering specs & CAD request.
             </p>
           </div>
         </div>
@@ -1916,23 +1739,53 @@ function App(){
   const [rfqDrawerOpen, setRfqDrawerOpen] = useState(false);
 
   const [page, setPage] = useState(() => {
-    if (typeof window !== "undefined" && (window.location.hash === "#all-products" || window.location.hash === "#products")) {
-      return "products";
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash;
+      if (hash === "#home" || hash === "#about" || hash === "#ratings" || hash === "#contact") {
+        return "home";
+      }
     }
-    return "home";
+    // Default landing page when opening website
+    return "products";
   });
 
   const categories = ["All", "Rock Breaker Parts", "Screening & Dewatering", "Industrial & Mining Wear"];
 
   useEffect(() => {
+    const scrollToSection = (id) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          const header = document.querySelector(".header");
+          const headerHeight = header ? header.offsetHeight : 96;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+          window.scrollTo({
+            top: Math.max(0, offsetPosition),
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    };
+
     const handleHashChange = () => {
-      if (window.location.hash === "#all-products" || window.location.hash === "#products") {
+      const hash = window.location.hash;
+      if (hash === "#all-products" || hash === "#products") {
         setPage("products");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (window.location.hash === "#home" || window.location.hash === "") {
+      } else if (hash === "#home") {
         setPage("home");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (hash === "#about" || hash === "#ratings" || hash === "#contact") {
+        setPage("home");
+        scrollToSection(hash.slice(1));
       }
     };
+
+    if (window.location.hash === "#about" || window.location.hash === "#ratings" || window.location.hash === "#contact") {
+      scrollToSection(window.location.hash.slice(1));
+    }
+
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
@@ -1981,11 +1834,17 @@ function App(){
     }
     if (targetPage === "products") {
       setPage("products");
+      if (window.location.hash !== "#products") {
+        window.history.pushState(null, "", "#products");
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       const isAlreadyHome = page === "home";
       setPage("home");
       if (sectionId && sectionId !== "home") {
+        if (window.location.hash !== `#${sectionId}`) {
+          window.history.pushState(null, "", `#${sectionId}`);
+        }
         setTimeout(() => {
           const el = document.getElementById(sectionId);
           if (el) {
@@ -2000,6 +1859,9 @@ function App(){
           }
         }, isAlreadyHome ? 20 : 80);
       } else {
+        if (window.location.hash !== "#home") {
+          window.history.pushState(null, "", "#home");
+        }
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
@@ -2124,61 +1986,6 @@ function App(){
           </section>
 
 
-          {/* 4. Featured Product Range */}
-          <section id="products" className="section products-section">
-            <div className="section-head products-section-head">
-              <div>
-                <div className="eyebrow">FEATURED PRODUCT RANGE</div>
-                <h2>Components that<br/><em>keep industry moving.</em></h2>
-              </div>
-              <div className="section-head-aside">
-                <p>Explore our most in-demand polyurethane components built to withstand heavy impacts and severe abrasive wear.</p>
-                <button
-                  type="button"
-                  className="products-rfq-trigger-btn"
-                  onClick={() => setRfqDrawerOpen(true)}
-                  aria-label={`View Wish list with ${rfqCart.length} items`}
-                >
-                  <ClipboardList size={17} />
-                  <span>Wish list</span>
-                  <span className="rfq-cart-count-badge">{rfqCart.length}</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="product-grid">
-              {products.slice(0, 4).map((p) => (
-                <ProductCard 
-                  key={p.id} 
-                  p={p} 
-                  onSelectContact={handleSelectContact} 
-                  onOpenDetails={handleOpenDetails} 
-                  onAddToRfq={handleAddToRfq}
-                />
-              ))}
-            </div>
-
-            <div className="products-section-footer-actions">
-              <button
-                type="button"
-                className="view-more-products-btn"
-                id="btn-view-complete-range"
-                onClick={() => navigateTo("products")}
-              >
-                View Complete Product Range ({products.length} Products) <ArrowRight size={17}/>
-              </button>
-              <button
-                type="button"
-                className="products-rfq-trigger-btn secondary"
-                onClick={() => setRfqDrawerOpen(true)}
-                aria-label={`View Wish list with ${rfqCart.length} items`}
-              >
-                <ClipboardList size={17} />
-                <span>View Wish list</span>
-                <span className="rfq-cart-count-badge">{rfqCart.length}</span>
-              </button>
-            </div>
-          </section>
 
           {/* 9. About Lakshmi PU Pads (Phase 17) */}
           <section id="about" className="about-unified-section">
