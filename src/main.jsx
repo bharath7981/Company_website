@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef} from "react";
-import {createRoot} from "react-dom/client";
+import React, { useState, useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
 import {
   ArrowUpRight, ChevronDown, ChevronUp, Menu, X, Phone, Mail, MapPin, ArrowRight,
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
@@ -812,39 +812,39 @@ function WriteReviewModal({ isOpen, onClose }) {
   );
 }
 
-function Logo({ onNavigate, isFooter = false }){
+function Logo({ onNavigate, isFooter = false }) {
   if (isFooter) {
     return (
-      <a 
-        className="logo" 
-        href="#home" 
-        onClick={(e)=>{
+      <a
+        className="logo"
+        href="#home"
+        onClick={(e) => {
           if (onNavigate) {
             e.preventDefault();
             onNavigate("home");
           }
-        }} 
-        aria-label="Lakshmi PU Pads home"
+        }}
+        aria-label="Lakshmi PU Components home"
       >
-        <span className="footer-logo-title">LAKSHMI PU PADS</span>
+        <span className="footer-logo-title">LAKSHMI PU COMPONENTS</span>
       </a>
     );
   }
 
   return (
     <div className="brand-header-group">
-      <a 
-        className="logo" 
-        href="#home" 
-        onClick={(e)=>{
+      <a
+        className="logo"
+        href="#home"
+        onClick={(e) => {
           if (onNavigate) {
             e.preventDefault();
             onNavigate("home");
           }
-        }} 
-        aria-label="Lakshmi PU Pads home"
+        }}
+        aria-label="Lakshmi PU Components home"
       >
-        <img src="/logo.png" alt="Lakshmi PU Pads" className="logo-img" />
+        <img src="/logo.png" alt="Lakshmi PU Components" className="logo-img" />
       </a>
       <div className="company-location-badge">
         <MapPin size={15} className="loc-icon" />
@@ -857,23 +857,23 @@ function Logo({ onNavigate, isFooter = false }){
   );
 }
 
-function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
+function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }) {
   return (
     <article className="product-b2b-card" key={p.id}>
-      <div className="product-b2b-img-wrap" onClick={()=>onOpenDetails(p, 0)}>
+      <div className="product-b2b-img-wrap" onClick={() => onOpenDetails(p, 0)}>
         <img src={p.views[0]?.src} alt={p.name} className="product-b2b-img" />
       </div>
       <div className="product-b2b-body">
-        <h3 className="product-b2b-title" onClick={()=>onOpenDetails(p, 0)}>{p.name}</h3>
+        <h3 className="product-b2b-title" onClick={() => onOpenDetails(p, 0)}>{p.name}</h3>
         <div className="product-b2b-price">
           <strong>{p.price}</strong> <span className="unit">{p.unit}</span>
         </div>
-        
+
         <div className="product-b2b-actions">
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="product-b2b-view-btn"
-            onClick={()=>onOpenDetails(p, 0)}
+            onClick={() => onOpenDetails(p, 0)}
           >
             View
           </button>
@@ -882,7 +882,7 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
               type="button"
               className="product-b2b-rfq-pill-btn"
               title="Add to Wish list"
-              onClick={(e)=>{
+              onClick={(e) => {
                 e.stopPropagation();
                 onAddToRfq(p, 1);
               }}
@@ -893,14 +893,14 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
         </div>
 
         <div className="product-b2b-supplier-info">
-          <div className="supplier-name">Lakshmi PU Pads · {p.supplier}</div>
+          <div className="supplier-name">Lakshmi PU Components · {p.supplier}</div>
           <div className="supplier-loc">{p.location}</div>
         </div>
         <div className="product-b2b-metrics">
           <span className="response-rate">92% Response Rate</span>
           <span className="rating-wrap" title="Verified Manufacturer Rating: 4.9/5">
             <span className="stars-icons">
-              {[1,2,3,4,5].map(s=>(
+              {[1, 2, 3, 4, 5].map(s => (
                 <span key={s} className="star-fill">★</span>
               ))}
             </span>
@@ -913,7 +913,7 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }){
   );
 }
 
-function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }){
+function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }) {
   const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
   const [activeTab, setActiveTab] = useState("specs");
   const [qty, setQty] = useState(1);
@@ -921,9 +921,9 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="product-detail-modal" onClick={e=>e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close details"><X/></button>
-        
+      <div className="product-detail-modal" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close details"><X /></button>
+
         <div className="pdm-breadcrumbs">
           <span>Products</span>
           <span className="sep">/</span>
@@ -936,7 +936,7 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
           <div className="eyebrow">{product.cat}</div>
           <h2>{product.name}</h2>
           <div className="pdm-subhead">
-            <span className="pdm-supplier">Lakshmi PU Pads · {product.supplier}</span>
+            <span className="pdm-supplier">Lakshmi PU Components · {product.supplier}</span>
             <span className="pdm-dot">·</span>
             <span className="pdm-location">{product.location}</span>
           </div>
@@ -955,7 +955,7 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                   key={v.label}
                   type="button"
                   className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
-                  onClick={()=>setActiveViewIdx(idx)}
+                  onClick={() => setActiveViewIdx(idx)}
                 >
                   <img src={v.src} alt={v.label} />
                   <span>{v.label}</span>
@@ -991,18 +991,18 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
               <button
                 type="button"
                 className="product-b2b-contact-btn large"
-                onClick={()=>{
+                onClick={() => {
                   onClose();
                   onSelectContact(product);
                 }}
               >
-                <Send size={16} style={{transform:"rotate(-20deg)"}} /> Instant Quote Enquiry
+                <Send size={16} style={{ transform: "rotate(-20deg)" }} /> Instant Quote Enquiry
               </button>
               {onAddToRfq && (
                 <button
                   type="button"
                   className="product-b2b-rfq-add-btn"
-                  onClick={()=>{
+                  onClick={() => {
                     onAddToRfq(product, qty);
                     onClose();
                   }}
@@ -1081,7 +1081,7 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                 <ul className="pdm-features-list">
                   {product.features.map(f => (
                     <li key={f}>
-                      <Check size={16} className="feature-check-icon"/>
+                      <Check size={16} className="feature-check-icon" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -1358,7 +1358,7 @@ function EnquiryModal({ isOpen, product, onClose }) {
               </h2>
               <p className="enquiry-desc">
                 {product
-                  ? `Direct manufacturer pricing from Lakshmi PU Pads with guaranteed quality standards.`
+                  ? `Direct manufacturer pricing from Lakshmi PU Components with guaranteed quality standards.`
                   : "Share your dimensions and technical requirement for immediate assistance."}
               </p>
             </div>
@@ -1452,7 +1452,7 @@ function EnquiryModal({ isOpen, product, onClose }) {
 
               <button type="submit" className="enquiry-submit-btn">
                 <span>Send Enquiry for Best Quote</span>
-                <Send size={15} style={{transform: "rotate(-10deg)"}} />
+                <Send size={15} style={{ transform: "rotate(-10deg)" }} />
               </button>
 
               <div className="enquiry-trust-banner">
@@ -1468,18 +1468,18 @@ function EnquiryModal({ isOpen, product, onClose }) {
   );
 }
 
-function ProductsPage({ 
-  products, 
-  activeCategory, 
-  setActiveCategory, 
-  categories, 
-  onSelectContact, 
-  onOpenDetails, 
+function ProductsPage({
+  products,
+  activeCategory,
+  setActiveCategory,
+  categories,
+  onSelectContact,
+  onOpenDetails,
   onNavigateHome,
   onAddToRfq,
   onOpenRfq,
   rfqCartCount = 0
-}){
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchRef = useRef(null);
@@ -1499,7 +1499,7 @@ function ProductsPage({
   const filteredProducts = products.filter(p => {
     const matchesCat = activeCategory === "All" || p.categoryGroup === activeCategory;
     const query = searchQuery.trim().toLowerCase();
-    const matchesSearch = !query || 
+    const matchesSearch = !query ||
       p.name.toLowerCase().includes(query) ||
       p.cat.toLowerCase().includes(query) ||
       p.categoryGroup.toLowerCase().includes(query) ||
@@ -1546,7 +1546,7 @@ function ProductsPage({
 
         {/* Search Bar with Interactive Dropdown */}
         <div className="product-search-wrapper" ref={searchRef}>
-          <div 
+          <div
             className={`product-search-bar ${isDropdownOpen ? "focused" : ""}`}
             onClick={() => setIsDropdownOpen(true)}
           >
@@ -1563,7 +1563,7 @@ function ProductsPage({
               onFocus={() => setIsDropdownOpen(true)}
               aria-label="Search polyurethane products"
             />
-            
+
             {searchQuery && (
               <button
                 type="button"
@@ -1622,7 +1622,7 @@ function ProductsPage({
                       onClick={() => handleSelectProduct(p)}
                     >
                       <span className="dropdown-item-name">{p.name}</span>
-                      <span className="dropdown-item-arrow"><ArrowRight size={14}/></span>
+                      <span className="dropdown-item-arrow"><ArrowRight size={14} /></span>
                     </div>
                   ))
                 )}
@@ -1633,7 +1633,7 @@ function ProductsPage({
 
         {/* Category Filter Chips */}
         {categories && (
-          <div className="product-hardness-chips-row" style={{marginTop: "16px"}}>
+          <div className="product-hardness-chips-row" style={{ marginTop: "16px" }}>
             <span className="hardness-chips-label">Categories:</span>
             {categories.map((cat) => (
               <button
@@ -1650,7 +1650,7 @@ function ProductsPage({
       </div>
 
       {/* Full B2B Products Catalog Grid */}
-      <section className="section products-section" style={{paddingTop: "24px", paddingBottom: "50px"}}>
+      <section className="section products-section" style={{ paddingTop: "24px", paddingBottom: "50px" }}>
         <div className="catalog-grid-header">
           <div>
             <h3>All Available Polyurethane Components</h3>
@@ -1690,29 +1690,14 @@ function ProductsPage({
           </div>
         )}
 
-        <div className="products-custom-cta-box">
-          <div>
-            <h3>Need a Custom Formulation, Hardness or Custom Tooling?</h3>
-            <p>
-              We specialize in custom polyurethane tooling, reverse engineering, and custom prepolymer formulation tailored to your operating temperatures, shock loads, and abrasive materials.
-            </p>
-          </div>
-          <button 
-            type="button" 
-            className="primary-btn"
-            onClick={()=>onSelectContact(null)}
-          >
-            Request Custom Quote <ArrowRight size={17}/>
-          </button>
-        </div>
       </section>
     </div>
   );
 }
 
-function App(){
-  const [open,setOpen]=useState(false);
-  const [quote,setQuote]=useState(false);
+function App() {
+  const [open, setOpen] = useState(false);
+  const [quote, setQuote] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailProduct, setDetailProduct] = useState(null);
@@ -1862,42 +1847,42 @@ function App(){
 
   return <div className="app">
     <header className="header">
-      <Logo onNavigate={navigateTo}/>
+      <Logo onNavigate={navigateTo} />
 
       <div className="header-nav-and-contact">
-        <nav className={open ? "nav open":"nav"}>
-          <a 
-            href="#home" 
+        <nav className={open ? "nav open" : "nav"}>
+          <a
+            href="#home"
             className={page === "home" ? "active" : ""}
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("home"); }}
           >
             Home
           </a>
 
-          <a 
-            href="#products" 
+          <a
+            href="#products"
             className={page === "products" ? "active" : ""}
-            onClick={(e)=>{ e.preventDefault(); navigateTo("products"); }}
+            onClick={(e) => { e.preventDefault(); navigateTo("products"); }}
           >
             Products
           </a>
 
 
-          <a 
-            href="#about" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}
+          <a
+            href="#about"
+            onClick={(e) => { e.preventDefault(); navigateTo("home", "about"); }}
           >
             About
           </a>
-          <a 
-            href="#ratings" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "ratings"); }}
+          <a
+            href="#ratings"
+            onClick={(e) => { e.preventDefault(); navigateTo("home", "ratings"); }}
           >
             Ratings
           </a>
-          <a 
-            href="#contact" 
-            onClick={(e)=>{ e.preventDefault(); navigateTo("home", "contact"); }}
+          <a
+            href="#contact"
+            onClick={(e) => { e.preventDefault(); navigateTo("home", "contact"); }}
           >
             Contact
           </a>
@@ -1905,14 +1890,14 @@ function App(){
 
         <div className="header-actions">
           <div className="header-contact-direct">
-            <div className="hcd-icon"><Phone size={15}/></div>
+            <div className="hcd-icon"><Phone size={15} /></div>
             <div className="hcd-info">
               <span className="hcd-label">Call Supplier</span>
               <a href="tel:+919390244749" className="hcd-phone">+91 93902 44749</a>
             </div>
           </div>
 
-          <button className="mobile-toggle" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button>
+          <button className="mobile-toggle" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X /> : <Menu />}</button>
         </div>
       </div>
     </header>
@@ -1926,7 +1911,7 @@ function App(){
           categories={categories}
           onSelectContact={handleSelectContact}
           onOpenDetails={handleOpenDetails}
-          onNavigateHome={()=>navigateTo("home")}
+          onNavigateHome={() => navigateTo("home")}
           onAddToRfq={handleAddToRfq}
           onOpenRfq={() => setRfqDrawerOpen(true)}
           rfqCartCount={rfqCart.length}
@@ -1937,24 +1922,24 @@ function App(){
             <div className="hero-copy">
               <div className="hero-badge">
                 <Sparkles size={13} />
-                <span>LAKSHMI PU PADS · HYDERABAD, TELANGANA</span>
+                <span>LAKSHMI PU COMPONENTS · HYDERABAD, TELANGANA</span>
               </div>
-              <h1>Built for the<br/><em>hardest</em> work.<br/><span className="pu-highlight">Engineered in PU.</span></h1>
+              <h1>Built for the<br /><em>hardest</em> work.<br /><span className="pu-highlight">Engineered in PU.</span></h1>
               <p>High-performance cast polyurethane and industrial wear components engineered for heavy impact dampening, extreme slurry abrasion, and dependable service life.</p>
               <div className="hero-actions">
-                <button type="button" className="primary-btn" onClick={()=>navigateTo("products")}>Explore PU Components <ArrowRight size={18}/></button>
-                <button type="button" className="hero-quote-btn" onClick={()=>{setSelectedProduct(null);setQuote(true);}}>Request a Quote <MoveUpRight size={16}/></button>
+                <button type="button" className="primary-btn" onClick={() => navigateTo("products")}>Explore PU Components <ArrowRight size={18} /></button>
+                <button type="button" className="hero-quote-btn" onClick={() => { setSelectedProduct(null); setQuote(true); }}>Request a Quote <MoveUpRight size={16} /></button>
               </div>
               <div className="hero-proof">
-                <div><strong>90°–95°</strong><span>Shore A<br/>Durometer</span></div>
-                <div><strong>15+</strong><span>Years foundry<br/>experience</span></div>
-                <div><strong>100%</strong><span>Made in India<br/>(Hyderabad)</span></div>
+                <div><strong>90°–95°</strong><span>Shore A<br />Durometer</span></div>
+                <div><strong>15+</strong><span>Years foundry<br />experience</span></div>
+                <div><strong>100%</strong><span>Made in India<br />(Hyderabad)</span></div>
               </div>
             </div>
             <div className="hero-visual">
               <div className="hero-image"></div>
-              <div className="hero-floating top"><span>01</span><b>Heavy impact<br/>shock absorption</b></div>
-              <div className="hero-floating bottom"><CircleGauge size={22}/><div><b>High Slurry Wear Resistance</b><small>Outlasts rubber 4x–10x</small></div></div>
+              <div className="hero-floating top"><span>01</span><b>Heavy impact<br />shock absorption</b></div>
+              <div className="hero-floating bottom"><CircleGauge size={22} /><div><b>High Slurry Wear Resistance</b><small>Outlasts rubber 4x–10x</small></div></div>
               <div className="hero-grid"></div>
             </div>
           </section>
@@ -1970,12 +1955,12 @@ function App(){
 
 
 
-          {/* 9. About Lakshmi PU Pads (Phase 17) */}
+          {/* 9. About Lakshmi PU Components (Phase 17) */}
           <section id="about" className="about-unified-section">
             <div className="about-unified-top">
               <div className="about-unified-intro">
-                <div className="eyebrow">ABOUT LAKSHMI PU PADS</div>
-                <h2>Material expertise.<br/><em>Real-world performance.</em></h2>
+                <div className="eyebrow">ABOUT LAKSHMI PU COMPONENTS</div>
+                <h2>Material expertise.<br /><em>Real-world performance.</em></h2>
                 <p>
                   We believe industrial components shouldn't be an afterthought. We combine deep material knowledge, precision polyurethane manufacturing, and application-focused engineering to deliver components that work harder and last longer where abrasion, impact, and continuous operation are part of the job.
                 </p>
@@ -1984,8 +1969,8 @@ function App(){
                     ["Precision manufacturing", "Consistent dimensions, strict tolerances, and dependable performance across every batch."],
                     ["Custom engineering", "Tailored polyurethane compounds and tooling developed around your exact application."],
                     ["Quality first", "High-grade prepolymer resins and rigorous testing for demanding industrial conditions."]
-                  ].map(([a,b])=><div className="about-cap-item" key={a}>
-                    <span className="cap-icon"><Check size={16}/></span>
+                  ].map(([a, b]) => <div className="about-cap-item" key={a}>
+                    <span className="cap-icon"><Check size={16} /></span>
                     <div>
                       <b>{a}</b>
                       <small>{b}</small>
@@ -1993,28 +1978,28 @@ function App(){
                   </div>)}
                 </div>
                 <div className="about-cta-row">
-                  <a href="#contact" className="primary-btn">Start a conversation <ArrowRight size={18}/></a>
+                  <a href="#contact" className="primary-btn">Start a conversation <ArrowRight size={18} /></a>
                 </div>
               </div>
 
               <div className="about-stats-card-grid">
                 <div className="about-stat-box">
-                  <Factory size={24}/>
+                  <Factory size={24} />
                   <strong>15+</strong>
                   <span>Years in manufacturing</span>
                 </div>
                 <div className="about-stat-box">
-                  <ShieldCheck size={24}/>
+                  <ShieldCheck size={24} />
                   <strong>100%</strong>
                   <span>Quality focused</span>
                 </div>
                 <div className="about-stat-box">
-                  <Boxes size={24}/>
+                  <Boxes size={24} />
                   <strong>500+</strong>
                   <span>Custom solutions</span>
                 </div>
                 <div className="about-stat-box">
-                  <Settings2 size={24}/>
+                  <Settings2 size={24} />
                   <strong>24/7</strong>
                   <span>Technical support</span>
                 </div>
@@ -2023,21 +2008,21 @@ function App(){
           </section>
 
           {/* 10. Company Ratings & Verified Buyer Reviews Section */}
-          <CompanyRatings 
+          <CompanyRatings
             onSelectContact={handleSelectContact}
-            onOpenReviewModal={()=>setReviewModalOpen(true)}
+            onOpenReviewModal={() => setReviewModalOpen(true)}
           />
 
 
           {/* 12. Contact Form */}
           <section id="contact" className="contact-section">
-            <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Have a tough<br/><em>application?</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17}/><b>+91 93902 44749</b></span><span><Mail size={17}/><b>info@lakshmipupads.com</b></span></div></div>
-            <form onSubmit={e=>{e.preventDefault();setQuote(false);alert("Thank you! We'll contact you shortly.")}}>
-              <div className="form-row"><input placeholder="Your name"/><input placeholder="Company name"/></div>
-              <div className="form-row"><input placeholder="Email address"/><input placeholder="Phone number"/></div>
+            <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Contact <em>Us</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17} /><b>+91 93902 44749</b></span><span><Mail size={17} /><b>info@lakshmipupads.com</b></span></div></div>
+            <form onSubmit={e => { e.preventDefault(); setQuote(false); alert("Thank you! We'll contact you shortly.") }}>
+              <div className="form-row"><input placeholder="Your name" /><input placeholder="Company name" /></div>
+              <div className="form-row"><input placeholder="Email address" /><input placeholder="Phone number" /></div>
               <select defaultValue=""><option value="" disabled>What are you looking for?</option><option>Polyurethane components</option><option>Screening solutions</option><option>Custom manufacturing</option></select>
               <textarea placeholder="Tell us briefly about your requirement..."></textarea>
-              <button className="primary-btn" type="submit">Send enquiry <Send size={17}/></button>
+              <button className="primary-btn" type="submit">Send enquiry <Send size={17} /></button>
             </form>
           </section>
         </>
@@ -2048,7 +2033,7 @@ function App(){
     <footer>
       <div className="footer-main">
         <div>
-          <Logo onNavigate={navigateTo} isFooter={true}/>
+          <Logo onNavigate={navigateTo} isFooter={true} />
           <p>
             Specialized manufacturer of high-performance cast polyurethane components, hydraulic breaker pads, vibrating screen media, and custom elastomeric wear parts.
           </p>
@@ -2065,11 +2050,11 @@ function App(){
 
         <div>
           <h4>Polyurethane Products</h4>
-          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Rock Breaker Parts"); }}>Rock Breaker Parts & Dampers</a>
-          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Screening & Dewatering"); }}>Screening & Dewatering Media</a>
-          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "Industrial & Mining Wear"); }}>Conveyor & Mining Wear Parts</a>
-          <a href="#all-products" onClick={(e)=>{ e.preventDefault(); navigateTo("products", null, "All"); }}>View All 8 Components</a>
-          <a href="#about" onClick={(e)=>{ e.preventDefault(); navigateTo("home", "about"); }}>Custom Moulding & Tooling</a>
+          <a href="#all-products" onClick={(e) => { e.preventDefault(); navigateTo("products", null, "Rock Breaker Parts"); }}>Rock Breaker Parts & Dampers</a>
+          <a href="#all-products" onClick={(e) => { e.preventDefault(); navigateTo("products", null, "Screening & Dewatering"); }}>Screening & Dewatering Media</a>
+          <a href="#all-products" onClick={(e) => { e.preventDefault(); navigateTo("products", null, "Industrial & Mining Wear"); }}>Conveyor & Mining Wear Parts</a>
+          <a href="#all-products" onClick={(e) => { e.preventDefault(); navigateTo("products", null, "All"); }}>View All 8 Components</a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); navigateTo("home", "about"); }}>Custom Moulding & Tooling</a>
         </div>
 
         <div>
@@ -2096,12 +2081,12 @@ function App(){
             <a href="mailto:info@lakshmipupads.com">info@lakshmipupads.com</a>
           </div>
           <span className="footer-hours-note">Mon – Sat: 9:00 AM – 7:00 PM IST</span>
-          <span className="footer-hours-note" style={{color: "var(--color-accent)", fontWeight: 700}}>Direct Engineer Consultation Available</span>
+          <span className="footer-hours-note" style={{ color: "var(--color-accent)", fontWeight: 700 }}>Direct Engineer Consultation Available</span>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <span>© 2026 Lakshmi PU Pads (Sri Laxmi Ganapathi Enterprises). All rights reserved.</span>
+        <span>© 2026 Lakshmi PU Components (Sri Laxmi Ganapathi Enterprises). All rights reserved.</span>
         <span>Registered Indian Manufacturer · ISO Compliant Testing · Hyderabad, Telangana</span>
       </div>
     </footer>
@@ -2112,9 +2097,9 @@ function App(){
         <Phone size={17} />
         <span>Call Hotline</span>
       </a>
-      <button 
-        type="button" 
-        className="mobile-bar-btn rfq" 
+      <button
+        type="button"
+        className="mobile-bar-btn rfq"
         onClick={() => setRfqDrawerOpen(true)}
         aria-label="View Wish list"
       >
@@ -2128,9 +2113,9 @@ function App(){
         </div>
         <span>Wish list</span>
       </button>
-      <button 
-        type="button" 
-        className="mobile-bar-btn quote" 
+      <button
+        type="button"
+        className="mobile-bar-btn quote"
         onClick={() => { setSelectedProduct(null); setQuote(true); }}
         aria-label="Request quote"
       >
@@ -2144,7 +2129,7 @@ function App(){
       <ProductDetailModal
         product={detailProduct}
         initialViewIdx={detailViewIdx}
-        onClose={()=>setDetailProduct(null)}
+        onClose={() => setDetailProduct(null)}
         onSelectContact={handleSelectContact}
         onAddToRfq={handleAddToRfq}
       />
@@ -2163,7 +2148,7 @@ function App(){
     {/* Multi-Item B2B RFQ Cart Drawer */}
     <RfqDrawer
       isOpen={rfqDrawerOpen}
-      onClose={()=>setRfqDrawerOpen(false)}
+      onClose={() => setRfqDrawerOpen(false)}
       cart={rfqCart}
       onUpdateQty={handleUpdateRfqQty}
       onRemoveItem={handleRemoveFromRfq}
@@ -2173,8 +2158,8 @@ function App(){
     {/* Write Review Modal */}
     <WriteReviewModal
       isOpen={reviewModalOpen}
-      onClose={()=>setReviewModalOpen(false)}
+      onClose={() => setReviewModalOpen(false)}
     />
   </div>
 }
-createRoot(document.getElementById("root")).render(<App/>);
+createRoot(document.getElementById("root")).render(<App />);
