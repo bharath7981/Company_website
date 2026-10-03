@@ -5,7 +5,7 @@ import {
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
   Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User,
-  ClipboardList, FileText, Trash2, Minus, Home
+  ClipboardList, FileText, Trash2, Minus, Home, ChevronLeft, ChevronRight
 } from "lucide-react";
 import "./styles.css";
 
@@ -915,52 +915,97 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }) {
 
 function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }) {
   const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
-  const [activeTab, setActiveTab] = useState("specs");
   const [qty, setQty] = useState(1);
-  const currentView = product.views[activeViewIdx] || product.views[0];
+  const sliderRef = useRef(null);
+
+  const views = product.views && product.views.length > 0 ? product.views : [{ src: "/pu-buffer-pad.jpg", label: "View" }];
+
+  const scrollToSlide = (idx) => {
+    setActiveViewIdx(idx);
+    if (sliderRef.current) {
+      const slideWidth = sliderRef.current.offsetWidth;
+      sliderRef.current.scrollTo({
+        left: idx * slideWidth,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  const handleScroll = () => {
+    if (sliderRef.current) {
+      const scrollLeft = sliderRef.current.scrollLeft;
+      const slideWidth = sliderRef.current.offsetWidth || 1;
+      const newIdx = Math.round(scrollLeft / slideWidth);
+      if (newIdx !== activeViewIdx && newIdx >= 0 && newIdx < views.length) {
+        setActiveViewIdx(newIdx);
+      }
+    }
+  };
+
+  const prevSlide = () => {
+    const nextIdx = activeViewIdx > 0 ? activeViewIdx - 1 : views.length - 1;
+    scrollToSlide(nextIdx);
+  };
+
+  const nextSlide = () => {
+    const nextIdx = activeViewIdx < views.length - 1 ? activeViewIdx + 1 : 0;
+    scrollToSlide(nextIdx);
+  };
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="product-detail-modal" onClick={e => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose} aria-label="Close details"><X /></button>
 
-        <div className="pdm-breadcrumbs">
-          <span>Products</span>
-          <span className="sep">/</span>
-          <span>{product.categoryGroup || "Polyurethane"}</span>
-          <span className="sep">/</span>
-          <span className="current">{product.name}</span>
-        </div>
-
         <div className="pdm-header">
-          <div className="eyebrow">{product.cat}</div>
           <h2>{product.name}</h2>
-          <div className="pdm-subhead">
-            <span className="pdm-supplier">Lakshmi PU Components · {product.supplier}</span>
-            <span className="pdm-dot">·</span>
-            <span className="pdm-location">{product.location}</span>
-          </div>
         </div>
 
         <div className="pdm-layout">
-          {/* Left Column: Multi-Angle Gallery */}
+          {/* Left Column: Multi-Angle Swipeable Gallery & Dots */}
           <div className="pdm-gallery">
-            <div className="pdm-main-img-box">
-              <img src={currentView.src} alt={`${product.name} - ${currentView.label}`} />
-              <div className="pdm-active-tag">{currentView.label}</div>
-            </div>
-            {product.views && product.views.length > 1 && (
-              <div className="pdm-thumbnails">
-                {product.views.map((v, idx) => (
+            <div className="pdm-carousel-container">
+              <div className="pdm-carousel-slider" ref={sliderRef} onScroll={handleScroll}>
+                {views.map((v, idx) => (
+                  <div className="pdm-slide" key={idx}>
+                    <img src={v.src} alt={`${product.name} view ${idx + 1}`} loading="lazy" />
+                  </div>
+                ))}
+              </div>
+
+              {views.length > 1 && (
+                <>
                   <button
-                    key={v.label}
                     type="button"
-                    className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
-                    onClick={() => setActiveViewIdx(idx)}
+                    className="pdm-carousel-arrow prev"
+                    onClick={prevSlide}
+                    aria-label="Previous image"
                   >
-                    <img src={v.src} alt={v.label} loading="lazy" />
-                    <span>{v.label}</span>
+                    <ChevronLeft size={20} />
                   </button>
+                  <button
+                    type="button"
+                    className="pdm-carousel-arrow next"
+                    onClick={nextSlide}
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Pagination Dots */}
+            {views.length > 1 && (
+              <div className="pdm-dots">
+                {views.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    className={`pdm-dot-indicator ${activeViewIdx === idx ? "active" : ""}`}
+                    onClick={() => scrollToSlide(idx)}
+                    aria-label={`Go to view ${idx + 1}`}
+                  />
                 ))}
               </div>
             )}
@@ -1027,67 +1072,28 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
               )}
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="pdm-tabs-nav">
-              <button
-                type="button"
-                className={`pdm-tab-btn ${activeTab === "specs" ? "active" : ""}`}
-                onClick={() => setActiveTab("specs")}
-              >
-                Technical Specifications
-              </button>
-              <button
-                type="button"
-                className={`pdm-tab-btn ${activeTab === "overview" ? "active" : ""}`}
-                onClick={() => setActiveTab("overview")}
-              >
-                Overview
-              </button>
-              <button
-                type="button"
-                className={`pdm-tab-btn ${activeTab === "features" ? "active" : ""}`}
-                onClick={() => setActiveTab("features")}
-              >
-                Performance Features
-              </button>
+            {/* Technical Specifications */}
+            <div className="pdm-section">
+              <h4>Technical Specifications</h4>
+              <div className="pdm-specs-table">
+                <table>
+                  <tbody>
+                    {product.specs?.map(s => (
+                      <tr key={s.label}>
+                        <td className="spec-label">{s.label}</td>
+                        <td className="spec-value">{s.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {activeTab === "specs" && (
+            {/* Overview under Technical Specifications */}
+            {product.description && (
               <div className="pdm-section">
-                <h4>Verified Engineering Specifications</h4>
-                <div className="pdm-specs-table">
-                  <table>
-                    <tbody>
-                      {product.specs.map(s => (
-                        <tr key={s.label}>
-                          <td className="spec-label">{s.label}</td>
-                          <td className="spec-value">{s.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "overview" && (
-              <div className="pdm-section">
-                <h4>Component Description & Duty</h4>
+                <h4>Overview</h4>
                 <p className="pdm-desc">{product.description}</p>
-              </div>
-            )}
-
-            {activeTab === "features" && (
-              <div className="pdm-section">
-                <h4>Key Performance Advantages</h4>
-                <ul className="pdm-features-list">
-                  {product.features.map(f => (
-                    <li key={f}>
-                      <Check size={16} className="feature-check-icon" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             )}
           </div>

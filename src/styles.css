@@ -2730,35 +2730,28 @@ footer .logo {
 
 /* ── Product Detail Modal (Essar Plastics Style Specs & Multi-View) ── */
 .product-detail-modal {
-  width: min(960px, 94vw);
+  width: min(720px, 94vw);
   max-height: 88vh;
   overflow-y: auto;
   background: #fff;
-  padding: 36px;
+  padding: 30px 32px;
   position: relative;
-  border-radius: 12px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, .35)
+  border-radius: 14px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .35);
 }
 
 .pdm-header {
   border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 16px;
-  margin-bottom: 24px
-}
-
-.pdm-header .eyebrow {
-  font: 700 11px Manrope;
-  color: #127b82;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-bottom: 4px
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  padding-right: 48px;
 }
 
 .pdm-header h2 {
-  font: 800 clamp(24px, 3vw, 34px)/1.15 Manrope;
+  font: 800 clamp(20px, 2.5vw, 28px)/1.25 Manrope;
   letter-spacing: -.03em;
   color: #0e202a;
-  margin: 0 0 8px
+  margin: 0;
 }
 
 .pdm-subhead {
@@ -2766,126 +2759,162 @@ footer .logo {
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #64748b
+  color: #64748b;
 }
 
 .pdm-supplier {
   font-weight: 600;
-  color: #334155
+  color: #334155;
 }
 
 .pdm-dot {
-  color: #cbd5e1
+  color: #cbd5e1;
 }
 
 .pdm-location {
-  color: #64748b
+  color: #64748b;
 }
 
 .pdm-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 36px;
-  align-items: start
-}
-
-@media(max-width:850px) {
-  .pdm-layout {
-    grid-template-columns: 1fr;
-    gap: 24px
-  }
-
-  .pdm-gallery {
-    position: static !important;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: stretch;
 }
 
 .pdm-gallery {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  position: sticky;
-  top: 0
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: static;
 }
 
-.pdm-main-img-box {
+/* ── Multi-Angle Carousel & Dots ── */
+.pdm-carousel-container {
   position: relative;
-  height: 320px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
+}
+
+.pdm-carousel-slider {
+  display: flex;
+  width: 100%;
+  height: 320px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pdm-carousel-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.pdm-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  overflow: hidden
 }
 
-.pdm-main-img-box img {
+.pdm-slide img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: .25s ease
+  user-select: none;
+  transition: transform 0.25s ease;
 }
 
-.pdm-active-tag {
+/* Nav arrows on carousel */
+.pdm-carousel-arrow {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #0e202a;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: .05em
-}
-
-.pdm-thumbnails {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 4px 0
-}
-
-.pdm-thumb-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 10px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  background: #fff;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #cbd5e1;
+  color: var(--color-dark);
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  transition: .2s;
-  min-width: 80px;
-  text-align: center
+  z-index: 10;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.pdm-thumb-btn:hover {
-  border-color: #127b82
+.pdm-carousel-arrow:hover {
+  background: #ffffff;
+  color: var(--color-primary);
+  transform: translateY(-50%) scale(1.08);
 }
 
-.pdm-thumb-btn.active {
-  border-color: #127b82;
-  background: #f0fdfa
+.pdm-carousel-arrow.prev {
+  left: 10px;
 }
 
-.pdm-thumb-btn img {
-  width: 56px;
-  height: 44px;
-  object-fit: contain
+.pdm-carousel-arrow.next {
+  right: 10px;
 }
 
-.pdm-thumb-btn span {
-  font: 700 10.5px Manrope;
-  color: #334155
+/* Pagination Dots */
+.pdm-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0 2px;
+}
+
+.pdm-dot-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--transition-fast);
+}
+
+.pdm-dot-indicator:hover {
+  background: #94a3b8;
+}
+
+.pdm-dot-indicator.active {
+  background: var(--color-primary);
+  width: 24px;
+  border-radius: 6px;
 }
 
 .pdm-gallery-cta {
-  margin-top: 6px
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.pdm-gallery-cta .product-b2b-contact-btn.large {
+  flex: 1 1 240px;
+}
+
+.pdm-gallery-cta .product-b2b-rfq-add-btn {
+  flex: 1 1 200px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pdm-breadcrumbs {
@@ -4833,11 +4862,6 @@ footer {
     grid-template-columns: 1fr 1fr;
     gap: 40px
   }
-
-  .pdm-layout {
-    grid-template-columns: 1fr;
-    gap: 24px
-  }
 }
 
 @media(max-width:640px) {
@@ -5117,14 +5141,15 @@ footer {
   }
 
   .pdm-header {
-    padding-bottom: 14px;
-    margin-bottom: 18px
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    padding-right: 40px;
   }
 
   .pdm-header h2 {
-    font-size: 22px;
-    line-height: 1.2;
-    margin: 0 0 6px
+    font-size: 20px;
+    line-height: 1.25;
+    margin: 0;
   }
 
   .pdm-subhead {
@@ -5143,32 +5168,17 @@ footer {
     position: static !important;
   }
 
-  .pdm-main-img-box {
+  .pdm-carousel-slider {
     height: 240px;
-    padding: 14px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
   }
 
-  .pdm-thumbnails {
-    gap: 8px;
-    padding: 4px 0;
-    justify-content: flex-start;
+  .pdm-slide {
+    padding: 12px;
   }
 
-  .pdm-thumb-btn {
-    min-width: 66px;
-    padding: 5px 6px;
-    border-radius: 6px;
-  }
-
-  .pdm-thumb-btn img {
-    width: 44px;
-    height: 34px;
-  }
-
-  .pdm-thumb-btn span {
-    font-size: 10px;
+  .pdm-carousel-arrow {
+    width: 30px;
+    height: 30px;
   }
 
   .pdm-price-banner {
