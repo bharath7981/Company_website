@@ -5,7 +5,7 @@ import {
   Check, Factory, ShieldCheck, Settings2, Layers3, Boxes, Sparkles,
   CircleGauge, MoveUpRight, Send, Plus, Linkedin, Instagram, Info, Search,
   Star, Award, ThumbsUp, Quote, CheckCircle2, MessageSquare, Eye, User,
-  ClipboardList, FileText, Trash2, Minus
+  ClipboardList, FileText, Trash2, Minus, Home
 } from "lucide-react";
 import "./styles.css";
 
@@ -943,24 +943,39 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
         </div>
 
         <div className="pdm-layout">
-          {/* Left Column: Multi-Angle Gallery & Actions */}
+          {/* Left Column: Multi-Angle Gallery */}
           <div className="pdm-gallery">
             <div className="pdm-main-img-box">
               <img src={currentView.src} alt={`${product.name} - ${currentView.label}`} />
               <div className="pdm-active-tag">{currentView.label}</div>
             </div>
-            <div className="pdm-thumbnails">
-              {product.views.map((v, idx) => (
-                <button
-                  key={v.label}
-                  type="button"
-                  className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
-                  onClick={() => setActiveViewIdx(idx)}
-                >
-                  <img src={v.src} alt={v.label} />
-                  <span>{v.label}</span>
-                </button>
-              ))}
+            {product.views && product.views.length > 1 && (
+              <div className="pdm-thumbnails">
+                {product.views.map((v, idx) => (
+                  <button
+                    key={v.label}
+                    type="button"
+                    className={`pdm-thumb-btn ${activeViewIdx === idx ? "active" : ""}`}
+                    onClick={() => setActiveViewIdx(idx)}
+                  >
+                    <img src={v.src} alt={v.label} loading="lazy" />
+                    <span>{v.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Right Column: Pricing, Actions, Tabbed Specs */}
+          <div className="pdm-info">
+            <div className="pdm-price-banner">
+              <div className="pdm-price-val">
+                <strong>{product.price}</strong>
+                <span>{product.unit}</span>
+              </div>
+              <div className="pdm-min-order">
+                <span>Min. Order:</span> <b>{product.minOrder}</b>
+              </div>
             </div>
 
             {/* Quantity Selector */}
@@ -1010,19 +1025,6 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                   <ClipboardList size={16} /> Add {qty} to Wish list
                 </button>
               )}
-            </div>
-          </div>
-
-          {/* Right Column: Tabbed Specs, Overview & Features */}
-          <div className="pdm-info">
-            <div className="pdm-price-banner">
-              <div className="pdm-price-val">
-                <strong>{product.price}</strong>
-                <span>{product.unit}</span>
-              </div>
-              <div className="pdm-min-order">
-                <span>Min. Order:</span> <b>{product.minOrder}</b>
-              </div>
             </div>
 
             {/* Navigation Tabs */}
@@ -1850,7 +1852,7 @@ function App() {
       <Logo onNavigate={navigateTo} />
 
       <div className="header-nav-and-contact">
-        <nav className={open ? "nav open" : "nav"}>
+        <nav className="desktop-nav">
           <a
             href="#home"
             className={page === "home" ? "active" : ""}
@@ -1866,7 +1868,6 @@ function App() {
           >
             Products
           </a>
-
 
           <a
             href="#about"
@@ -1897,10 +1898,94 @@ function App() {
             </div>
           </div>
 
-          <button className="mobile-toggle" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X /> : <Menu />}</button>
+          <button
+            type="button"
+            className="mobile-toggle"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
     </header>
+
+    {/* Mobile Navigation Drawer */}
+    {open && (
+      <div className="mobile-nav-backdrop" onClick={() => setOpen(false)}>
+        <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-nav-header">
+            <span className="mobile-nav-title">Menu</span>
+            <button
+              type="button"
+              className="mobile-nav-close"
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="mobile-nav-links">
+            <a
+              href="#home"
+              className={`mobile-nav-link ${page === "home" && (!window.location.hash || window.location.hash === "#home") ? "active" : ""}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("home");
+              }}
+            >
+              <span>Home</span>
+            </a>
+
+            <a
+              href="#products"
+              className={`mobile-nav-link ${page === "products" ? "active" : ""}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("products");
+              }}
+            >
+              <span>Products</span>
+              <span className="mobile-nav-badge">{products.length} Items</span>
+            </a>
+
+            <a
+              href="#about"
+              className="mobile-nav-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("home", "about");
+              }}
+            >
+              <span>About</span>
+            </a>
+
+            <a
+              href="#ratings"
+              className="mobile-nav-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("home", "ratings");
+              }}
+            >
+              <span>Ratings</span>
+            </a>
+
+            <a
+              href="#contact"
+              className="mobile-nav-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("home", "contact");
+              }}
+            >
+              <span>Contact</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    )}
 
     <main>
       {page === "products" ? (
