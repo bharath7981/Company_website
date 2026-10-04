@@ -2114,9 +2114,10 @@ footer .logo {
 }
 
 .product-b2b-actions {
-  margin-bottom: 14px;
+  margin-top: 14px;
+  margin-bottom: 0;
   display: flex;
-  gap: 8px
+  gap: 8px;
 }
 
 .product-b2b-contact-btn,
@@ -2730,13 +2731,13 @@ footer .logo {
 
 /* ── Product Detail Modal (Essar Plastics Style Specs & Multi-View) ── */
 .product-detail-modal {
-  width: min(720px, 94vw);
-  max-height: 88vh;
+  width: min(960px, 94vw);
+  max-height: 92vh;
   overflow-y: auto;
   background: #fff;
-  padding: 30px 32px;
+  padding: 34px 38px;
   position: relative;
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 0 30px 90px rgba(0, 0, 0, .35);
 }
 
@@ -2748,7 +2749,7 @@ footer .logo {
 }
 
 .pdm-header h2 {
-  font: 800 clamp(20px, 2.5vw, 28px)/1.25 Manrope;
+  font: 800 clamp(22px, 2.6vw, 30px)/1.25 Manrope;
   letter-spacing: -.03em;
   color: #0e202a;
   margin: 0;
@@ -2787,7 +2788,7 @@ footer .logo {
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  max-width: 500px;
+  max-width: 660px;
   margin: 0 auto;
   position: static;
 }
@@ -2805,7 +2806,7 @@ footer .logo {
 .pdm-carousel-slider {
   display: flex;
   width: 100%;
-  height: 320px;
+  height: 380px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -3163,6 +3164,328 @@ footer .logo {
   color: #127b82;
   flex-shrink: 0;
   margin-top: 2px
+}
+
+/* ── Product Detail Modal - Customer Reviews Section ── */
+.pdm-reviews-section {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 24px;
+  margin-top: 10px;
+}
+
+.pdm-reviews-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.pdm-reviews-header h4 {
+  margin: 0 0 6px !important;
+}
+
+.pdm-reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.pdm-avg-rating {
+  font: 800 16px Manrope;
+  color: #d97706;
+}
+
+.pdm-rating-stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+.pdm-review-count {
+  font-weight: 600;
+  color: #64748b;
+}
+
+.pdm-write-review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #f0fdfa;
+  color: #127b82;
+  border: 1.5px solid #127b82;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font: 700 13px var(--font-heading);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pdm-write-review-btn:hover {
+  background: #127b82;
+  color: #fff;
+}
+
+.pdm-review-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  margin-bottom: 18px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Review Submission Form */
+.pdm-review-form {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pdm-review-form h5 {
+  font: 700 15px var(--font-heading);
+  color: #0e202a;
+  margin: 0;
+}
+
+.pdm-form-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pdm-form-label {
+  font: 700 13px var(--font-heading);
+  color: #334155;
+}
+
+.pdm-star-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pdm-star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: inline-flex;
+  transition: transform 0.15s ease;
+}
+
+.pdm-star-btn:hover {
+  transform: scale(1.18);
+}
+
+.pdm-score-text {
+  font: 700 13px var(--font-heading);
+  color: #d97706;
+  margin-left: 6px;
+}
+
+.pdm-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media(max-width: 640px) {
+  .pdm-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pdm-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pdm-form-field label {
+  font: 700 12.5px var(--font-heading);
+  color: #334155;
+}
+
+.pdm-form-field input,
+.pdm-form-field textarea {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font: 500 13.5px var(--font-body);
+  color: #0e202a;
+  background: #fff;
+  transition: border-color var(--transition-fast);
+}
+
+.pdm-form-field input:focus,
+.pdm-form-field textarea:focus {
+  outline: none;
+  border-color: #127b82;
+  box-shadow: 0 0 0 3px rgba(18, 123, 130, 0.15);
+}
+
+.pdm-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.pdm-submit-review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #127b82;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font: 700 13.5px var(--font-heading);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.pdm-submit-review-btn:hover {
+  background: #0d5f65;
+}
+
+.pdm-cancel-review-btn {
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font: 600 13.5px var(--font-heading);
+  cursor: pointer;
+}
+
+.pdm-cancel-review-btn:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+/* Reviews List */
+.pdm-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pdm-review-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color var(--transition-fast);
+}
+
+.pdm-review-card:hover {
+  border-color: #cbd5e1;
+}
+
+.pdm-review-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pdm-reviewer-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pdm-reviewer-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  color: #0369a1;
+  font: 800 14px Manrope;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid #bae6fd;
+}
+
+.pdm-reviewer-name {
+  font: 700 14px var(--font-heading);
+  color: #0e202a;
+}
+
+.pdm-reviewer-company {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.pdm-review-date-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdm-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 600 11.5px var(--font-heading);
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.pdm-review-date {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.pdm-review-stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdm-review-stars .star-fill {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+.pdm-review-stars .star-empty {
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.pdm-review-title {
+  font: 700 13.5px var(--font-heading);
+  color: #1e293b;
+}
+
+.pdm-review-comment {
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ── About Unified Section (White Theme) ── */
@@ -5053,7 +5376,8 @@ footer {
   }
 
   .product-b2b-actions {
-    margin-bottom: 12px
+    margin-top: 12px;
+    margin-bottom: 0;
   }
 
   .product-b2b-contact-btn,

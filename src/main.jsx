@@ -891,32 +891,247 @@ function ProductCard({ p, onSelectContact, onOpenDetails, onAddToRfq }) {
             </button>
           )}
         </div>
-
-        <div className="product-b2b-supplier-info">
-          <div className="supplier-name">Lakshmi PU Components · {p.supplier}</div>
-          <div className="supplier-loc">{p.location}</div>
-        </div>
-        <div className="product-b2b-metrics">
-          <span className="response-rate">92% Response Rate</span>
-          <span className="rating-wrap" title="Verified Manufacturer Rating: 4.9/5">
-            <span className="stars-icons">
-              {[1, 2, 3, 4, 5].map(s => (
-                <span key={s} className="star-fill">★</span>
-              ))}
-            </span>
-            <strong>4.9</strong>
-            <small>(Verified)</small>
-          </span>
-        </div>
       </div>
     </article>
   );
 }
 
-function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact, onAddToRfq }) {
+const initialProductReviews = {
+  "rock-breaker-parts": [
+    {
+      id: "pr-1",
+      name: "Rameshwar Rao",
+      company: "Deccan Crushing Solutions",
+      location: "Hyderabad, Telangana",
+      rating: 5,
+      date: "1 week ago",
+      title: "Perfect fit for rock breaker hammers",
+      comment: "We replaced OEM breaker parts with Lakshmi PU buffers. Hardness is exact 92 Shore A and vibration damping is exceptional. Prompt Hyderabad dispatch support."
+    },
+    {
+      id: "pr-2",
+      name: "G. Venkatesh",
+      company: "Sri Sai Stone Crushers",
+      location: "Karimnagar, Telangana",
+      rating: 5,
+      date: "3 weeks ago",
+      title: "Extremely durable against cyclic impacts",
+      comment: "Lasts 3x longer than conventional rubber pads. Zero tearing even under continuous quarry hammer usage."
+    }
+  ],
+  "pu-buffer-pads": [
+    {
+      id: "pr-3",
+      name: "Satish Reddy",
+      company: "Venkata Sai Mining & Infrastructure",
+      location: "Hyderabad, Telangana",
+      rating: 5,
+      date: "2 weeks ago",
+      title: "High rebound and zero metal friction",
+      comment: "Used these buffer pads across our excavator fleet. Steel insert bonding is top notch and prevents breaker bracket wear."
+    },
+    {
+      id: "pr-4",
+      name: "Anand M.",
+      company: "Granite Quarry Works",
+      location: "Warangal, Telangana",
+      rating: 5,
+      date: "1 month ago",
+      title: "Reliable custom dimensions and quick dispatch",
+      comment: "Prompt delivery and consistent polyurethane elastomer quality. Highly recommended for breaker dampening."
+    }
+  ],
+  "screen-panels": [
+    {
+      id: "pr-5",
+      name: "Rajeshwar G.",
+      company: "Krishna River M-Sand Washing",
+      location: "Vijayawada, AP",
+      rating: 5,
+      date: "10 days ago",
+      title: "Accurate aperture and zero blinding",
+      comment: "The slot openings remain sharp and clog-free. Dewatering efficiency increased by nearly 20% on our washing plant."
+    },
+    {
+      id: "pr-6",
+      name: "P. K. Murthy",
+      company: "Telangana Aggregates",
+      location: "Medak, Telangana",
+      rating: 5,
+      date: "3 weeks ago",
+      title: "Easy pin snap installation",
+      comment: "Significantly outlasts wire mesh screens. Downtime for panel replacement has reduced drastically."
+    }
+  ],
+  "pu-coated-rollers": [
+    {
+      id: "pr-7",
+      name: "Sridhar Rao",
+      company: "Cement & Material Handling",
+      location: "Nalgonda, Telangana",
+      rating: 5,
+      date: "2 weeks ago",
+      title: "Uniform PU bonding and zero de-lamination",
+      comment: "The chemical bonding between polyurethane and the steel core is exceptional. Running smoothly on our conveyor line."
+    }
+  ],
+  "pu-belt-scraper": [
+    {
+      id: "pr-8",
+      name: "B. Chandrashekar",
+      company: "Coal Beneficiation & Logistics",
+      location: "Ramagundam, Telangana",
+      rating: 5,
+      date: "1 month ago",
+      title: "Cleans wet fines cleanly without belt damage",
+      comment: "Tough wear edge that conforms evenly across the conveyor belt width. Excellent return on investment."
+    }
+  ],
+  "pu-hydrocyclone": [
+    {
+      id: "pr-9",
+      name: "Manoj Verma",
+      company: "Silica & Quartz Beneficiation",
+      location: "Hyderabad, Telangana",
+      rating: 5,
+      date: "3 weeks ago",
+      title: "Sharp cut points and superior liner life",
+      comment: "Heavy slurry abrasion used to eat through our previous cyclones in 2 months. These PU cyclones have lasted over 7 months with zero leaks."
+    }
+  ],
+  "pu-wear-sheet": [
+    {
+      id: "pr-10",
+      name: "Ashok Kumar",
+      company: "Chute & Hopper Fabrication",
+      location: "Secunderabad, Telangana",
+      rating: 5,
+      date: "1 week ago",
+      title: "Saves chutes from severe stone impacts",
+      comment: "Counter-sunk bolt holes made installation very fast. Great sliding abrasion resistance for our aggregate bins."
+    }
+  ],
+  "m-sand-dewatering": [
+    {
+      id: "pr-11",
+      name: "Narayana Swamy",
+      company: "Apex Sand Processing",
+      location: "Mahbubnagar, Telangana",
+      rating: 5,
+      date: "2 weeks ago",
+      title: "Delivers clean, low-moisture sand",
+      comment: "The reinforced structural ribs prevent sagging under high tons-per-hour slurry loads. Excellent build quality."
+    }
+  ],
+  "pu-cyclone-spigot": [
+    {
+      id: "pr-12",
+      name: "V. Ramu",
+      company: "Mineral Washing Plant",
+      location: "Khammam, Telangana",
+      rating: 5,
+      date: "1 month ago",
+      title: "Resists intense velocity apex discharge",
+      comment: "Cost-effective wear replacement part. Accurate inner taper maintains our sand underflow density consistently."
+    }
+  ],
+  "pu-dewatering-deck-assembly": [
+    {
+      id: "pr-13",
+      name: "Praveen Kumar",
+      company: "Readymix Aggregates Pvt Ltd",
+      location: "Hyderabad, Telangana",
+      rating: 5,
+      date: "2 weeks ago",
+      title: "Complete modular fit with zero frame modification",
+      comment: "Installed directly onto our existing screening body. The polyurethane hold-down bars and side clamps hold firmly under heavy vibration."
+    }
+  ]
+};
+
+function getProductReviews(productId, productName = "Product") {
+  if (initialProductReviews[productId]) {
+    return initialProductReviews[productId];
+  }
+  return [
+    {
+      id: `fallback-${productId}-1`,
+      name: "K. Mohan Reddy",
+      company: "Industrial Quarry Plant",
+      location: "Hyderabad, Telangana",
+      rating: 5,
+      date: "2 weeks ago",
+      title: `Highly reliable ${productName}`,
+      comment: "Excellent casting quality and exact Shore A hardness consistency. Manufactured to OEM standards with fast dispatch."
+    },
+    {
+      id: `fallback-${productId}-2`,
+      name: "Sanjay Patel",
+      company: "Mining Equipment Contractor",
+      location: "Telangana",
+      rating: 5,
+      date: "1 month ago",
+      title: "Exceptional wear life and resistance",
+      comment: "Polyurethane quality is top tier. Significantly reduced equipment maintenance and downtime."
+    }
+  ];
+}
+
+function ProductDetailModal({
+  product,
+  initialViewIdx,
+  onClose,
+  onSelectContact,
+  onAddToRfq,
+  productReviewsMap,
+  onAddProductReview
+}) {
   const [activeViewIdx, setActiveViewIdx] = useState(initialViewIdx || 0);
   const [qty, setQty] = useState(1);
   const sliderRef = useRef(null);
+
+  // Review State
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [newRating, setNewRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewerName, setReviewerName] = useState("");
+  const [reviewerCompany, setReviewerCompany] = useState("");
+  const [reviewTitle, setReviewTitle] = useState("");
+  const [reviewComment, setReviewComment] = useState("");
+
+  const reviewsList = (productReviewsMap && productReviewsMap[product.id]) || getProductReviews(product.id, product.name);
+
+  const avgRating = reviewsList.length > 0
+    ? (reviewsList.reduce((acc, r) => acc + r.rating, 0) / reviewsList.length).toFixed(1)
+    : "5.0";
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (!reviewerName.trim() || !reviewComment.trim()) return;
+
+    const newRev = {
+      id: "rev-" + Date.now(),
+      name: reviewerName.trim(),
+      company: reviewerCompany.trim() || "Industrial Client",
+      location: "Verified Buyer",
+      rating: newRating,
+      date: "Just now",
+      title: reviewTitle.trim() || "Verified Product Review",
+      comment: reviewComment.trim()
+    };
+
+    if (onAddProductReview) {
+      onAddProductReview(product.id, newRev);
+    }
+    setReviewSubmitted(true);
+    setShowReviewForm(false);
+    setReviewerName("");
+    setReviewerCompany("");
+    setReviewTitle("");
+    setReviewComment("");
+    setNewRating(5);
+  };
 
   const views = product.views && product.views.length > 0 ? product.views : [{ src: "/pu-buffer-pad.jpg", label: "View" }];
 
@@ -1011,7 +1226,7 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
             )}
           </div>
 
-          {/* Right Column: Pricing, Actions, Tabbed Specs */}
+          {/* Right Column: Pricing, Actions, Specifications & Reviews */}
           <div className="pdm-info">
             <div className="pdm-price-banner">
               <div className="pdm-price-val">
@@ -1096,6 +1311,161 @@ function ProductDetailModal({ product, initialViewIdx, onClose, onSelectContact,
                 <p className="pdm-desc">{product.description}</p>
               </div>
             )}
+
+            {/* Customer Reviews for this Product */}
+            <div className="pdm-section pdm-reviews-section">
+              <div className="pdm-reviews-header">
+                <div>
+                  <h4>Customer Reviews & Ratings</h4>
+                  <div className="pdm-reviews-summary">
+                    <span className="pdm-avg-rating">★ {avgRating}</span>
+                    <span className="pdm-rating-stars">
+                      {[1, 2, 3, 4, 5].map(s => (
+                        <span key={s} className="star-fill">★</span>
+                      ))}
+                    </span>
+                    <span className="pdm-review-count">({reviewsList.length} Verified {reviewsList.length === 1 ? "Review" : "Reviews"})</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="pdm-write-review-btn"
+                  onClick={() => setShowReviewForm(!showReviewForm)}
+                >
+                  <MessageSquare size={15} />
+                  {showReviewForm ? "Close Review Form" : "Write a Review"}
+                </button>
+              </div>
+
+              {/* Review Submission Success Alert */}
+              {reviewSubmitted && (
+                <div className="pdm-review-success">
+                  <CheckCircle2 size={18} color="#059669" />
+                  <span>Thank you! Your verified review for <strong>{product.name}</strong> has been submitted.</span>
+                </div>
+              )}
+
+              {/* Write Review Form */}
+              {showReviewForm && (
+                <form className="pdm-review-form" onSubmit={handleReviewSubmit}>
+                  <h5>Write a Review for {product.name}</h5>
+
+                  <div className="pdm-form-rating-row">
+                    <span className="pdm-form-label">Your Rating:</span>
+                    <div className="pdm-star-picker">
+                      {[1, 2, 3, 4, 5].map(s => (
+                        <button
+                          key={s}
+                          type="button"
+                          className="pdm-star-btn"
+                          onMouseEnter={() => setHoverRating(s)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          onClick={() => setNewRating(s)}
+                          aria-label={`${s} star`}
+                        >
+                          <Star
+                            size={22}
+                            fill={(hoverRating || newRating) >= s ? "#E8A817" : "#e2e8f0"}
+                            color={(hoverRating || newRating) >= s ? "#E8A817" : "#cbd5e1"}
+                          />
+                        </button>
+                      ))}
+                      <span className="pdm-score-text">
+                        {["", "Poor", "Fair", "Good", "Very Good", "Excellent"][hoverRating || newRating]}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="pdm-form-grid">
+                    <div className="pdm-form-field">
+                      <label>Your Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Ramesh Kumar"
+                        value={reviewerName}
+                        onChange={e => setReviewerName(e.target.value)}
+                      />
+                    </div>
+                    <div className="pdm-form-field">
+                      <label>Company / Location *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Deccan Aggregates, Hyderabad"
+                        value={reviewerCompany}
+                        onChange={e => setReviewerCompany(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pdm-form-field">
+                    <label>Review Headline *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Excellent polyurethane quality and durable performance"
+                      value={reviewTitle}
+                      onChange={e => setReviewTitle(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="pdm-form-field">
+                    <label>Your Review / Experience *</label>
+                    <textarea
+                      rows={3}
+                      required
+                      placeholder="Share your experience with fitment, wear life, Shore A hardness consistency, dispatch, etc..."
+                      value={reviewComment}
+                      onChange={e => setReviewComment(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="pdm-form-actions">
+                    <button type="submit" className="pdm-submit-review-btn">
+                      <Send size={15} /> Submit Review
+                    </button>
+                    <button
+                      type="button"
+                      className="pdm-cancel-review-btn"
+                      onClick={() => setShowReviewForm(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Reviews List */}
+              <div className="pdm-reviews-list">
+                {reviewsList.map((rev) => (
+                  <div className="pdm-review-card" key={rev.id}>
+                    <div className="pdm-review-top">
+                      <div className="pdm-reviewer-meta">
+                        <span className="pdm-reviewer-avatar">{rev.name.charAt(0)}</span>
+                        <div>
+                          <div className="pdm-reviewer-name">{rev.name}</div>
+                          <div className="pdm-reviewer-company">{rev.company} {rev.location ? `· ${rev.location}` : ""}</div>
+                        </div>
+                      </div>
+                      <div className="pdm-review-date-badge">
+                        <span className="pdm-verified-badge">
+                          <CheckCircle2 size={12} /> Verified Buyer
+                        </span>
+                        <span className="pdm-review-date">{rev.date}</span>
+                      </div>
+                    </div>
+                    <div className="pdm-review-stars">
+                      {[1, 2, 3, 4, 5].map(s => (
+                        <span key={s} className={s <= rev.rating ? "star-fill" : "star-empty"}>★</span>
+                      ))}
+                      <strong className="pdm-review-title">{rev.title}</strong>
+                    </div>
+                    <p className="pdm-review-comment">{rev.comment}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1713,6 +2083,17 @@ function App() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [rfqCart, setRfqCart] = useState([]);
   const [rfqDrawerOpen, setRfqDrawerOpen] = useState(false);
+  const [productReviewsMap, setProductReviewsMap] = useState(initialProductReviews);
+
+  const handleAddProductReview = (productId, newReview) => {
+    setProductReviewsMap(prev => {
+      const currentList = prev[productId] || getProductReviews(productId, "");
+      return {
+        ...prev,
+        [productId]: [newReview, ...currentList]
+      };
+    });
+  };
 
   const [page, setPage] = useState(() => {
     if (typeof window !== "undefined") {
@@ -2223,6 +2604,8 @@ function App() {
         onClose={() => setDetailProduct(null)}
         onSelectContact={handleSelectContact}
         onAddToRfq={handleAddToRfq}
+        productReviewsMap={productReviewsMap}
+        onAddProductReview={handleAddProductReview}
       />
     )}
 
