@@ -2490,9 +2490,15 @@ function App() {
           <section id="contact" className="contact-section">
             <div><div className="eyebrow">LET'S WORK TOGETHER</div><h2>Contact <em>Us</em></h2><p>Tell us what you're trying to solve. We'll help you find the right material, design and solution.</p><div className="contact-mini"><span><Phone size={17} /><b>+91 93902 44749</b></span><span><Mail size={17} /><b>info@lakshmipupads.com</b></span></div></div>
             <form onSubmit={e => { e.preventDefault(); setQuote(false); alert("Thank you! We'll contact you shortly.") }}>
-              <div className="form-row"><input placeholder="Your name" /><input placeholder="Company name" /></div>
-              <div className="form-row"><input placeholder="Email address" /><input placeholder="Phone number" /></div>
-              <select defaultValue=""><option value="" disabled>What are you looking for?</option><option>Polyurethane components</option><option>Screening solutions</option><option>Custom manufacturing</option></select>
+              <div className="form-row"><input placeholder="Your name" required /><input placeholder="Company name" /></div>
+              <div className="form-row"><input type="email" placeholder="Email address" required /><input type="tel" placeholder="Phone number" required /></div>
+              <select defaultValue="" required>
+                <option value="" disabled>Select Product Name</option>
+                {products.map(p => (
+                  <option key={p.id} value={p.name}>{p.name}</option>
+                ))}
+                <option value="Other / Custom Polyurethane Component">Other / Custom Polyurethane Component</option>
+              </select>
               <textarea placeholder="Tell us briefly about your requirement..."></textarea>
               <button className="primary-btn" type="submit">Send enquiry <Send size={17} /></button>
             </form>
